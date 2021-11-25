@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<texts>
+		<text name="input_FS22_EnhancedVehicle_FD" text="EV: Differential lock front axle on/off"/>
+		<text name="input_FS22_EnhancedVehicle_RD" text="EV: Differential lock rear axle on/off"/>
+		<text name="input_FS22_EnhancedVehicle_BD" text="EV: Both differential locks on/off"/>
+		<text name="input_FS22_EnhancedVehicle_DM" text="EV: Change wheel drive mode"/>
+		<text name="input_FS22_EnhancedVehicle_TOGGLE_DISPLAY" text="EV: Damage/Fuel display on/off"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN" text="EV: rear hydraulic up/down"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF" text="EV: rear hydraulic on/off"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF" text="EV: front hydraulic on/off"/>
+		<text name="input_FS22_EnhancedVehicle_RESET" text="EV: reset HUD"/>
+		<text name="input_FS22_EnhancedVehicle_RELOAD" text="EV: reload XML config file"/>
+	</texts>
+</l10n>
