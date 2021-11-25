@@ -2,7 +2,7 @@
 <modDesc descVersion="60">
   <author>Majo76</author>
 
-  <version>0.9.1.0</version>
+  <version>0.9.2.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -21,6 +21,14 @@
   <l10n filenamePrefix="modDesc_l10n"/>
 
   <actions>
+    <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_ONOFF2"     category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC1"       category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC1"       category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC2"       category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC2"       category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC3"       category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC3"       category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_FD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_RD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_BD"              category="VEHICLE"/>
@@ -43,6 +51,30 @@
   </actions>
 
   <inputBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_ONOFF">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_end" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_ONOFF2">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_end" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC3">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_pageup" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC3">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_pagedown" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC1">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_pageup" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC1">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_pagedown" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC2">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_rctrl KEY_pageup" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC2">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_rctrl KEY_pagedown" axisComponent="+" inputComponent="+" index="2"/>
+    </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_FD">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_7" axisComponent="+" inputComponent="+" index="2"/>
     </actionBinding>
