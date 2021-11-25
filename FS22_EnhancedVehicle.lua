@@ -11,6 +11,7 @@ CHANGELOG
 
 2021-11-23 - V1.0.0.0
 * first release for FS22
+* !!! WARNING !!! This version of EV has different default key bindings compared to FS19 !!!
 * adjusted this and that for FS22 engine changes
 + added fuel support for "electric" and "methane"
 - removed all shuttle control related stuff
@@ -741,7 +742,7 @@ end
 function FS22_EnhancedVehicle:onEnterVehicle()
   if debug > 1 then print("-> " .. myName .. ": onEnterVehicle" .. mySelf(self)) end
 
---print(DebugUtil.printTableRecursively(self.spec_motorized.exhaustEffects, 0, 0, 2))
+--  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
 end
 
 -- #############################################################################

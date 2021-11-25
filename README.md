@@ -9,12 +9,12 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ## Default Keybindings
 | Key | Action |
 | --  | --     |
-| <kbd>Num 7</kbd> | enable/disable front axle differential lock |
-| <kbd>Num 8</kbd> | enable/disable back axle differential lock |
-| <kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
-| <kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
-| <kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
-| <kbd>R Shift</kbd>+<kbd>POS1/home</kbd> | toggle damage/fuel display on/off |
+| <kbd>R Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
+| <kbd>R Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
+| <kbd>R Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
+| <kbd>R Ctrl</kbd>+<kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
+| <kbd>R Ctrl</kbd>+<kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
+| <kbd>R Ctrl</kbd>+<kbd>POS1/home</kbd> | toggle damage/fuel display on/off |
 | <kbd>L Alt</kbd>+<kbd>1</kbd> | rear attached devices up/down |
 | <kbd>L Alt</kbd>+<kbd>2</kbd> | rear attached devices on/off |
 | <kbd>L Alt</kbd>+<kbd>3</kbd> | front attached devices up/down |
@@ -37,9 +37,9 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 # The rest
 **Make Strohablage great again!**  
-Twitch: https://www.twitch.tv/Majo76__
-Discord: https://d.majo76.de
-Instagram: https://www.instagram.com/Majo76__/
-Twitter: https://www.twitter.com/Majo76_
-HomePage: https://www.majo76.de  
-GitHub: https://github.com/ZhooL/FS22_EnhancedVehicle
+* Twitch: https://www.twitch.tv/Majo76__
+* Discord: https://d.majo76.de
+* Instagram: https://www.instagram.com/Majo76__/
+* Twitter: https://www.twitter.com/Majo76_
+* HomePage: https://www.majo76.de
+* GitHub: https://github.com/ZhooL/FS22_EnhancedVehicle
