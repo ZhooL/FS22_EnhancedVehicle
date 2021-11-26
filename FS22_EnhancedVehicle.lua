@@ -306,17 +306,16 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
   --  1 - frontDiffIsOn
   --  2 - backDiffIsOn
   --  3 - drive mode
+  --  4 - snapAngle
+  --  5 - snap.enable
   if self.isServer then
     if self.vData == nil then
       self.vData = {}
-      self.vData.is   = { true, true, -1 }
-      self.vData.want = { false, false, 1 }
+      self.vData.is   = { true, true, -1, 1.0, true }
+      self.vData.want = { false, false, 1, 0.0, false }
       self.vData.torqueRatio   = { 0.5, 0.5, 0.5 }
       self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
-      self.vData.snap = {}
-      self.vData.snap.enabled = false;
-      self.vData.snap.target  = 0.0
-      self.vData.snap.rot  = 0.0
+      self.vData.rot = 0.0
       for _, differential in ipairs(self.spec_motorized.differentials) do
         if differential.diffIndex1 == 1 then -- front
           self.vData.torqueRatio[1]   = differential.torqueRatio
@@ -332,14 +331,9 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
         end
       end
       if debug > 0 then print("--> setup of vData done" .. mySelf(self)) end
-    else
-      self.vData.snap = {}
-      self.vData.snap.enabled = false;
-      self.vData.snap.target  = 0.0
-      self.vData.snap.rot  = 0.0
     end
 
-    -- load vehicle shuttle status from savegame
+    -- load vehicle status from savegame
     if savegame ~= nil then
       local xmlFile = savegame.xmlFile
       local key     = savegame.key ..".FS22_EnhancedVehicle"
@@ -380,9 +374,9 @@ end
 function FS22_EnhancedVehicle:saveToXMLFile(xmlFile, key)
   if debug > 1 then print("-> " .. myName .. ": saveToXMLFile" .. mySelf(self)) end
 
-  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])
-  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])
-  setXMLInt(xmlFile.handle, key.."#driveMode",        self.vData.is[3])
+  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn", self.vData.is[1])
+  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",  self.vData.is[2])
+  setXMLInt(xmlFile.handle, key.."#driveMode",      self.vData.is[3])
 end
 
 -- #############################################################################
@@ -390,10 +384,13 @@ end
 function FS22_EnhancedVehicle:onUpdate(dt)
   if debug > 2 then print("-> " .. myName .. ": onUpdate " .. dt .. ", S: " .. tostring(self.isServer) .. ", C: " .. tostring(self.isClient) .. mySelf(self)) end
 
+  local spec = self.spec_drivable
+
+  -- get current vehicle direction when it makes sense
   if FS22_EnhancedVehicle.functionSnapIsEnabled and self.isClient then
     local isControlled = self.getIsControlled ~= nil and self:getIsControlled()
     local isEntered = self.getIsEntered ~= nil and self:getIsEntered()
-		if isControlled and isEntered then
+		if self.spec_motorized.isMotorStarted and isControlled and isEntered then
 
       -- get current rotation of vehicle
       local lx,ly,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
@@ -407,44 +404,33 @@ function FS22_EnhancedVehicle:onUpdate(dt)
         rot = rot + 180
         if rot >= 360 then rot = rot - 360 end
       end
-      self.vData.snap.rot = rot
-
-      -- if snap function is enabled ->
-      if self.vData.snap.enabled then
-        local _w1 = self.vData.snap.target
-        if _w1 > 180 then _w1 = _w1 - 360 end
-        local _w2 = rot
-        if _w2 > 180 then _w2 = _w2 - 360 end
-        local diffdeg = _w1 - _w2
-        if diffdeg > 180 then diffdeg = diffdeg - 360 end
-        if diffdeg < -180 then diffdeg = diffdeg + 360 end
-
-        local a = 0
-        if (diffdeg < 0) then
-          a = math.sqrt(math.abs(diffdeg / 90)) * -1
-        else
-          a = math.sqrt(diffdeg / 90)
-        end
-
-        local movingDirection = 0
-        if g_currentMission.missionInfo.stopAndGoBraking then
-          movingDirection = self.movingDirection * self.spec_drivable.reverserDirection
-          if math.abs( self.lastSpeed ) < 0.000278 then
-            movingDirection = 0
-          end
-        else
-          movingDirection = Utils.getNoNil(self.nextMovingDirection * self.spec_drivable.reverserDirection)
-        end
-
-        a = a * movingDirection
-        self.spec_drivable.axisSide = a
---        print(" is: "..rot.." want: "..self.vData.snap.target.." diff: "..diffdeg.. " steerangle: " .. a.. " move: "..movingDirection)
-      end
+      self.vData.rot = rot
     end
   end
 
   -- (server) process changes between "is" and "want"
   if self.isServer and self.vData ~= nil then
+
+    -- snap angle change
+    if self.vData.is[4] ~= self.vData.want[4] then
+      if FS22_EnhancedVehicle.functionSnapIsEnabled then
+        if debug > 0 then print("--> ("..self.rootNode..") changed snap angle to: "..self.vData.want[4]) end
+      end
+      self.vData.is[4] = self.vData.want[4]
+    end
+
+    -- snap.enable
+    if self.vData.is[5] ~= self.vData.want[5] then
+      if FS22_EnhancedVehicle.functionSnapIsEnabled then
+        if self.vData.want[5] then
+          if debug > 0 then print("--> ("..self.rootNode..") changed snap.enable to: ON") end
+        else
+          if debug > 0 then print("--> ("..self.rootNode..") changed snap.enable to: OFF") end
+        end
+      end
+      self.vData.is[5] = self.vData.want[5]
+    end
+
     -- front diff
     if self.vData.is[1] ~= self.vData.want[1] then
       if FS22_EnhancedVehicle.functionDifferentialIsEnabled then
@@ -687,16 +673,16 @@ function FS22_EnhancedVehicle:onDraw()
     end
 
     -- ### do the snap stuff ###
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and self.spec_motorized ~= nil and self.vData.snap.rot ~= nil and FS22_EnhancedVehicle.snap.enabled then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.rot ~= nil then
       -- prepare text
       snap_txt2 = ''
-      if self.vData.snap.enabled then
-        snap_txt = string.format("%.1f°", self.vData.snap.target)
-        if (Round(self.vData.snap.rot, 0) ~= Round(self.vData.snap.target, 0)) then
-          snap_txt2 = string.format("%.1f°", self.vData.snap.rot)
+      if self.vData.is[5] then
+        snap_txt = string.format("%.1f°", self.vData.is[4])
+        if (Round(self.vData.rot, 0) ~= Round(self.vData.is[4], 0)) then
+          snap_txt2 = string.format("%.1f°", self.vData.rot)
         end
       else
-        snap_txt = string.format("%.1f°", self.vData.snap.rot)
+        snap_txt = string.format("%.1f°", self.vData.rot)
       end
 
       -- render text
@@ -704,7 +690,7 @@ function FS22_EnhancedVehicle:onDraw()
       setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
       setTextBold(false)
 
-      if self.vData.snap.enabled then
+      if self.vData.is[5] then
         setTextColor(1,0,0,1)
       else
         setTextColor(0,1,0,1)
@@ -820,13 +806,15 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
     self.vData      = {}
     self.vData.is   = {}
     self.vData.want = {}
-    self.vData.snap = {}
+    self.vData.rot  = 0.0
   end
 
   -- receive initial data from server
-  self.vData.is[1] = streamReadBool(streamId) -- front diff
-  self.vData.is[2] = streamReadBool(streamId) -- back diff
-  self.vData.is[3] = streamReadInt8(streamId) -- drive mode
+  self.vData.is[1] = streamReadBool(streamId)    -- front diff
+  self.vData.is[2] = streamReadBool(streamId)    -- back diff
+  self.vData.is[3] = streamReadInt8(streamId)    -- drive mode
+  self.vData.is[4] = streamReadFloat32(streamId) -- snap angle
+  self.vData.is[5] = streamReadBool(streamId)    -- snap.enable
 
   if self.isClient then
     self.vData.want = { unpack(self.vData.is) }
@@ -846,10 +834,14 @@ function FS22_EnhancedVehicle:onWriteStream(streamId, connection)
     streamWriteBool(streamId, self.vData.want[1])
     streamWriteBool(streamId, self.vData.want[2])
     streamWriteInt8(streamId, self.vData.want[3])
+    streamWriteFloat32(streamId, self.vData.want[4])
+    streamWriteBool(streamId, self.vData.want[5])
   else
     streamWriteBool(streamId, self.vData.is[1])
     streamWriteBool(streamId, self.vData.is[2])
     streamWriteInt8(streamId, self.vData.is[3])
+    streamWriteFloat32(streamId, self.vData.is[4])
+    streamWriteBool(streamId, self.vData.is[5])
   end
 end
 
@@ -867,8 +859,12 @@ function FS22_EnhancedVehicle:onLeaveVehicle()
   if debug > 1 then print("-> " .. myName .. ": onLeaveVehicle" .. mySelf(self)) end
 
   -- disable snap if you leave a vehicle
-  if self.vData.snap ~= nil then
-    self.vData.snap.enabled = false
+  if self.vData.is[5] then
+    self.vData.want[5] = false
+    if self.isClient and not self.isServer then
+      self.vData.is[5] = self.vData.want[5]
+    end
+    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
 --  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
@@ -1084,57 +1080,74 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     lC:writeConfig()
   end
 
+  local _snap = false
   -- steering angle snap on/off
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
-    if not self.vData.snap.enabled then
-      self.vData.snap.enabled = true
-      self.vData.snap.target = Round(self.vData.snap.rot, 0)
+    if not self.vData.is[5] then
+      self.vData.want[5] = true
+      self.vData.want[4] = Round(self.vData.rot, 0)
     else
-      self.vData.snap.enabled = false
+      self.vData.want[5] = false
     end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF2" then
-    if not self.vData.snap.enabled then
-      self.vData.snap.enabled = true
-    else
-      self.vData.snap.enabled = false
-    end
+    self.vData.want[5] = not self.vData.want[5]
+    _snap = true
   end
 
   -- steering angle snap inc/dec
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
-    self.vData.snap.target = Round(self.vData.snap.target + 180, 0)
-    if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
-    self.vData.snap.enabled = true
+    self.vData.want[4] = Round(self.vData.want[4] + 180, 0)
+    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+    self.vData.want[5] = true
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
-    self.vData.snap.target = Round(self.vData.snap.target + 1, 0)
-    if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
+    self.vData.want[4] = Round(self.vData.want[4] + 1, 0)
+    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
-    self.vData.snap.target = Round(self.vData.snap.target - 1, 0)
-    if self.vData.snap.target < 0 then self.vData.snap.target = self.vData.snap.target + 360 end
+    self.vData.want[4] = Round(self.vData.want[4] - 1, 0)
+    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-    self.vData.snap.target = Round(self.vData.snap.target + 45.0, 0)
-    if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
+    self.vData.want[4] = Round(self.vData.want[4] + 45.0, 0)
+    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-    self.vData.snap.target = Round(self.vData.snap.target - 45.0, 0)
-    if self.vData.snap.target < 0 then self.vData.snap.target = self.vData.snap.target + 360 end
+    self.vData.want[4] = Round(self.vData.want[4] - 45.0, 0)
+    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
-    self.vData.snap.target = Round(self.vData.snap.target + 22.5, 1)
-    if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
+    self.vData.want[4] = Round(self.vData.want[4] + 22.5, 1)
+    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+    _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-    self.vData.snap.target = Round(self.vData.snap.target - 22.5, 1)
-    if self.vData.snap.target < 0 then self.vData.snap.target = self.vData.snap.target + 360 end
+    self.vData.want[4] = Round(self.vData.want[4] - 22.5, 1)
+    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+    _snap = true
   end
 
   -- disable steering angle snap if user interacts
   if actionName == "AXIS_MOVE_SIDE_VEHICLE" and math.abs( keyStatus ) > 0.05 then
-    self.vData.snap.enabled = false
+    if self.vData.is[5] then
+      self.vData.want[5] = false
+      _snap = true
+    end
+  end
+
+  if _snap then
+    if self.isClient and not self.isServer then
+      self.vData.is[4] = self.vData.want[4]
+      self.vData.is[5] = self.vData.want[5]
+    end
+    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
   -- reset config
@@ -1268,3 +1281,70 @@ end
 function mySelf(obj)
   return " (rootNode: " .. obj.rootNode .. ", typeName: " .. obj.typeName .. ", typeDesc: " .. obj.typeDesc .. ")"
 end
+
+
+function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForward, axisSide, doHandbrake, dt)
+  if debug > 2 then print("function Drivable.updateVehiclePhysics() "..tostring(dt)..", "..tostring(axisForward)..", "..tostring(axisSide)..", "..tostring(doHandbrake)) end
+
+  if FS22_EnhancedVehicle.functionSnapIsEnabled then
+    if self.vData ~= nil and self.vData.is[5] then
+      if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
+        -- get current rotation of vehicle
+        local lx,ly,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+        local length = MathUtil.vector2Length(lx,lz);
+        local dX = lx/length
+        local dZ = lz/length
+        local rot = 180 - math.deg(math.atan2(dX,dZ))
+
+        -- if cabin is rotated -> direction should rotate also
+        if self.spec_drivable.reverserDirection < 0 then
+          rot = rot + 180
+          if rot >= 360 then rot = rot - 360 end
+        end
+        rot = Round(rot, 1)
+        self.vData.rot = rot
+
+        -- if wanted direction is different than current direction
+        if self.vData.rot ~= Round(self.vData.is[4], 1) then
+
+          local _w1 = self.vData.is[4]
+          if _w1 > 180 then _w1 = _w1 - 360 end
+          local _w2 = self.vData.rot
+          if _w2 > 180 then _w2 = _w2 - 360 end
+          local diffdeg = _w1 - _w2
+          if diffdeg > 180 then diffdeg = diffdeg - 360 end
+          if diffdeg < -180 then diffdeg = diffdeg + 360 end
+
+          local a = 0
+          if (diffdeg < 0) then
+            a = math.sqrt(math.abs(diffdeg / 360)) * -1
+          else
+            a = math.sqrt(diffdeg / 360)
+          end
+
+          local movingDirection = 0
+          if g_currentMission.missionInfo.stopAndGoBraking then
+            movingDirection = self.movingDirection * self.spec_drivable.reverserDirection
+            if math.abs( self.lastSpeed ) < 0.000278 then
+              movingDirection = 0
+            end
+          else
+            movingDirection = Utils.getNoNil(self.nextMovingDirection * self.spec_drivable.reverserDirection)
+          end
+
+          axisSide = a * movingDirection
+--          print(" is: "..self.vData.rot.." want: "..self.vData.is[4].." diff: "..diffdeg.. " steerangle: " .. axisSide)
+        end
+      end
+    end
+  end
+
+  -- call the original function to do the actual physics stuff
+  local state, result = pcall( originalFunction, self, axisForward, axisSide, doHandbrake, dt)
+  if not ( state ) then
+    print("Ooops in updateVehiclePhysics :" .. tostring(result))
+  end
+
+  return result
+end
+Drivable.updateVehiclePhysics = Utils.overwrittenFunction( Drivable.updateVehiclePhysics, FS22_EnhancedVehicle.updateVehiclePhysics )

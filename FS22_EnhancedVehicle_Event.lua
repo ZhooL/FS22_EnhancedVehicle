@@ -27,8 +27,8 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_Event.new(vehicle, b1, b2, i1)
-  local args = { b1, b2, i1 }
+function FS22_EnhancedVehicle_Event.new(vehicle, b1, b2, i1, f1, b3)
+  local args = { b1, b2, i1, f1, b3 }
   if debug > 1 then print("-> " .. myName .. ": new(): " .. lU:args_to_txt(unpack(args))) end
 
   local self = FS22_EnhancedVehicle_Event.emptyNew()
@@ -47,6 +47,8 @@ function FS22_EnhancedVehicle_Event:readStream(streamId, connection)
   self.vehicle.vData.want[1] = streamReadBool(streamId);
   self.vehicle.vData.want[2] = streamReadBool(streamId);
   self.vehicle.vData.want[3] = streamReadInt8(streamId);
+  self.vehicle.vData.want[4] = streamReadFloat32(streamId);
+  self.vehicle.vData.want[5] = streamReadBool(streamId);
 
   self:run(connection)
 end
@@ -60,6 +62,8 @@ function FS22_EnhancedVehicle_Event:writeStream(streamId, connection)
   streamWriteBool(streamId, self.vehicle.vData.want[1])
   streamWriteBool(streamId, self.vehicle.vData.want[2])
   streamWriteInt8(streamId, self.vehicle.vData.want[3])
+  streamWriteFloat32(streamId, self.vehicle.vData.want[4])
+  streamWriteBool(streamId, self.vehicle.vData.want[5])
 end
 
 -- #############################################################################
@@ -80,8 +84,8 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_Event.sendEvent(vehicle, b1, b2, i1)
-  local args = { b1, b2, i1 }
+function FS22_EnhancedVehicle_Event.sendEvent(vehicle, b1, b2, i1, f1, b3)
+  local args = { b1, b2, i1, f1, b3 }
   if debug > 1 then print("-> " .. myName .. ": sendEvent(): " .. lU:args_to_txt(unpack(args))) end
   
   if g_server ~= nil then

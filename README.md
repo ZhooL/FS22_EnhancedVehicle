@@ -34,6 +34,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ## What this mod does
 * When the game starts, it changes all "motorized" and "controllable" vehicles on the map to default settings: wheel drive mode to "all-wheel (4WD)" and deactivation of both differentials.
 * Press <kbd>Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
+  * Press <kbd>Ctrl</kbd>+<kbd>Home</kbd> to reverse snap direction (useful after turn around at end of field)
 * On HUD it displays:
   * Damage values in % for controlled vehicle and all its attachments.
   * Fuel fill level for Diesel/AdBlue/Electric/Methane and the current fuel usage rate<sup>1</sup>.
