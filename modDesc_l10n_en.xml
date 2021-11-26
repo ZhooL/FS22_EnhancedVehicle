@@ -3,6 +3,7 @@
 	<texts>
 		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: Snap current direction"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: Snap previous direction"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Reverse snap direction (180°)"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Increase snap direction by 1°"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Decrease snap direction by 1°"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Increase snap direction by 22.5°"/>

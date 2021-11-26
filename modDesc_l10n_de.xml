@@ -3,6 +3,7 @@
 	<texts>
 		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: aktuelle Fahrtrichtung fixieren"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: vorheriger Fahrtrichtung fixieren"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Fahrtrichtung umkehren (180°)"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Fahrtrichtung erhöhen um 1°"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Fahrtrichtung verringern um 1°"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_INC2" text="EV: Fahrtrichtung erhöhen um 22,5°"/>

@@ -9,7 +9,7 @@
 --[[
 CHANGELOG
 
-2021-11-23 - V1.0.0.0
+2021-11-26 - V1.0.0.0
 * first release for FS22
 * !!! WARNING !!! This version of EV has different default key bindings compared to FS19 !!!
 * adjusted this and that for FS22 engine changes
@@ -53,6 +53,7 @@ FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_RESET',
                                            'FS22_EnhancedVehicle_TOGGLE_DISPLAY',
                                            'FS22_EnhancedVehicle_SNAP_ONOFF',
                                            'FS22_EnhancedVehicle_SNAP_ONOFF2',
+                                           'FS22_EnhancedVehicle_SNAP_REVERSE',
                                            'FS22_EnhancedVehicle_SNAP_INC1',
                                            'FS22_EnhancedVehicle_SNAP_DEC1',
                                            'FS22_EnhancedVehicle_SNAP_INC2',
@@ -436,7 +437,6 @@ function FS22_EnhancedVehicle:onUpdate(dt)
         end
 
         a = a * movingDirection
-        self.vData.snap.steerangle = a
         self.spec_drivable.axisSide = a
 --        print(" is: "..rot.." want: "..self.vData.snap.target.." diff: "..diffdeg.. " steerangle: " .. a.. " move: "..movingDirection)
       end
@@ -1102,6 +1102,11 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   end
 
   -- steering angle snap inc/dec
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
+    self.vData.snap.target = Round(self.vData.snap.target + 180, 0)
+    if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
+    self.vData.snap.enabled = true
+  end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
     self.vData.snap.target = Round(self.vData.snap.target + 1, 0)
     if self.vData.snap.target >= 360 then self.vData.snap.target = self.vData.snap.target - 360 end
@@ -1263,25 +1268,3 @@ end
 function mySelf(obj)
   return " (rootNode: " .. obj.rootNode .. ", typeName: " .. obj.typeName .. ", typeDesc: " .. obj.typeDesc .. ")"
 end
-
--- #############################################################################
-
-function FS22_EnhancedVehicle:updateWheelSteeringAngle( originalFunction, wheel, dt)
---print("function WheelsUtil.updateWheelsPhysics("..self.typeDesc..", "..tostring(dt)..", "..tostring(currentSpeed)..", "..tostring(acceleration)..", "..tostring(doHandbrake)..", "..tostring(stopAndGoBraking))
-  print("function WheelsUtil.updateWheelSteeringAngle()")
-
-  --print(DebugUtil.printTableRecursively(wheel, 0, 0, 1))
-  print(wheel.steeringAngle)
-  print(wheel.rotMin)
-  print(wheel.rotMax)
-
-  -- call the original function to do the actual physics stuff
-  local state, result = pcall( originalFunction, self, wheel, dt )
-  if not ( state ) then
-    print("Ooops in updateWheelSteeringAngle :" .. tostring(result))
-  end
-
-  return result
-end
-
---WheelsUtil.updateWheelSteeringAngle = Utils.overwrittenFunction( WheelsUtil.updateWheelSteeringAngle, FS22_EnhancedVehicle.updateWheelSteeringAngle )

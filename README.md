@@ -13,6 +13,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | --  | --     |
 | <kbd>Ctrl</kbd>+<kbd>End</kbd> | snap current driving direction |
 | <kbd>Shift</kbd>+<kbd>End</kbd> | snap previous driving direction (=resume old direction)|
+| <kbd>Ctrl</kbd>+<kbd>Home</kbd> | reverse snap direction (180°) and enable snap|
 | <kbd>Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap direction by 45° |
 | <kbd>Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 45° |
 | <kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 1° |
@@ -24,7 +25,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
 | <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
 | <kbd>Ctrl</kbd>+<kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
-| <kbd>Ctrl</kbd>+<kbd>Home</kbd> | toggle damage/fuel display on/off |
+| <kbd>Shift</kbd>+<kbd>Home</kbd> | toggle damage/fuel display on/off |
 | <kbd>L Alt</kbd>+<kbd>1</kbd> | rear attached devices up/down |
 | <kbd>L Alt</kbd>+<kbd>2</kbd> | rear attached devices on/off |
 | <kbd>L Alt</kbd>+<kbd>3</kbd> | front attached devices up/down |
@@ -32,7 +33,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## What this mod does
 * When the game starts, it changes all "motorized" and "controllable" vehicles on the map to default settings: wheel drive mode to "all-wheel (4WD)" and deactivation of both differentials.
-* Press <kbd>R Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
+* Press <kbd>Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
 * On HUD it displays:
   * Damage values in % for controlled vehicle and all its attachments.
   * Fuel fill level for Diesel/AdBlue/Electric/Methane and the current fuel usage rate<sup>1</sup>.
