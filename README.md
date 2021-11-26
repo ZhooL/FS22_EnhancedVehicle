@@ -11,20 +11,20 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ## Default Keybindings
 | Key | Action |
 | --  | --     |
-| <kbd>R Ctrl</kbd>+<kbd>End</kbd> | snap current driving direction |
-| <kbd>R Shift</kbd>+<kbd>End</kbd> | snap previous driving direction (=resume old direction)|
-| <kbd>R Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap direction by 45° |
-| <kbd>R Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 45° |
-| <kbd>R Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 1° |
-| <kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 1° |
-| <kbd>R Ctrl</kbd>+<kbd>R Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 22.5° |
-| <kbd>R Ctrl</kbd>+<kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 22.5° |
-| <kbd>R Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
-| <kbd>R Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
-| <kbd>R Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
-| <kbd>R Ctrl</kbd>+<kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
-| <kbd>R Ctrl</kbd>+<kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
-| <kbd>R Ctrl</kbd>+<kbd>Home</kbd> | toggle damage/fuel display on/off |
+| <kbd>Ctrl</kbd>+<kbd>End</kbd> | snap current driving direction |
+| <kbd>Shift</kbd>+<kbd>End</kbd> | snap previous driving direction (=resume old direction)|
+| <kbd>Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap direction by 45° |
+| <kbd>Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 45° |
+| <kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 1° |
+| <kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 1° |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 22.5° |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 22.5° |
+| <kbd>Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
+| <kbd>Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
+| <kbd>Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
+| <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
+| <kbd>Ctrl</kbd>+<kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
+| <kbd>Ctrl</kbd>+<kbd>Home</kbd> | toggle damage/fuel display on/off |
 | <kbd>L Alt</kbd>+<kbd>1</kbd> | rear attached devices up/down |
 | <kbd>L Alt</kbd>+<kbd>2</kbd> | rear attached devices on/off |
 | <kbd>L Alt</kbd>+<kbd>3</kbd> | front attached devices up/down |

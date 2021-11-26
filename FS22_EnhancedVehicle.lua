@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 25.11.2021
+-- @Date: 26.11.2021
 -- @Version: 1.0.0.0
 
 --[[
@@ -118,7 +118,7 @@ end
 function FS22_EnhancedVehicle.registerEventListeners(vehicleType)
   if debug > 1 then print("-> " .. myName .. ": registerEventListeners ") end
 
-  for _,n in pairs( { "onLoad", "onPostLoad", "saveToXMLFile", "onUpdate", "onDraw", "onReadStream", "onWriteStream", "onRegisterActionEvents", "onEnterVehicle" } ) do
+  for _,n in pairs( { "onLoad", "onPostLoad", "saveToXMLFile", "onUpdate", "onDraw", "onReadStream", "onWriteStream", "onRegisterActionEvents", "onEnterVehicle", "onLeaveVehicle" } ) do
     SpecializationUtil.registerEventListener(vehicleType, n, FS22_EnhancedVehicle)
   end
 end
@@ -331,6 +331,11 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
         end
       end
       if debug > 0 then print("--> setup of vData done" .. mySelf(self)) end
+    else
+      self.vData.snap = {}
+      self.vData.snap.enabled = false;
+      self.vData.snap.target  = 0.0
+      self.vData.snap.rot  = 0.0
     end
 
     -- load vehicle shuttle status from savegame
@@ -384,7 +389,7 @@ end
 function FS22_EnhancedVehicle:onUpdate(dt)
   if debug > 2 then print("-> " .. myName .. ": onUpdate " .. dt .. ", S: " .. tostring(self.isServer) .. ", C: " .. tostring(self.isClient) .. mySelf(self)) end
 
-  if self.isClient then
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and self.isClient then
     local isControlled = self.getIsControlled ~= nil and self:getIsControlled()
     local isEntered = self.getIsEntered ~= nil and self:getIsEntered()
 		if isControlled and isEntered then
@@ -815,6 +820,7 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
     self.vData      = {}
     self.vData.is   = {}
     self.vData.want = {}
+    self.vData.snap = {}
   end
 
   -- receive initial data from server
@@ -851,6 +857,19 @@ end
 
 function FS22_EnhancedVehicle:onEnterVehicle()
   if debug > 1 then print("-> " .. myName .. ": onEnterVehicle" .. mySelf(self)) end
+
+--  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:onLeaveVehicle()
+  if debug > 1 then print("-> " .. myName .. ": onLeaveVehicle" .. mySelf(self)) end
+
+  -- disable snap if you leave a vehicle
+  if self.vData.snap ~= nil then
+    self.vData.snap.enabled = false
+  end
 
 --  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
 end
