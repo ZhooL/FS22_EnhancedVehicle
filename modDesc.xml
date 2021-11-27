@@ -2,7 +2,7 @@
 <modDesc descVersion="60">
   <author>Majo76</author>
 
-  <version>0.9.4.0</version>
+  <version>0.9.5.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -150,7 +150,7 @@
   </inputBinding>
 
   <extraSourceFiles>
-    <sourceFile filename="FS22_EnhancedVehicle_Register.lua" />
+    <sourceFile filename="FS22_EnhancedVehicle_Loader.lua" />
   </extraSourceFiles>
 
 </modDesc>

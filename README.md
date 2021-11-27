@@ -1,12 +1,17 @@
 # FS22_EnhancedVehicle
 This is a Mod for Farming Simulator 22. It adds a basic "snap driving direction" mode, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
+**WARNING: Work-in-progress. This is a dev version - it might contain bugs. Please report unusual issues.**
+
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: (still to be defined). All other download locations are not validated by me - so handle with care.**
 
 **NOTE2: I implemented the "basic snap direction feature" only because no proper GPS/GuidanceSteering is released yet. Feature may be removed if other mods provide this functionality in a better way.**
 
 *(c) 2018-2021 by Majo76 (formerly ZhooL). Be so kind to credit me when using this mod or the source code (or parts of it) somewhere.*  
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+## Known bugs
+* game crash when "leaving game"
 
 ## Default Keybindings
 | Key | Action |

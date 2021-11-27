@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 26.11.2021
+-- @Date: 27.11.2021
 -- @Version: 1.0.0.0
 
 --[[
@@ -21,88 +21,178 @@ CHANGELOG
 license: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ]]--
 
-debug = 0 -- 0=0ff, 1=some, 2=everything, 3=madness
 local myName = "FS22_EnhancedVehicle"
+
+FS22_EnhancedVehicle = {}
+local FS22_EnhancedVehicle_mt = Class(FS22_EnhancedVehicle)
 
 -- #############################################################################
 
-FS22_EnhancedVehicle = {}
-FS22_EnhancedVehicle.modDirectory  = g_currentModDirectory
-FS22_EnhancedVehicle.confDirectory = getUserProfileAppPath().. "modSettings/FS22_EnhancedVehicle/"
+function FS22_EnhancedVehicle:new(modDirectory, modName)
+  if debug > 1 then print("-> " .. myName .. ": new ") end
 
--- for debugging purpose
-FS22_dbg = false
-FS22_dbg1 = 0
-FS22_dbg2 = 0
-FS22_dbg3 = 0
+  local self = {}
 
--- some global stuff - DONT touch
-FS22_EnhancedVehicle.diff_overlayWidth  = 512
-FS22_EnhancedVehicle.diff_overlayHeight = 1024
-FS22_EnhancedVehicle.dir_overlayWidth  = 64
-FS22_EnhancedVehicle.dir_overlayHeight = 256
-FS22_EnhancedVehicle.uiScale = 1
-if g_gameSettings.uiScale ~= nil then
-  if debug > 1 then print("-> uiScale: "..FS22_EnhancedVehicle.uiScale) end
-  FS22_EnhancedVehicle.uiScale = g_gameSettings.uiScale
-end
-FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'snap' }
-FS22_EnhancedVehicle.actions = {}
-FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_RESET',
-                                           'FS22_EnhancedVehicle_RELOAD',
-                                           'FS22_EnhancedVehicle_TOGGLE_DISPLAY',
-                                           'FS22_EnhancedVehicle_SNAP_ONOFF',
-                                           'FS22_EnhancedVehicle_SNAP_ONOFF2',
-                                           'FS22_EnhancedVehicle_SNAP_REVERSE',
-                                           'FS22_EnhancedVehicle_SNAP_INC1',
-                                           'FS22_EnhancedVehicle_SNAP_DEC1',
-                                           'FS22_EnhancedVehicle_SNAP_INC2',
-                                           'FS22_EnhancedVehicle_SNAP_DEC2',
-                                           'FS22_EnhancedVehicle_SNAP_INC3',
-                                           'FS22_EnhancedVehicle_SNAP_DEC3',
-                                           'AXIS_MOVE_SIDE_VEHICLE' }
-FS22_EnhancedVehicle.actions.diff  =     { 'FS22_EnhancedVehicle_FD',
-                                           'FS22_EnhancedVehicle_RD',
-                                           'FS22_EnhancedVehicle_BD',
-                                           'FS22_EnhancedVehicle_DM' }
-FS22_EnhancedVehicle.actions.hydraulic = { 'FS22_EnhancedVehicle_AJ_REAR_UPDOWN',
-                                           'FS22_EnhancedVehicle_AJ_REAR_ONOFF',
-                                           'FS22_EnhancedVehicle_AJ_FRONT_UPDOWN',
-                                           'FS22_EnhancedVehicle_AJ_FRONT_ONOFF' }
+  setmetatable(self, FS22_EnhancedVehicle_mt)
 
-if FS22_dbg then
-  for _, v in pairs({ 'FS22_DBG1_UP', 'FS22_DBG1_DOWN', 'FS22_DBG2_UP', 'FS22_DBG2_DOWN', 'FS22_DBG3_UP', 'FS22_DBG3_DOWN' }) do
-    table.insert(FS22_EnhancedVehicle.actions, v)
+  self.modDirectory  = modDirectory
+  self.modName = modName
+
+  local modDesc = loadXMLFile("modDesc", modDirectory .. "modDesc.xml");
+  self.version = getXMLString(modDesc, "modDesc.version");
+
+  -- for debugging purpose
+  FS22_dbg = false
+  FS22_dbg1 = 0
+  FS22_dbg2 = 0
+  FS22_dbg3 = 0
+
+  -- some global stuff - DONT touch
+  FS22_EnhancedVehicle.diff_overlayWidth  = 512
+  FS22_EnhancedVehicle.diff_overlayHeight = 1024
+  FS22_EnhancedVehicle.dir_overlayWidth  = 64
+  FS22_EnhancedVehicle.dir_overlayHeight = 256
+  FS22_EnhancedVehicle.uiScale = 1
+  if g_gameSettings.uiScale ~= nil then
+    if debug > 2 then print("-> uiScale: "..FS22_EnhancedVehicle.uiScale) end
+    FS22_EnhancedVehicle.uiScale = g_gameSettings.uiScale
   end
+  FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'snap' }
+  FS22_EnhancedVehicle.actions = {}
+  FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_RESET',
+                                             'FS22_EnhancedVehicle_RELOAD',
+                                             'FS22_EnhancedVehicle_TOGGLE_DISPLAY',
+                                             'FS22_EnhancedVehicle_SNAP_ONOFF',
+                                             'FS22_EnhancedVehicle_SNAP_ONOFF2',
+                                             'FS22_EnhancedVehicle_SNAP_REVERSE',
+                                             'FS22_EnhancedVehicle_SNAP_INC1',
+                                             'FS22_EnhancedVehicle_SNAP_DEC1',
+                                             'FS22_EnhancedVehicle_SNAP_INC2',
+                                             'FS22_EnhancedVehicle_SNAP_DEC2',
+                                             'FS22_EnhancedVehicle_SNAP_INC3',
+                                             'FS22_EnhancedVehicle_SNAP_DEC3',
+                                             'AXIS_MOVE_SIDE_VEHICLE' }
+  FS22_EnhancedVehicle.actions.diff  =     { 'FS22_EnhancedVehicle_FD',
+                                             'FS22_EnhancedVehicle_RD',
+                                             'FS22_EnhancedVehicle_BD',
+                                             'FS22_EnhancedVehicle_DM' }
+  FS22_EnhancedVehicle.actions.hydraulic = { 'FS22_EnhancedVehicle_AJ_REAR_UPDOWN',
+                                             'FS22_EnhancedVehicle_AJ_REAR_ONOFF',
+                                             'FS22_EnhancedVehicle_AJ_FRONT_UPDOWN',
+                                             'FS22_EnhancedVehicle_AJ_FRONT_ONOFF' }
+
+  if FS22_dbg then
+    for _, v in pairs({ 'FS22_DBG1_UP', 'FS22_DBG1_DOWN', 'FS22_DBG2_UP', 'FS22_DBG2_DOWN', 'FS22_DBG3_UP', 'FS22_DBG3_DOWN' }) do
+      table.insert(FS22_EnhancedVehicle.actions, v)
+    end
+  end
+
+  -- some colors
+  FS22_EnhancedVehicle.color = {
+    black    = {       0,       0,       0, 1 },
+    white    = {       1,       1,       1, 1 },
+    red      = { 255/255,   0/255,   0/255, 1 },
+    green    = {   0/255, 255/255,   0/255, 1 },
+    blue     = {   0/255,   0/255, 255/255, 1 },
+    yellow   = { 255/255, 255/255,   0/255, 1 },
+    gray     = { 128/255, 128/255, 128/255, 1 },
+    dmg      = {  86/255, 142/255,  42/255, 1 },
+    fuel     = { 178/255, 214/255,  22/255, 1 },
+    adblue   = {  48/255,  78/255, 249/255, 1 },
+    electric = { 255/255, 255/255,   0/255, 1 },
+    methane  = {   0/255, 198/255, 255/255, 1 },
+  }
+
+  -- for overlays
+  FS22_EnhancedVehicle.overlay = {}
+
+  -- prepare overlays
+  if FS22_EnhancedVehicle.overlay["fuel"] == nil then
+    FS22_EnhancedVehicle.overlay["fuel"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+  end
+  if FS22_EnhancedVehicle.overlay["dmg"] == nil then
+    FS22_EnhancedVehicle.overlay["dmg"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+  end
+  if FS22_EnhancedVehicle.overlay["misc"] == nil then
+    FS22_EnhancedVehicle.overlay["misc"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+  end
+  if FS22_EnhancedVehicle.overlay["diff_bg"] == nil then
+    FS22_EnhancedVehicle.overlay["diff_bg"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_bg.dds")
+    setOverlayColor(FS22_EnhancedVehicle.overlay["diff_bg"], 0, 0, 0, 1)
+  end
+  if FS22_EnhancedVehicle.overlay["diff_front"] == nil then
+    FS22_EnhancedVehicle.overlay["diff_front"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_front.dds")
+  end
+  if FS22_EnhancedVehicle.overlay["diff_back"] == nil then
+    FS22_EnhancedVehicle.overlay["diff_back"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_back.dds")
+  end
+  if FS22_EnhancedVehicle.overlay["diff_dm"] == nil then
+    FS22_EnhancedVehicle.overlay["diff_dm"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_dm.dds")
+  end
+
+  -- load sound effects
+  if g_dedicatedServerInfo == nil then
+    local file, id
+    FS22_EnhancedVehicle.sounds = {}
+    for _, id in ipairs({"diff_lock", "snap_on"}) do
+      FS22_EnhancedVehicle.sounds[id] = createSample(id)
+      file = self.modDirectory.."media/"..id..".ogg"
+      loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
+    end
+  end
+
+  return self
 end
 
--- some colors
-FS22_EnhancedVehicle.color = {
-  black    = {       0,       0,       0, 1 },
-  white    = {       1,       1,       1, 1 },
-  red      = { 255/255,   0/255,   0/255, 1 },
-  green    = {   0/255, 255/255,   0/255, 1 },
-  blue     = {   0/255,   0/255, 255/255, 1 },
-  yellow   = { 255/255, 255/255,   0/255, 1 },
-  gray     = { 128/255, 128/255, 128/255, 1 },
-  dmg      = {  86/255, 142/255,  42/255, 1 },
-  fuel     = { 178/255, 214/255,  22/255, 1 },
-  adblue   = {  48/255,  78/255, 249/255, 1 },
-  electric = { 255/255, 255/255,   0/255, 1 },
-  methane  = {   0/255, 198/255, 255/255, 1 },
-}
+-- #############################################################################
 
--- for overlays
-FS22_EnhancedVehicle.overlay = {}
+function FS22_EnhancedVehicle:delete()
+  if debug > 1 then print("-> " .. myName .. ": delete ") end
+end
 
--- load sound effects
-if g_dedicatedServerInfo == nil then
-  local file, id
-  FS22_EnhancedVehicle.sounds = {}
-  for _, id in ipairs({"diff_lock"}) do
-    FS22_EnhancedVehicle.sounds[id] = createSample(id)
-    file = FS22_EnhancedVehicle.modDirectory.."media/"..id..".ogg"
-    loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
+-- #############################################################################
+
+function FS22_EnhancedVehicle:loadMap()
+  print("--> loaded FS22_EnhancedVehicle version " .. self.version .. " (by Majo76) <--");
+
+  -- first set our current and default config to default values
+  FS22_EnhancedVehicle:resetConfig()
+  -- then read values from disk and "overwrite" current config
+  lC:readConfig()
+  -- then write current config (which is now a merge between default values and from disk)
+  lC:writeConfig()
+  -- and finally activate current config
+  FS22_EnhancedVehicle:activateConfig()
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:unloadMap()
+  print("--> unloaded FS22_EnhancedVehicle version " .. self.version .. " (by Majo76) <--");
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle.installSpecializations(vehicleTypeManager, specializationManager, modDirectory)
+  if debug > 1 then print("-> " .. myName .. ": installSpecializations ") end
+
+  specializationManager:addSpecialization("EnhancedVehicle", "FS22_EnhancedVehicle", Utils.getFilename("FS22_EnhancedVehicle.lua", modDirectory), nil)
+
+  if specializationManager:getSpecializationByName("EnhancedVehicle") == nil then
+    print("ERROR: unable to add specialization 'FS22_EnhancedVehicle'")
+  else
+    for typeName, typeDef in pairs(vehicleTypeManager.types) do
+      if SpecializationUtil.hasSpecialization(Drivable,  typeDef.specializations) and
+         SpecializationUtil.hasSpecialization(Enterable, typeDef.specializations) and
+         SpecializationUtil.hasSpecialization(Motorized, typeDef.specializations) and
+         not SpecializationUtil.hasSpecialization(Locomotive,     typeDef.specializations) and
+         not SpecializationUtil.hasSpecialization(ConveyorBelt,   typeDef.specializations) and
+         not SpecializationUtil.hasSpecialization(AIConveyorBelt, typeDef.specializations)
+      then
+        if debug > 1 then print("--> attached specialization 'FS22_EnhancedVehicle' to vehicleType '" .. tostring(typeName) .. "'") end
+        vehicleTypeManager:addSpecialization(typeName, "FS22_EnhancedVehicle.EnhancedVehicle")
+      end
+    end
   end
 end
 
@@ -126,7 +216,7 @@ end
 
 -- #############################################################################
 -- ### function for others mods to enable/disable EnhancedVehicle functions
--- ###   name: shuttle, differential, hydraulic
+-- ###   name: differential, hydraulic, snap
 -- ###  state: true or false
 
 function FS22_EnhancedVehicle:functionEnable(name, state)
@@ -138,11 +228,15 @@ function FS22_EnhancedVehicle:functionEnable(name, state)
     lC:setConfigValue("global.functions", "hydraulicIsEnabled", state)
     FS22_EnhancedVehicle.functionHydraulicIsEnabled = state
   end
+  if name == "snap" then
+    lC:setConfigValue("global.functions", "snapIsEnabled", state)
+    FS22_EnhancedVehicle.functionSnapIsEnabled = state
+  end
 end
 
 -- #############################################################################
 -- ### function for others mods to get EnhancedVehicle functions status
--- ###   name: shuttle, differential, hydraulic
+-- ###   name: differential, hydraulic, snap
 -- ###  returns true or false
 
 function FS22_EnhancedVehicle:functionStatus(name)
@@ -151,6 +245,9 @@ function FS22_EnhancedVehicle:functionStatus(name)
   end
   if name == "hydraulic" then
     return(lC:getConfigValue("global.functions", "hydraulicIsEnabled"))
+  end
+  if name == "snap" then
+    return(lC:getConfigValue("global.functions", "snapIsEnabled"))
   end
 
   return(nil)
@@ -183,6 +280,10 @@ function FS22_EnhancedVehicle:activateConfig()
   end
   FS22_EnhancedVehicle.diff.zoomFactor    = lC:getConfigValue("hud.diff", "zoomFactor")
 
+  -- update HUD transparency
+  setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
+  setOverlayColor(FS22_EnhancedVehicle.overlay["dmg"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
+  setOverlayColor(FS22_EnhancedVehicle.overlay["misc"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
 end
 
 -- #############################################################################
@@ -316,6 +417,7 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
       self.vData.torqueRatio   = { 0.5, 0.5, 0.5 }
       self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
       self.vData.rot = 0.0
+      self.vData.axisSidePrev = 0.0
       for _, differential in ipairs(self.spec_motorized.differentials) do
         if differential.diffIndex1 == 1 then -- front
           self.vData.torqueRatio[1]   = differential.torqueRatio
@@ -384,20 +486,15 @@ end
 function FS22_EnhancedVehicle:onUpdate(dt)
   if debug > 2 then print("-> " .. myName .. ": onUpdate " .. dt .. ", S: " .. tostring(self.isServer) .. ", C: " .. tostring(self.isClient) .. mySelf(self)) end
 
-  local spec = self.spec_drivable
-
   -- get current vehicle direction when it makes sense
   if FS22_EnhancedVehicle.functionSnapIsEnabled and self.isClient then
     local isControlled = self.getIsControlled ~= nil and self:getIsControlled()
     local isEntered = self.getIsEntered ~= nil and self:getIsEntered()
-		if self.spec_motorized.isMotorStarted and isControlled and isEntered then
+		if isControlled and isEntered then
 
       -- get current rotation of vehicle
-      local lx,ly,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
-      local length = MathUtil.vector2Length(lx,lz);
-      local dX = lx/length
-      local dZ = lz/length
-      local rot = 180 - math.deg(math.atan2(dX,dZ))
+      local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+      local rot = 180 - math.deg(math.atan2(lx, lz))
 
       -- if cabin is rotated -> direction should rotate also
       if self.spec_drivable.reverserDirection < 0 then
@@ -508,33 +605,6 @@ function FS22_EnhancedVehicle:onDraw()
       renderText(g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX - g_currentMission.inGameMenu.hud.speedMeter.damageGaugeRadiusX, g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterY + g_currentMission.inGameMenu.hud.speedMeter.damageGaugeRadiusY, 0.01, "O")
     end
 
-    -- prepare overlays
-    if FS22_EnhancedVehicle.overlay["fuel"] == nil then
-      FS22_EnhancedVehicle.overlay["fuel"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_bg.dds")
-      setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-    end
-    if FS22_EnhancedVehicle.overlay["dmg"] == nil then
-      FS22_EnhancedVehicle.overlay["dmg"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_bg.dds")
-      setOverlayColor(FS22_EnhancedVehicle.overlay["dmg"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-    end
-    if FS22_EnhancedVehicle.overlay["misc"] == nil then
-      FS22_EnhancedVehicle.overlay["misc"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_bg.dds")
-      setOverlayColor(FS22_EnhancedVehicle.overlay["misc"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-    end
-    if FS22_EnhancedVehicle.overlay["diff_bg"] == nil then
-      FS22_EnhancedVehicle.overlay["diff_bg"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_diff_bg.dds")
-      setOverlayColor(FS22_EnhancedVehicle.overlay["diff_bg"], 0, 0, 0, 1)
-    end
-    if FS22_EnhancedVehicle.overlay["diff_front"] == nil then
-      FS22_EnhancedVehicle.overlay["diff_front"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_diff_front.dds")
-    end
-    if FS22_EnhancedVehicle.overlay["diff_back"] == nil then
-      FS22_EnhancedVehicle.overlay["diff_back"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_diff_back.dds")
-    end
-    if FS22_EnhancedVehicle.overlay["diff_dm"] == nil then
-      FS22_EnhancedVehicle.overlay["diff_dm"] = createImageOverlay(FS22_EnhancedVehicle.modDirectory .. "media/overlay_diff_dm.dds")
-    end
-
     -- ### do the fuel stuff ###
     if self.spec_fillUnit ~= nil and FS22_EnhancedVehicle.fuel.enabled then
       -- get values
@@ -643,8 +713,8 @@ function FS22_EnhancedVehicle:onDraw()
       -- prepare text
       h = 0
       dmg_txt = ""
-      if self.spec_wearable.totalAmount ~= nil then
-        dmg_txt = string.format("%s: %.1f", self.typeDesc, (self.spec_wearable.totalAmount * 100)) .. "%"
+      if self.spec_wearable ~= nil then
+        dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (self.spec_wearable:getDamageAmount() * 100), (self.spec_wearable:getWearTotalAmount() * 100))
         h = h + fS + tP
       end
 
@@ -726,7 +796,7 @@ function FS22_EnhancedVehicle:onDraw()
       -- prepare text
       rpm_txt = "--\nrpm"
       if self.spec_motorized.isMotorStarted == true then
-        rpm_txt = string.format("%i\nrpm", self.spec_motorized.motor.lastMotorRpm)
+        rpm_txt = string.format("%i\nrpm", self.spec_motorized:getMotorRpmReal()) --.motor.lastMotorRpm)
       end
 
       -- render text
@@ -807,6 +877,7 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
     self.vData.is   = {}
     self.vData.want = {}
     self.vData.rot  = 0.0
+    self.vData.axisSidePrev = 0.0
   end
 
   -- receive initial data from server
@@ -1084,6 +1155,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   -- steering angle snap on/off
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
     if not self.vData.is[5] then
+      if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+        playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+      end
       self.vData.want[5] = true
       self.vData.want[4] = Round(self.vData.rot, 0)
     else
@@ -1092,12 +1166,20 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF2" then
+    if not self.vData.is[5] then
+      if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+        playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+      end
+    end
     self.vData.want[5] = not self.vData.want[5]
     _snap = true
   end
 
   -- steering angle snap inc/dec
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
+    if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+      playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+    end
     self.vData.want[4] = Round(self.vData.want[4] + 180, 0)
     if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
     self.vData.want[5] = true
@@ -1257,10 +1339,12 @@ function getDmg(start)
   if start.spec_attacherJoints.attachedImplements ~= nil then
     for _, implement in pairs(start.spec_attacherJoints.attachedImplements) do
       local tA = 0
-      if implement.object.spec_wearable ~= nil and implement.object.spec_wearable.totalAmount ~= nil then
-        tA = implement.object.spec_wearable.totalAmount
+      local tL = 0
+      if implement.object.spec_wearable ~= nil then
+        tA = implement.object.spec_wearable:getDamageAmount()
+        tL = implement.object.spec_wearable:getWearTotalAmount()
       end
-      dmg_txt2 = string.format("%s: %.1f", implement.object.typeDesc, (tA * 100)) .. "%\n" .. dmg_txt2
+      dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
       h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
       if implement.object.spec_attacherJoints ~= nil then
         getDmg(implement.object)
@@ -1278,10 +1362,20 @@ end
 
 -- #############################################################################
 
+function Between(a, minA, maxA)
+  if a == nil then return end
+  if minA ~= nil and a <= minA then return minA end
+  if maxA ~= nil and a >= maxA then return maxA end
+  return a
+end
+
+-- #############################################################################
+
 function mySelf(obj)
   return " (rootNode: " .. obj.rootNode .. ", typeName: " .. obj.typeName .. ", typeDesc: " .. obj.typeDesc .. ")"
 end
 
+-- #############################################################################
 
 function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForward, axisSide, doHandbrake, dt)
   if debug > 2 then print("function Drivable.updateVehiclePhysics() "..tostring(dt)..", "..tostring(axisForward)..", "..tostring(axisSide)..", "..tostring(doHandbrake)) end
@@ -1290,11 +1384,8 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
     if self.vData ~= nil and self.vData.is[5] then
       if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
         -- get current rotation of vehicle
-        local lx,ly,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
-        local length = MathUtil.vector2Length(lx,lz);
-        local dX = lx/length
-        local dZ = lz/length
-        local rot = 180 - math.deg(math.atan2(dX,dZ))
+        local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+        local rot = 180 - math.deg(math.atan2(lx, lz))
 
         -- if cabin is rotated -> direction should rotate also
         if self.spec_drivable.reverserDirection < 0 then
@@ -1305,8 +1396,9 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
         self.vData.rot = rot
 
         -- if wanted direction is different than current direction
-        if self.vData.rot ~= Round(self.vData.is[4], 1) then
+        if self.vData.rot ~= self.vData.is[4] then
 
+          -- calculate degree difference between "is" and "wanted" (from -180 to 180)
           local _w1 = self.vData.is[4]
           if _w1 > 180 then _w1 = _w1 - 360 end
           local _w2 = self.vData.rot
@@ -1315,13 +1407,7 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
           if diffdeg > 180 then diffdeg = diffdeg - 360 end
           if diffdeg < -180 then diffdeg = diffdeg + 360 end
 
-          local a = 0
-          if (diffdeg < 0) then
-            a = math.sqrt(math.abs(diffdeg / 360)) * -1
-          else
-            a = math.sqrt(diffdeg / 360)
-          end
-
+          -- get movingDirection (1=forward, 0=nothing, -1=reverse)
           local movingDirection = 0
           if g_currentMission.missionInfo.stopAndGoBraking then
             movingDirection = self.movingDirection * self.spec_drivable.reverserDirection
@@ -1332,7 +1418,36 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
             movingDirection = Utils.getNoNil(self.nextMovingDirection * self.spec_drivable.reverserDirection)
           end
 
-          axisSide = a * movingDirection
+          -- "steering force"
+          local delta = (0.75 / dt) * movingDirection
+
+          -- calculate new steering wheel "direction"
+          -- if we have still more than 20° to steer -> increase steering wheel constantly until maximum
+          -- if in between -20 to 20 -> adjust steering wheel according to remaining degrees
+          local a = self.vData.axisSidePrev
+          if (diffdeg < -20) then
+            a = a - delta
+          end
+          if (diffdeg > 20) then
+            a = a + delta
+          end
+          if (diffdeg >= -20) and (diffdeg <= 20) then
+            local newa = diffdeg / 20 * movingDirection
+--            print("20 dd: "..diffdeg.." a: "..a.." newa: "..newa)
+            if a < newa then a = a + delta * 1.4 * movingDirection end
+            if a > newa then a = a - delta * 1.4 * movingDirection end
+          end
+          if (diffdeg >= -2) and (diffdeg <= 2) then
+            a = diffdeg / 20 * movingDirection
+--            print("2 dd: "..diffdeg.." a: "..a)
+          end
+          a = Between(a, -1, 1)
+
+          axisSide = a
+--          print("dt: "..dt.." aS: "..axisSide.." aSp: "..self.vData.axisSidePrev.." delta: "..delta.." diffdeg: "..diffdeg)
+
+          -- save for next calculation cycle
+          self.vData.axisSidePrev = a
 --          print(" is: "..self.vData.rot.." want: "..self.vData.is[4].." diff: "..diffdeg.. " steerangle: " .. axisSide)
         end
       end
