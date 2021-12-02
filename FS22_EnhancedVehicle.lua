@@ -290,6 +290,7 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.overlayTransparancy = lC:getConfigValue("global.text", "overlayTransparancy")
   FS22_EnhancedVehicle.showKeysInHelpMenu  = lC:getConfigValue("global.misc", "showKeysInHelpMenu")
   FS22_EnhancedVehicle.soundIsOn           = lC:getConfigValue("global.misc", "soundIsOn")
+  FS22_EnhancedVehicle.snapToAngle         = lC:getConfigValue("global.snapTo", "angle")
 
   -- HUD stuff
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
@@ -299,6 +300,7 @@ function FS22_EnhancedVehicle:activateConfig()
     FS22_EnhancedVehicle[section].posY    = lC:getConfigValue("hud."..section, "posY")
   end
   FS22_EnhancedVehicle.diff.zoomFactor    = lC:getConfigValue("hud.diff", "zoomFactor")
+  FS22_EnhancedVehicle.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
 
   -- update HUD transparency
   setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
@@ -340,6 +342,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("global.text", "overlayTransparancy", "float", 0.70)
   lC:addConfigValue("global.misc", "showKeysInHelpMenu", "bool",   true)
   lC:addConfigValue("global.misc", "soundIsOn", "bool",            true)
+  lC:addConfigValue("global.snapTo", "angle", "float",             1.00)
 
   -- fuel
   if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
@@ -351,6 +354,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.fuel", "posY", "float",   _y or 0)
 
   -- dmg
+  lC:addConfigValue("hud.dmg", "showAmountLeft", "bool", false)
   if g_currentMission.inGameMenu.hud.speedMeter.damageGaugeIconElement ~= nil then
     _x = baseX - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.4)
     _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
@@ -781,6 +785,11 @@ function FS22_EnhancedVehicle:onDraw()
       dmg_txt = ""
       if self.spec_wearable ~= nil then
         dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (self.spec_wearable:getDamageAmount() * 100), (self.spec_wearable:getWearTotalAmount() * 100))
+        
+        if FS22_EnhancedVehicle.dmg.showAmountLeft then
+          dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (100 - (self.spec_wearable:getDamageAmount() * 100)), (100 - (self.spec_wearable:getWearTotalAmount() * 100)))
+        end
+        
         h = h + fS + tP
       end
 
@@ -1266,7 +1275,15 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
       end
       self.vData.want[5] = true
-      self.vData.want[4] = Round(self.vData.rot, 0)
+      
+      local snapToAngle = FS22_EnhancedVehicle.snapToAngle
+      
+      if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle > 360 then
+        snapToAngle = self.vData.rot
+      end
+         
+      self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
+      
     else
       self.vData.want[5] = false
     end
@@ -1516,13 +1533,30 @@ function getDmg(start)
         tA = implement.object.spec_wearable:getDamageAmount()
         tL = implement.object.spec_wearable:getWearTotalAmount()
       end
-      dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
+            
+      if FS22_EnhancedVehicle.dmg.showAmountLeft then
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (100 - (tA * 100)), (100 - (tL * 100))) .. "\n" .. dmg_txt2
+      else
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
+      end
+      
       h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
       if implement.object.spec_attacherJoints ~= nil then
         getDmg(implement.object)
       end
     end
   end
+end
+
+function closestAngle(n,m)
+  local q = math.floor(n/m)
+  local n1 = m*q
+  local n2 = m*(q+1)
+  
+  if math.abs(n-n1) < math.abs(n-n2) then
+    return n1
+  end
+  return n2
 end
 
 -- #############################################################################
