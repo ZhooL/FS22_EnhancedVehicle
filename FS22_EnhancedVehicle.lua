@@ -271,6 +271,7 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.overlayTransparancy = lC:getConfigValue("global.text", "overlayTransparancy")
   FS22_EnhancedVehicle.showKeysInHelpMenu  = lC:getConfigValue("global.misc", "showKeysInHelpMenu")
   FS22_EnhancedVehicle.soundIsOn           = lC:getConfigValue("global.misc", "soundIsOn")
+  FS22_EnhancedVehicle.snapToAngle         = lC:getConfigValue("global.snapTo", "angle")
 
   -- HUD stuff
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
@@ -321,6 +322,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("global.text", "overlayTransparancy", "float", 0.70)
   lC:addConfigValue("global.misc", "showKeysInHelpMenu", "bool",   true)
   lC:addConfigValue("global.misc", "soundIsOn", "bool",            true)
+  lC:addConfigValue("global.snapTo", "angle", "float",             1.00)
 
   -- fuel
   if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
@@ -1247,7 +1249,15 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
       end
       self.vData.want[5] = true
-      self.vData.want[4] = Round(self.vData.rot, 0)
+      
+      local snapToAngle = FS22_EnhancedVehicle.snapToAngle
+      
+      if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle > 360 then
+        snapToAngle = self.vData.rot
+      end
+         
+      self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
+      
     else
       self.vData.want[5] = false
     end
@@ -1491,6 +1501,17 @@ function getDmg(start)
       end
     end
   end
+end
+
+function closestAngle(n,m)
+  local q = math.floor(n/m)
+  local n1 = m*q
+  local n2 = m*(q+1)
+  
+  if math.abs(n-n1) < math.abs(n-n2) then
+    return n1
+  end
+  return n2
 end
 
 -- #############################################################################
