@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 27.11.2021
+-- @Date: 01.12.2021
 -- @Version: 1.0.0.0
 
 -- #############################################################################
@@ -15,6 +15,10 @@ local modName = g_currentModName
 
 source(Utils.getFilename("FS22_EnhancedVehicle.lua", directory))
 source(Utils.getFilename("FS22_EnhancedVehicle_Event.lua", directory))
+--source(Utils.getFilename("ui/FS22_EnhancedVehicle_UI.lua", directory))
+--source(Utils.getFilename("ui/FS22_EnhancedVehicle_Menu.lua", directory))
+--source(Utils.getFilename("ui/FS22_EnhancedVehicle_Frame_GlobalSettings.lua", directory))
+--source(Utils.getFilename("ui/FS22_EnhancedVehicle_Frame_SnapSettings.lua", directory))
 
 -- include our libUtils
 source(Utils.getFilename("libUtils.lua", g_currentModDirectory))
@@ -28,6 +32,10 @@ lC:setDebug(0)
 
 local EnhancedVehicle
 
+local function isEnabled()
+  return EnhancedVehicle ~= nil
+end
+
 -- #############################################################################
 
 function EV_init()
@@ -35,6 +43,8 @@ function EV_init()
   
   -- hook into early load
   Mission00.load = Utils.prependedFunction(Mission00.load, EV_load)
+  -- hook into late load
+  Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, EV_loadedMission)
 
   -- hook into late unload
   FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, EV_unload)
@@ -45,12 +55,12 @@ end
 
 -- #############################################################################
 
-function EV_load()
+function EV_load(mission)
   if debug > 1 then print("EV_load()") end
   
   -- create our EV class
   assert(g_EnhancedVehicle == nil)
-  EnhancedVehicle = FS22_EnhancedVehicle:new(directory, modName)
+  EnhancedVehicle = FS22_EnhancedVehicle:new(mission, directory, modName, g_i18n, g_gui, g_gui.inputManager, g_messageCenter)
   getfenv(0)["g_EnhancedVehicle"] = EnhancedVehicle
 
   addModEventListener(EnhancedVehicle);
@@ -61,11 +71,31 @@ end
 function EV_unload()
   if debug > 1 then print("EV_unload()") end
 
+  if not isEnabled() then
+    return
+  end
+
   removeModEventListener(EnhancedVehicle)
   
   EnhancedVehicle:delete()
   EnhancedVehicle = nil
   getfenv(0)["g_EnhancedVehicle"] = nil
+end
+
+-- #############################################################################
+
+function EV_loadedMission(mission)
+  if debug > 1 then print("EV_load()") end
+
+  if not isEnabled() then
+    return
+  end
+
+  if mission.cancelLoading then
+    return
+  end
+
+  EnhancedVehicle:onMissionLoaded(mission)
 end
 
 -- #############################################################################

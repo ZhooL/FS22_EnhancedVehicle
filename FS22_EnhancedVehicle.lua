@@ -28,18 +28,25 @@ local FS22_EnhancedVehicle_mt = Class(FS22_EnhancedVehicle)
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle:new(modDirectory, modName)
+function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inputManager, messageCenter)
   if debug > 1 then print("-> " .. myName .. ": new ") end
 
   local self = {}
 
   setmetatable(self, FS22_EnhancedVehicle_mt)
 
+  self.mission       = mission
   self.modDirectory  = modDirectory
-  self.modName = modName
+  self.modName       = modName
+  self.i18n          = i18n
+  self.gui           = gui
+  self.inputManager  = inputManager
+  self.messageCenter = messageCenter
 
   local modDesc = loadXMLFile("modDesc", modDirectory .. "modDesc.xml");
   self.version = getXMLString(modDesc, "modDesc.version");
+
+--  self.ui = FS22_EnhancedVehicle_UI:new(mission, i18n, modDirectory, gui, inputManager, messageCenter)
 
   -- for debugging purpose
   FS22_dbg = false
@@ -61,6 +68,7 @@ function FS22_EnhancedVehicle:new(modDirectory, modName)
   FS22_EnhancedVehicle.actions = {}
   FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_RESET',
                                              'FS22_EnhancedVehicle_RELOAD',
+                                             'FS22_EnhancedVehicle_MENU',
                                              'FS22_EnhancedVehicle_TOGGLE_DISPLAY',
                                              'FS22_EnhancedVehicle_SNAP_ONOFF',
                                              'FS22_EnhancedVehicle_SNAP_ONOFF2',
@@ -109,26 +117,26 @@ function FS22_EnhancedVehicle:new(modDirectory, modName)
 
   -- prepare overlays
   if FS22_EnhancedVehicle.overlay["fuel"] == nil then
-    FS22_EnhancedVehicle.overlay["fuel"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+    FS22_EnhancedVehicle.overlay["fuel"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
   end
   if FS22_EnhancedVehicle.overlay["dmg"] == nil then
-    FS22_EnhancedVehicle.overlay["dmg"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+    FS22_EnhancedVehicle.overlay["dmg"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
   end
   if FS22_EnhancedVehicle.overlay["misc"] == nil then
-    FS22_EnhancedVehicle.overlay["misc"] = createImageOverlay(self.modDirectory .. "media/overlay_bg.dds")
+    FS22_EnhancedVehicle.overlay["misc"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
   end
   if FS22_EnhancedVehicle.overlay["diff_bg"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_bg"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_bg.dds")
+    FS22_EnhancedVehicle.overlay["diff_bg"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_bg.dds")
     setOverlayColor(FS22_EnhancedVehicle.overlay["diff_bg"], 0, 0, 0, 1)
   end
   if FS22_EnhancedVehicle.overlay["diff_front"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_front"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_front.dds")
+    FS22_EnhancedVehicle.overlay["diff_front"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_front.dds")
   end
   if FS22_EnhancedVehicle.overlay["diff_back"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_back"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_back.dds")
+    FS22_EnhancedVehicle.overlay["diff_back"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_back.dds")
   end
   if FS22_EnhancedVehicle.overlay["diff_dm"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_dm"] = createImageOverlay(self.modDirectory .. "media/overlay_diff_dm.dds")
+    FS22_EnhancedVehicle.overlay["diff_dm"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_dm.dds")
   end
 
   -- load sound effects
@@ -137,7 +145,7 @@ function FS22_EnhancedVehicle:new(modDirectory, modName)
     FS22_EnhancedVehicle.sounds = {}
     for _, id in ipairs({"diff_lock", "snap_on"}) do
       FS22_EnhancedVehicle.sounds[id] = createSample(id)
-      file = self.modDirectory.."media/"..id..".ogg"
+      file = self.modDirectory.."resources/"..id..".ogg"
       loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
     end
   end
@@ -149,6 +157,17 @@ end
 
 function FS22_EnhancedVehicle:delete()
   if debug > 1 then print("-> " .. myName .. ": delete ") end
+
+  -- delete our UI
+--  self.ui:delete()
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:onMissionLoaded(mission)
+  if debug > 1 then print("-> " .. myName .. ": onMissionLoaded ") end
+
+--  self.ui:load()
 end
 
 -- #############################################################################
@@ -1319,6 +1338,19 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     end
     FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
+
+--[[
+  if actionName == "FS22_EnhancedVehicle_MENU" then
+    if not self.isClient then
+      return
+    end
+
+    print("--> MENU <--")
+    if self == g_currentMission.controlledVehicle then
+      g_EnhancedVehicle.ui:onToggleUI()
+    end
+  end
+]]--
 
   -- reset config
   if actionName == "FS22_EnhancedVehicle_RESET" then

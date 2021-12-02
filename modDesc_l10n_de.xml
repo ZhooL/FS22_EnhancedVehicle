@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-	<texts>
-		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: aktuelle Fahrtrichtung fixieren"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: vorheriger Fahrtrichtung fixieren"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Fahrtrichtung umkehren (180°)"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_LINES" text="EV: Hilfslinien an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Fahrtrichtung erhöhen um 1°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Fahrtrichtung verringern um 1°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_INC2" text="EV: Fahrtrichtung erhöhen um 45°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_DEC2" text="EV: Fahrtrichtung verringern um 45°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_INC3" text="EV: Fahrtrichtung erhöhen um 90°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_DEC3" text="EV: Fahrtrichtung verringern um 90°"/>
-		<text name="input_FS22_EnhancedVehicle_FD" text="EV: Differentialsperre Vorderachse an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_RD" text="EV: Differentialsperre Hinterachse an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_BD" text="EV: Beide Differentialsperren an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_DM" text="EV: Antriebsmodus wechseln"/>
-		<text name="input_FS22_EnhancedVehicle_TOGGLE_DISPLAY" text="EV: Schaden-/Kraftstoffanzeige an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN" text="EV: Hydraulik hinten hoch/runter"/>
-		<text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF" text="EV: Hydraulik hinten an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hydraulik vorne hoch/runter"/>
-		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF" text="EV: Hydraulik vorne an/aus"/>
-		<text name="input_FS22_EnhancedVehicle_RESET" text="EV: HUD zurücksetzen"/>
-		<text name="input_FS22_EnhancedVehicle_RELOAD" text="EV: XML Konfigurationsdatei neu laden"/>
-	</texts>
+  <texts>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: aktuelle Fahrtrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: vorheriger Fahrtrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Fahrtrichtung umkehren (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES" text="EV: Hilfslinien an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Fahrtrichtung erhöhen um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Fahrtrichtung verringern um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2" text="EV: Fahrtrichtung erhöhen um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2" text="EV: Fahrtrichtung verringern um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3" text="EV: Fahrtrichtung erhöhen um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3" text="EV: Fahrtrichtung verringern um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_FD" text="EV: Differentialsperre Vorderachse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_RD" text="EV: Differentialsperre Hinterachse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_BD" text="EV: Beide Differentialsperren an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_DM" text="EV: Antriebsmodus wechseln"/>
+    <text name="input_FS22_EnhancedVehicle_TOGGLE_DISPLAY" text="EV: Schaden-/Kraftstoffanzeige an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN" text="EV: Hydraulik hinten hoch/runter"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF" text="EV: Hydraulik hinten an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hydraulik vorne hoch/runter"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF" text="EV: Hydraulik vorne an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_RESET" text="EV: HUD zurücksetzen"/>
+    <text name="input_FS22_EnhancedVehicle_RELOAD" text="EV: XML Konfigurationsdatei neu laden"/>
+    <text name="input_FS22_EnhancedVehicle_MENU" text="EV: Konfigurationsmenü öffnen"/>
+  </texts>
 </l10n>
