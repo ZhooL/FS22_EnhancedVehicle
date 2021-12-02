@@ -19,12 +19,13 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>Ctrl</kbd>+<kbd>End</kbd> | snap current driving direction |
 | <kbd>Shift</kbd>+<kbd>End</kbd> | snap previous driving direction (=resume old direction)|
 | <kbd>Ctrl</kbd>+<kbd>Home</kbd> | reverse snap direction (180°) and enable snap|
-| <kbd>Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap direction by 45° |
-| <kbd>Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 45° |
+| <kbd>Shift</kbd>+<kbd>Home</kbd> | turn on/off visualization of driving direction (Helplines/Hilfslinien)|
+| <kbd>Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap direction by 90° |
+| <kbd>Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 90° |
 | <kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 1° |
 | <kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 1° |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 22.5° |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 22.5° |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap direction by 45° |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap direction by 45° |
 | <kbd>Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
 | <kbd>Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
 | <kbd>Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |

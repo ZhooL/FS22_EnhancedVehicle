@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 27.11.2021
+-- @Date: 29.11.2021
 -- @Version: 1.0.0.0
 
 --[[
@@ -65,6 +65,7 @@ function FS22_EnhancedVehicle:new(modDirectory, modName)
                                              'FS22_EnhancedVehicle_SNAP_ONOFF',
                                              'FS22_EnhancedVehicle_SNAP_ONOFF2',
                                              'FS22_EnhancedVehicle_SNAP_REVERSE',
+                                             'FS22_EnhancedVehicle_SNAP_LINES',
                                              'FS22_EnhancedVehicle_SNAP_INC1',
                                              'FS22_EnhancedVehicle_SNAP_DEC1',
                                              'FS22_EnhancedVehicle_SNAP_INC2',
@@ -209,7 +210,7 @@ end
 function FS22_EnhancedVehicle.registerEventListeners(vehicleType)
   if debug > 1 then print("-> " .. myName .. ": registerEventListeners ") end
 
-  for _,n in pairs( { "onLoad", "onPostLoad", "saveToXMLFile", "onUpdate", "onDraw", "onReadStream", "onWriteStream", "onRegisterActionEvents", "onEnterVehicle", "onLeaveVehicle" } ) do
+  for _,n in pairs( { "onLoad", "onPostLoad", "saveToXMLFile", "onUpdate", "onDraw", "onReadStream", "onWriteStream", "onRegisterActionEvents", "onEnterVehicle", "onLeaveVehicle", "onPostAttachImplement", "onPostDetachImplement" } ) do
     SpecializationUtil.registerEventListener(vehicleType, n, FS22_EnhancedVehicle)
   end
 end
@@ -270,6 +271,7 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.overlayTransparancy = lC:getConfigValue("global.text", "overlayTransparancy")
   FS22_EnhancedVehicle.showKeysInHelpMenu  = lC:getConfigValue("global.misc", "showKeysInHelpMenu")
   FS22_EnhancedVehicle.soundIsOn           = lC:getConfigValue("global.misc", "soundIsOn")
+  FS22_EnhancedVehicle.snapToAngle         = lC:getConfigValue("global.snapTo", "angle")
 
   -- HUD stuff
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
@@ -279,6 +281,7 @@ function FS22_EnhancedVehicle:activateConfig()
     FS22_EnhancedVehicle[section].posY    = lC:getConfigValue("hud."..section, "posY")
   end
   FS22_EnhancedVehicle.diff.zoomFactor    = lC:getConfigValue("hud.diff", "zoomFactor")
+  FS22_EnhancedVehicle.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
 
   -- update HUD transparency
   setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
@@ -320,6 +323,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("global.text", "overlayTransparancy", "float", 0.70)
   lC:addConfigValue("global.misc", "showKeysInHelpMenu", "bool",   true)
   lC:addConfigValue("global.misc", "soundIsOn", "bool",            true)
+  lC:addConfigValue("global.snapTo", "angle", "float",             1.00)
 
   -- fuel
   if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
@@ -331,6 +335,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.fuel", "posY", "float",   _y or 0)
 
   -- dmg
+  lC:addConfigValue("hud.dmg", "showAmountLeft", "bool", false)
   if g_currentMission.inGameMenu.hud.speedMeter.damageGaugeIconElement ~= nil then
     _x = baseX - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.4)
     _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
@@ -418,6 +423,8 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
       self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
       self.vData.rot = 0.0
       self.vData.axisSidePrev = 0.0
+      self.vData.snaplines = false
+      self.vData.triggerCalculate = false
       for _, differential in ipairs(self.spec_motorized.differentials) do
         if differential.diffIndex1 == 1 then -- front
           self.vData.torqueRatio[1]   = differential.torqueRatio
@@ -488,13 +495,19 @@ function FS22_EnhancedVehicle:onUpdate(dt)
 
   -- get current vehicle direction when it makes sense
   if FS22_EnhancedVehicle.functionSnapIsEnabled and self.isClient then
+    if self.vData.triggerCalculate and self.vData.triggerCalculateTime < g_currentMission.time then
+      self.vData.triggerCalculate = false
+      FS22_EnhancedVehicle:calculateWorkWidth(self)
+    end
+
     local isControlled = self.getIsControlled ~= nil and self:getIsControlled()
     local isEntered = self.getIsEntered ~= nil and self:getIsEntered()
 		if isControlled and isEntered then
 
       -- get current rotation of vehicle
-      local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
-      local rot = 180 - math.deg(math.atan2(lx, lz))
+      self.vData.dx, self.vData.dy, self.vData.dz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+      self.vData.px, self.vData.py, self.vData.pz = localToWorld(self.rootNode, 0, 0, 0)
+      local rot = 180 - math.deg(math.atan2(self.vData.dx, self.vData.dz))
 
       -- if cabin is rotated -> direction should rotate also
       if self.spec_drivable.reverserDirection < 0 then
@@ -583,6 +596,44 @@ function FS22_EnhancedVehicle:onDraw()
 
   -- only on client side and GUI is visible
   if self.isClient and not g_gui:getIsGuiVisible() and self:getIsControlled() then
+
+    -- snap helper lines
+    if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.snaplines then
+      local length = MathUtil.vector2Length(self.vData.dx,self.vData.dz);
+      local dX = self.vData.dx / length
+      local dZ = self.vData.dz / length
+
+      -- draw helper line in front of vehicle
+      local p1 = { x = self.vData.px,    y = self.vData.py + .4, z = self.vData.pz }
+      local p2 = { x = p1.x + dX * 20.0, y = p1.y,               z = p1.z + dZ * 20.0 }
+      drawDebugLine(p1.x, p1.y, p1.z, .3, .3, .3, p2.x, p2.y, p2.z, .3, .3, .3)
+
+      if self.vData.workWidth ~= nil then
+        for i,_ in pairs(self.vData.workWidth) do
+          if self.vData.workWidth[i] > 0 and self.vData.leftMarker[i] ~= nil and self.vData.rightMarker[i] ~= nil then
+            -- draw attachment left helper line
+            p1.x, p1.y, p1.z = localToWorld(self.vData.leftMarker[i], 0, 0, 0)
+            p1.y = self.vData.py + .25
+            local dx, dy, dz = localDirectionToWorld(self.vData.leftMarker[i], 0, 0, 1)
+            length = MathUtil.vector2Length(dx, dz);
+            dX = dx / length
+            dZ = dz / length
+            p2 = { x = p1.x + dX * 60.0, y = p1.y, z = p1.z + dZ * 60.0 }
+            drawDebugLine(p1.x, p1.y, p1.z, 1.0, 0.0, 0.0, p2.x, p2.y, p2.z, 1.0, 0.0, 0.0)
+
+            -- draw attachment right helper line
+            p1.x, p1.y, p1.z = localToWorld(self.vData.rightMarker[i], 0, 0, 0)
+            p1.y = self.vData.py + .25
+            local dx, dy, dz = localDirectionToWorld(self.vData.rightMarker[i], 0, 0, 1)
+            length = MathUtil.vector2Length(dx, dz);
+            dX = dx / length
+            dZ = dz / length
+            p2 = { x = p1.x + dX * 60.0, y = p1.y, z = p1.z + dZ * 60.0 }
+            drawDebugLine(p1.x, p1.y, p1.z, 1.0, 0.0, 0.0, p2.x, p2.y, p2.z, 1.0, 0.0, 0.0)
+          end
+        end
+      end
+    end
 
     local fS = FS22_EnhancedVehicle.fontSize * FS22_EnhancedVehicle.uiScale
     local tP = FS22_EnhancedVehicle.textPadding * FS22_EnhancedVehicle.uiScale
@@ -715,6 +766,11 @@ function FS22_EnhancedVehicle:onDraw()
       dmg_txt = ""
       if self.spec_wearable ~= nil then
         dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (self.spec_wearable:getDamageAmount() * 100), (self.spec_wearable:getWearTotalAmount() * 100))
+        
+        if FS22_EnhancedVehicle.dmg.showAmountLeft then
+          dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (100 - (self.spec_wearable:getDamageAmount() * 100)), (100 - (self.spec_wearable:getWearTotalAmount() * 100)))
+        end
+        
         h = h + fS + tP
       end
 
@@ -765,11 +821,11 @@ function FS22_EnhancedVehicle:onDraw()
       else
         setTextColor(0,1,0,1)
       end
-      renderText(FS22_EnhancedVehicle.snap.posX, FS22_EnhancedVehicle.snap.posY, fS*1.5, snap_txt)
+      renderText(FS22_EnhancedVehicle.snap.posX, FS22_EnhancedVehicle.snap.posY, fS*1.75, snap_txt)
 
       if (snap_txt2 ~= "") then
         setTextColor(1,1,1,1)
-        renderText(FS22_EnhancedVehicle.snap.posX, FS22_EnhancedVehicle.snap.posY + fS*1.5, fS*1.5, snap_txt2)
+        renderText(FS22_EnhancedVehicle.snap.posX, FS22_EnhancedVehicle.snap.posY + fS*1.75, fS*1.75, snap_txt2)
       end
     end
 
@@ -878,6 +934,8 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
     self.vData.want = {}
     self.vData.rot  = 0.0
     self.vData.axisSidePrev = 0.0
+    self.vData.snaplines = false
+    self.vData.triggerCalculate = false
   end
 
   -- receive initial data from server
@@ -921,7 +979,10 @@ end
 function FS22_EnhancedVehicle:onEnterVehicle()
   if debug > 1 then print("-> " .. myName .. ": onEnterVehicle" .. mySelf(self)) end
 
---  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
+  -- update work width for snap lines
+  if self.vData ~= nil and self.vData.snaplines then
+    FS22_EnhancedVehicle:calculateWorkWidth(self)
+  end
 end
 
 -- #############################################################################
@@ -938,7 +999,33 @@ function FS22_EnhancedVehicle:onLeaveVehicle()
     FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
---  print(DebugUtil.printTableRecursively(self, 0, 0, 2))
+  -- update work width for snap lines
+  if self.vData.snaplines then
+    FS22_EnhancedVehicle:calculateWorkWidth(self)
+  end
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:onPostAttachImplement(implementIndex)
+  if debug > 1 then print("-> " .. myName .. ": onPostAttachImplement" .. mySelf(self)) end
+
+  -- update work width for snap lines
+  if self.vData ~= nil and self.vData.snaplines then
+    FS22_EnhancedVehicle:calculateWorkWidth(self)
+  end
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:onPostDetachImplement(implementIndex)
+  if debug > 1 then print("-> " .. myName .. ": onPostDetachImplement" .. mySelf(self)) end
+
+  self.vData.triggerCalculate = false
+  if self.vData.snaplines then
+    self.vData.triggerCalculate = true
+    self.vData.triggerCalculateTime = g_currentMission.time + 1*1000
+  end
 end
 
 -- #############################################################################
@@ -1151,15 +1238,33 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     lC:writeConfig()
   end
 
-  local _snap = false
+  -- toggle snaplines on/off
+  if actionName == "FS22_EnhancedVehicle_SNAP_LINES" then
+    self.vData.snaplines = not self.vData.snaplines
+
+    -- calculate work width
+    if self.vData.snaplines then
+      FS22_EnhancedVehicle:calculateWorkWidth(self)
+    end
+  end
+
   -- steering angle snap on/off
+  local _snap = false
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
     if not self.vData.is[5] then
       if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
         playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
       end
       self.vData.want[5] = true
-      self.vData.want[4] = Round(self.vData.rot, 0)
+      
+      local snapToAngle = FS22_EnhancedVehicle.snapToAngle
+      
+      if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle > 360 then
+        snapToAngle = self.vData.rot
+      end
+         
+      self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
+      
     else
       self.vData.want[5] = false
     end
@@ -1196,22 +1301,22 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-    self.vData.want[4] = Round(self.vData.want[4] + 45.0, 0)
+    self.vData.want[4] = Round(self.vData.want[4] + 90.0, 0)
     if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-    self.vData.want[4] = Round(self.vData.want[4] - 45.0, 0)
+    self.vData.want[4] = Round(self.vData.want[4] - 90.0, 0)
     if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
-    self.vData.want[4] = Round(self.vData.want[4] + 22.5, 1)
+    self.vData.want[4] = Round(self.vData.want[4] + 45.0, 1)
     if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-    self.vData.want[4] = Round(self.vData.want[4] - 22.5, 1)
+    self.vData.want[4] = Round(self.vData.want[4] - 45.0, 1)
     if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
     _snap = true
   end
@@ -1278,11 +1383,63 @@ end
 
 -- #############################################################################
 
+function FS22_EnhancedVehicle:calculateWorkWidth(self)
+  if debug > 1 then print("-> " .. myName .. ": calculateWorkWidth" .. mySelf(self)) end
+
+  self.vData.workWidth = {}
+  self.vData.leftMarker = {}
+  self.vData.rightMarker = {}
+
+  local attachedImplements
+  local i = 0
+  if self.getAttachedImplements ~= nil then
+    attachedImplements = self:getAttachedImplements()
+  end
+  if attachedImplements ~= nil then
+    for _, implement in pairs(attachedImplements) do
+      if implement.object ~= nil then
+        if implement.object.spec_workArea ~= nil then
+          self.vData.workWidth[i] = 0
+          self.vData.leftMarker[i] = nil
+          self.vData.rightMarker[i] = nil
+          for _, workArea in pairs(implement.object.spec_workArea.workAreas) do
+            if workArea.workWidth > self.vData.workWidth[i] then
+              self.vData.workWidth[i] = workArea.workWidth
+              self.vData.leftMarker[i], self.vData.rightMarker[i] = implement.object:getAIMarkers()
+            end
+          end
+          if debug > 1 then print("i: "..i.." / type: "..implement.object.typeName.." / width: "..self.vData.workWidth[i]) end
+          i =  i + 1
+        end
+      end
+    end
+  end
+
+  -- and for our own vehicle
+  if (self.spec_workArea ~= nil) then
+    self.vData.workWidth[i] = 0
+    self.vData.leftMarker[i] = nil
+    self.vData.rightMarker[i] = nil
+    for _, workArea in pairs(self.spec_workArea.workAreas) do
+      if workArea.workWidth > self.vData.workWidth[i] then
+        self.vData.workWidth[i] = workArea.workWidth
+        self.vData.leftMarker[i], self.vData.rightMarker[i] = self:getAIMarkers()
+      end
+    end
+    if debug > 1 then print("i: "..i.." / type: "..self.typeName.." / width: "..self.vData.workWidth[i]) end
+    i =  i + 1
+  end
+end
+
+-- #############################################################################
+
 function FS22_EnhancedVehicle:enumerateAttachments2(rootNode, obj)
   if debug > 1 then print("entering: "..obj.rootNode) end
 
   local idx, attacherJoint
   local relX, relY, relZ
+
+  if obj.spec_attacherJoints == nil then return end
 
   for idx, attacherJoint in pairs(obj.spec_attacherJoints.attacherJoints) do
     -- position relative to our vehicle
@@ -1344,13 +1501,30 @@ function getDmg(start)
         tA = implement.object.spec_wearable:getDamageAmount()
         tL = implement.object.spec_wearable:getWearTotalAmount()
       end
-      dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
+            
+      if FS22_EnhancedVehicle.dmg.showAmountLeft then
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (100 - (tA * 100)), (100 - (tL * 100))) .. "\n" .. dmg_txt2
+      else
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
+      end
+      
       h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
       if implement.object.spec_attacherJoints ~= nil then
         getDmg(implement.object)
       end
     end
   end
+end
+
+function closestAngle(n,m)
+  local q = math.floor(n/m)
+  local n1 = m*q
+  local n2 = m*(q+1)
+  
+  if math.abs(n-n1) < math.abs(n-n2) then
+    return n1
+  end
+  return n2
 end
 
 -- #############################################################################
