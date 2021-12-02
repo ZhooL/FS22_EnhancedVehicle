@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<texts>
+		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: Bloqueia sentido actual"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: Bloqueia sentido anterior"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Bloqueia sentido inverso (180°)"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_LINES" text="EV: Linhas de assistência on/off"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 1°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 1°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 45°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 45°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 90°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 90°"/>
+		<text name="input_FS22_EnhancedVehicle_FD" text="EV: Bloqueio do diferencial dianteiro on/off"/>
+		<text name="input_FS22_EnhancedVehicle_RD" text="EV: Bloqueio do diferencial traseiro on/off"/>
+		<text name="input_FS22_EnhancedVehicle_BD" text="EV: Bloqueio de ambos os diferenciais on/off"/>
+		<text name="input_FS22_EnhancedVehicle_DM" text="EV: Alterar modo de tracção"/>
+		<text name="input_FS22_EnhancedVehicle_TOGGLE_DISPLAY" text="EV: Exibir Dano/Combustivel on/off"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN" text="EV: Hidráulico trás cima/baixo"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF" text="EV: Hidráulico trás on/off"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hidráulico frente cima/baixo"/>
+		<text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF" text="EV: Hidráulico frente on/off"/>
+		<text name="input_FS22_EnhancedVehicle_RESET" text="EV: reset HUD"/>
+		<text name="input_FS22_EnhancedVehicle_RELOAD" text="EV: recarregar ficheiro de configuração XML"/>
+	</texts>
+</l10n>
