@@ -281,6 +281,7 @@ function FS22_EnhancedVehicle:activateConfig()
     FS22_EnhancedVehicle[section].posY    = lC:getConfigValue("hud."..section, "posY")
   end
   FS22_EnhancedVehicle.diff.zoomFactor    = lC:getConfigValue("hud.diff", "zoomFactor")
+  FS22_EnhancedVehicle.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
 
   -- update HUD transparency
   setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
@@ -334,6 +335,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.fuel", "posY", "float",   _y or 0)
 
   -- dmg
+  lC:addConfigValue("hud.dmg", "showAmountLeft", "bool", false)
   if g_currentMission.inGameMenu.hud.speedMeter.damageGaugeIconElement ~= nil then
     _x = baseX - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.4)
     _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
@@ -764,6 +766,11 @@ function FS22_EnhancedVehicle:onDraw()
       dmg_txt = ""
       if self.spec_wearable ~= nil then
         dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (self.spec_wearable:getDamageAmount() * 100), (self.spec_wearable:getWearTotalAmount() * 100))
+        
+        if FS22_EnhancedVehicle.dmg.showAmountLeft then
+          dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (100 - (self.spec_wearable:getDamageAmount() * 100)), (100 - (self.spec_wearable:getWearTotalAmount() * 100)))
+        end
+        
         h = h + fS + tP
       end
 
@@ -1495,6 +1502,11 @@ function getDmg(start)
         tL = implement.object.spec_wearable:getWearTotalAmount()
       end
       dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
+      
+      if FS22_EnhancedVehicle.dmg.showAmountLeft then
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (100 - (tA * 100)), (100 - (tL * 100))) .. "\n" .. dmg_txt2
+      end
+      
       h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
       if implement.object.spec_attacherJoints ~= nil then
         getDmg(implement.object)
