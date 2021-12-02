@@ -1491,10 +1491,11 @@ function getDmg(start)
         tA = implement.object.spec_wearable:getDamageAmount()
         tL = implement.object.spec_wearable:getWearTotalAmount()
       end
-      dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
-      
+            
       if FS22_EnhancedVehicle.dmg.showAmountLeft then
         dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (100 - (tA * 100)), (100 - (tL * 100))) .. "\n" .. dmg_txt2
+      else
+        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
       end
       
       h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
