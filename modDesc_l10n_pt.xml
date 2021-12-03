@@ -7,10 +7,10 @@
 		<text name="input_FS22_EnhancedVehicle_SNAP_LINES" text="EV: Linhas de assistência on/off"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 1°"/>
 		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 1°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 45°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 45°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Aumenta bloqueio de sentido em 90°"/>
-		<text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Diminui bloqueio de sentido em 90°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_INC2" text="EV: Aumenta bloqueio de sentido em 45°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_DEC2" text="EV: Diminui bloqueio de sentido em 45°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_INC3" text="EV: Aumenta bloqueio de sentido em 90°"/>
+		<text name="input_FS22_EnhancedVehicle_SNAP_DEC3" text="EV: Diminui bloqueio de sentido em 90°"/>
 		<text name="input_FS22_EnhancedVehicle_FD" text="EV: Bloqueio do diferencial dianteiro on/off"/>
 		<text name="input_FS22_EnhancedVehicle_RD" text="EV: Bloqueio do diferencial traseiro on/off"/>
 		<text name="input_FS22_EnhancedVehicle_BD" text="EV: Bloqueio de ambos os diferenciais on/off"/>
