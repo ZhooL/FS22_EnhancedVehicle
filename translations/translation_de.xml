@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>Majo76</translationContributors>
+
+  <texts>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF" text="EV: aktuelle Fahrtrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2" text="EV: vorheriger Fahrtrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE" text="EV: Fahrtrichtung umkehren (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES" text="EV: Hilfslinien an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1" text="EV: Fahrtrichtung erhöhen um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1" text="EV: Fahrtrichtung verringern um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2" text="EV: Fahrtrichtung erhöhen um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2" text="EV: Fahrtrichtung verringern um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3" text="EV: Fahrtrichtung erhöhen um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3" text="EV: Fahrtrichtung verringern um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_FD" text="EV: Differentialsperre Vorderachse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_RD" text="EV: Differentialsperre Hinterachse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_BD" text="EV: Beide Differentialsperren an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_DM" text="EV: Antriebsmodus wechseln"/>
+    <text name="input_FS22_EnhancedVehicle_TOGGLE_DISPLAY" text="EV: Schaden-/Kraftstoffanzeige an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN" text="EV: Hydraulik hinten hoch/runter"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF" text="EV: Hydraulik hinten an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hydraulik vorne hoch/runter"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF" text="EV: Hydraulik vorne an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_RESET" text="EV: HUD zurücksetzen"/>
+    <text name="input_FS22_EnhancedVehicle_RELOAD" text="EV: XML Konfigurationsdatei neu laden"/>
+    <text name="input_FS22_EnhancedVehicle_MENU" text="EV: Konfigurationsmenü öffnen"/>
+
+    <text name="ui_FS22_EnhancedVehicle_on" text="An"/>
+    <text name="ui_FS22_EnhancedVehicle_off" text="Aus"/>
+
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Globale Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="HUD Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Spurhalteassistent Einstellungen"/>
+
+    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Mod-Konfiguration zurücksetzen"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Konfigurationsdatei zurücksetzen"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="ACHTUNG: Setzt alle Einstellungen für diesen Mod auf seine Ursprungswerte zurück!"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="Mod-Konfiguration (XML) neu laden"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Konfigurationsdatei neu laden"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Lädt die Konfigurationsdatei neu ein. Notwendig nach manuellen Änderungen in der XML"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Spurhalteassistent"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Schaltet die globale Funktionalität des Spurhalteassistenten an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Differentialsperren"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Schaltet die globale Funktionalität der Differentialsperren an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Verbesserte Hydrauliksteuerung"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Schaltet die globale Funktionalität der verbesserten Hydrauliksteuerung an/aus"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Differentialsperren"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Schaltet die HUD Anzeige für die Differentiale an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD: Schadensanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Schaltet die HUD Anzeige für die Schadenswerte an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Kraftstoffwerteanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Schaltet die HUD Anzeige für die Kraftstoffwerte an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Spurhalteassistent Ausrichtungsanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Schaltet die HUD Anzeige für die Gradzahlen des Spurhalteassistenten an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Motordrehzahlanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Schaltet die HUD Anzeige für die Motordrehzahl an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Motortemperaturanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Schaltet die HUD Anzeige für die Motortemperatur an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Sonstige Werte (Gewicht)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Schaltet die HUD Anzeige für die sonstigen Werte (z.B. Gewicht) an/aus"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Modus der Schadensanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Anzeige der Schadenswerte in '% unbeschädigt' anstatt '% beschädigt'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% unbeschädigt"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% beschädigt"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Einrastwinkel"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Legt fest, in welchen Gradschritten die Fahrtrichtung eingerastet wird (1°-90°)"/>
+
+  </texts>
+</l10n>

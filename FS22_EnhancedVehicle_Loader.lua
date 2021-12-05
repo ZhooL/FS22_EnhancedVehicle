@@ -15,10 +15,7 @@ local modName = g_currentModName
 
 source(Utils.getFilename("FS22_EnhancedVehicle.lua", directory))
 source(Utils.getFilename("FS22_EnhancedVehicle_Event.lua", directory))
---source(Utils.getFilename("ui/FS22_EnhancedVehicle_UI.lua", directory))
---source(Utils.getFilename("ui/FS22_EnhancedVehicle_Menu.lua", directory))
---source(Utils.getFilename("ui/FS22_EnhancedVehicle_Frame_GlobalSettings.lua", directory))
---source(Utils.getFilename("ui/FS22_EnhancedVehicle_Frame_SnapSettings.lua", directory))
+source(Utils.getFilename("ui/FS22_EnhancedVehicle_UI.lua", directory))
 
 -- include our libUtils
 source(Utils.getFilename("libUtils.lua", g_currentModDirectory))

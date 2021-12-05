@@ -1,6 +1,8 @@
 # FS22_EnhancedVehicle
 This is a Mod for Farming Simulator 22. It adds a basic "snap driving direction" mode, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
+**ATTENTION: Key bindings changed during development. If you can't access a mod function: check your key bindings and rebind the function.**
+
 **WARNING: Work-in-progress. This is a dev version - it might contain bugs. Please report unusual issues.**
 
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: (still to be defined). All other download locations are not validated by me - so handle with care.**
@@ -11,11 +13,12 @@ This is a Mod for Farming Simulator 22. It adds a basic "snap driving direction"
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Known bugs
-* game crash when "leaving game"
+* none
 
 ## Default Keybindings
 | Key | Action |
 | --  | --     |
+| <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | opens the config dialog to adjust various settings |
 | <kbd>Ctrl</kbd>+<kbd>End</kbd> | snap current driving direction |
 | <kbd>Shift</kbd>+<kbd>End</kbd> | snap previous driving direction (=resume old direction)|
 | <kbd>Ctrl</kbd>+<kbd>Home</kbd> | reverse snap direction (180°) and enable snap|
@@ -29,9 +32,6 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
 | <kbd>Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
 | <kbd>Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
-| <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | reset mods HUD elements to its default position<br>use this if you messed up the config or changed the GUI scale |
-| <kbd>Ctrl</kbd>+<kbd>Num *</kbd> | reload XML config from disk to show modifications immediately without restarting the complete game |
-| <kbd>Shift</kbd>+<kbd>Home</kbd> | toggle damage/fuel display on/off |
 | <kbd>L Alt</kbd>+<kbd>1</kbd> | rear attached devices up/down |
 | <kbd>L Alt</kbd>+<kbd>2</kbd> | rear attached devices on/off |
 | <kbd>L Alt</kbd>+<kbd>3</kbd> | front attached devices up/down |
@@ -39,6 +39,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## What this mod does
 * When the game starts, it changes all "motorized" and "controllable" vehicles on the map to default settings: wheel drive mode to "all-wheel (4WD)" and deactivation of both differentials.
+* Press <kbd>Ctrl</kbd>+<kbd>Numpad /</kbd> to open the config dialog.
 * Press <kbd>Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
   * Press <kbd>Ctrl</kbd>+<kbd>Home</kbd> to reverse snap direction (useful after turn around at end of field)
 * On HUD it displays:
