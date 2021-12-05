@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-  <translationContributors>Majo76</translationContributors>
+  <translationContributors>aurelien2023</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Snap current direction"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Snap previous direction"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Reverse snap direction (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Helplines on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Increase snap direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Decrease snap direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Increase snap direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Decrease snap direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Increase snap direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Decrease snap direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differential lock front axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differential lock rear axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Both differential locks on/off"/>
-    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Change wheel drive mode"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: rear hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: rear hydraulic on/off"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Bloquer la direction"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Revenir à l'ancienne direction"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Retourner la direction (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Lignes d'aides on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: augmenter la direction de 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: diminuer la direction de 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: augmenter la direction de 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: diminuer la direction de 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: augmenter la direction de 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: diminuer la direction de 90°"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Blocage differentiel avant on/off"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Blocage differentiel arriere on/off"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Blocage tous differentiels on/off"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Changement mode de conduite 4x4/2x4"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: outil arriere haut/bas"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: outil arriere on/off"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: outil avant haut/bas"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: outil avant on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>

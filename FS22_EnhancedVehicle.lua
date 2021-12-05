@@ -15,6 +15,8 @@ CHANGELOG
 + merged option to show damage values in "% left" instead of "% damage"
 + added background behind the snap angle display
 + added zoomFactor config variable in XML for zoom of snap angle display
++ added Portuguese translation (thanks to TheChoseOne900)
++ added French translation (thanks to aurelien2023)
 
 2011-11-29 - V0.9.6.0
 + added visualization for snap feature (shift + home)

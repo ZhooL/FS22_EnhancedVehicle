@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-  <translationContributors>Majo76</translationContributors>
+  <translationContributors>TheChoseOne900</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Snap current direction"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Snap previous direction"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Reverse snap direction (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Helplines on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Increase snap direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Decrease snap direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Increase snap direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Decrease snap direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Increase snap direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Decrease snap direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differential lock front axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differential lock rear axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Both differential locks on/off"/>
-    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Change wheel drive mode"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: rear hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: rear hydraulic on/off"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Bloqueia sentido actual"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Bloqueia sentido anterior"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Bloqueia sentido inverso (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Linhas de assistência on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Aumenta bloqueio de sentido em 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Diminui bloqueio de sentido em 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Aumenta bloqueio de sentido em 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Diminui bloqueio de sentido em 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Aumenta bloqueio de sentido em 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Diminui bloqueio de sentido em 90°"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloqueio do diferencial traseiro on/off"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Bloqueio de ambos os diferenciais on/off"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Alterar modo de tracção"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Hidráulico trás cima/baixo"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Hidráulico trás on/off"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hidráulico frente cima/baixo"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Hidráulico frente on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
