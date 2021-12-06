@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 22.11.2021
--- @Version: 1.0.0.0
+-- @Date: 06.12.2021
+-- @Version: 1.0.1.0
 
 -- #############################################################################
 
@@ -153,11 +153,14 @@ function libConfig:readConfig()
     if data.typ == "float" then
       self.dataCurrent[key].value = Utils.getNoNil(getXMLFloat(xml, groupNameTag .. "#" .. data.name), self.dataCurrent[key].value)
     end
+    if data.typ == "int" then
+      self.dataCurrent[key].value = Utils.getNoNil(getXMLInt(xml, groupNameTag .. "#" .. data.name), self.dataCurrent[key].value)
+    end
     if data.typ == "bool" then
       self.dataCurrent[key].value = Utils.getNoNil(getXMLBool(xml, groupNameTag .. "#" .. data.name), self.dataCurrent[key].value)
     end
     if data.typ == "table" then
-      self.dataCurrent[key].value = Utils.getNoNil(string.split(",", getXMLString(xml, groupNameTag .. "#" .. data.name)), self.dataCurrent[key].value)
+      self.dataCurrent[key].value = self:splitter( Utils.getNoNil(getXMLString(xml, groupNameTag .. "#" .. data.name), self.dataCurrent[key].value), ",")
     end
   end
 end
@@ -206,6 +209,9 @@ function libConfig:writeConfig()
     if data.typ == "float" then
       setXMLFloat(xml, groupNameTag .. "#" .. data.name, tonumber(data.value))
     end
+    if data.typ == "int" then
+      setXMLInt(xml, groupNameTag .. "#" .. data.name, math.floor(tonumber(data.value)))
+    end
     if data.typ == "bool" then
       setXMLBool(xml, groupNameTag .. "#" .. data.name, data.value)
     end
@@ -233,4 +239,32 @@ function libConfig:getKeysSortedByValue(tbl, sortFunction)
   end)
 
   return keys
+end
+
+-- #############################################################################
+
+function libConfig:splitter(str, pat, limit)
+  local t = {}
+  local fpat = "(.-)" .. pat
+  local last_end = 1
+  local s, e, cap = str:find(fpat, 1)
+  while s do
+    if s ~= 1 or cap ~= "" then
+      table.insert(t, cap)
+    end
+
+    last_end = e+1
+    s, e, cap = str:find(fpat, last_end)
+
+    if limit ~= nil and limit <= #t then
+      break
+    end
+  end
+
+  if last_end <= #str then
+    cap = str:sub(last_end)
+    table.insert(t, cap)
+  end
+
+  return t
 end

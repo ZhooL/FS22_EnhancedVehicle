@@ -13,6 +13,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: diminuer la direction de 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: augmenter la direction de 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: diminuer la direction de 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Grid on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Blocage differentiel avant on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Blocage differentiel arriere on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Blocage tous differentiels on/off"/>

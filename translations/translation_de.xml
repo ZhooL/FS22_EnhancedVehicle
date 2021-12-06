@@ -13,6 +13,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Fahrtrichtung verringern um 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Fahrtrichtung erhöhen um 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Fahrtrichtung verringern um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Hilfsgitter an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Hilfsgitter neu ausrichten"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differentialsperre Vorderachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differentialsperre Hinterachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Beide Differentialsperren an/aus"/>
