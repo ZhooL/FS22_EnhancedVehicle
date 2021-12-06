@@ -1687,15 +1687,15 @@ function FS22_EnhancedVehicle:calculateWorkWidth(self)
               self.vData.leftMarker[i], self.vData.rightMarker[i] = implement.object:getAIMarkers()
 
               -- for safety we calculate the distance between left and right marker and use that value if its greater than engine value
-              p1x, _, p1z = localToWorld(self.vData.leftMarker[i], 0, 0, 0)
-              p2x, _, p2z = localToWorld(self.vData.rightMarker[i], 0, 0, 0)
-              dist = math.sqrt( (p2x-p1x)^2 + (p2z-p1z)^2 )
-              if dist > self.vData.workWidth[i] then
-                self.vData.workWidth[i] = dist
-              end
+--              p1x, _, p1z = localToWorld(self.vData.leftMarker[i], 0, 0, 0)
+--              p2x, _, p2z = localToWorld(self.vData.rightMarker[i], 0, 0, 0)
+--              dist = math.sqrt( (p2x-p1x)^2 + (p2z-p1z)^2 )
+--              if dist > self.vData.workWidth[i] then
+--                self.vData.workWidth[i] = dist
+--              end
             end
           end
-          if debug > 1 then print("i: "..i.." / type: "..implement.object.typeName.." / width: "..self.vData.workWidth[i].." / w2: "..dist) end
+--          if debug > 1 then print("i: "..i.." / type: "..implement.object.typeName.." / width: "..self.vData.workWidth[i].." / w2: "..dist) end
           i =  i + 1
         end
       end
