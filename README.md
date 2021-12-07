@@ -13,7 +13,7 @@ This is a Mod for Farming Simulator 22. It adds a basic "snap driving direction"
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Known bugs
-* none
+* No bug, but I'm not 100% satisfied with the grid visualization for asymmetric attachments like plows...
 
 ## Default Keybindings
 | Key | Action |

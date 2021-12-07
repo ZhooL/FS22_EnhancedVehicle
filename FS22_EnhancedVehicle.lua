@@ -3,11 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 06.12.2021
+-- @Date: 07.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-07 - V0.9.8.3
+* reworked workwidth calculation
++ support for attachments with offset (e.g. plow)
 
 2021-12-06 - V0.9.8.0
 + added grid to visualize lanes (on/off: strg + numpad 1 # recalculate: strg + numpad 2)
@@ -308,7 +312,8 @@ function FS22_EnhancedVehicle:activateConfig()
 
   -- snap
   FS22_EnhancedVehicle.snap = {}
-  FS22_EnhancedVehicle.snap.snapToAngle = lC:getConfigValue("snap.snapToAngle", "angle")
+  FS22_EnhancedVehicle.snap.snapToAngle = lC:getConfigValue("snap", "snapToAngle")
+  FS22_EnhancedVehicle.snap.spikeHeight = lC:getConfigValue("snap", "spikeHeight")
   FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine  = lC:getConfigValue("snap", "distanceAboveGroundVehicleMiddleLine")
   FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine    = lC:getConfigValue("snap", "distanceAboveGroundVehicleSideLine")
   FS22_EnhancedVehicle.snap.distanceAboveGroundAttachmentSideLine = lC:getConfigValue("snap", "distanceAboveGroundAttachmentSideLine")
@@ -391,7 +396,8 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("global.misc", "soundIsOn", "bool",            true)
 
   -- snap
-  lC:addConfigValue("snap.snapToAngle", "angle", "float", 10.0)
+  lC:addConfigValue("snap", "snapToAngle", "float", 10.0)
+  lC:addConfigValue("snap", "spikeHeight", "float", 0.75)
   lC:addConfigValue("snap", "distanceAboveGroundVehicleMiddleLine",  "float", 0.3)
   lC:addConfigValue("snap", "distanceAboveGroundVehicleSideLine",    "float", 0.25)
   lC:addConfigValue("snap", "distanceAboveGroundAttachmentSideLine", "float", 0.20)
@@ -697,7 +703,7 @@ function FS22_EnhancedVehicle:drawVisualizationLines(_step, _segments, _x, _y, _
   drawDebugLine(p1.x, p1.y, p1.z, _colorR, _colorG, _colorB, p2.x, p2.y, p2.z, _colorR, _colorG, _colorB)
 
   if _spikes then
-    drawDebugLine(p2.x, p2.y, p2.z, _colorR, _colorG, _colorB, p2.x, p2.y + 0.5, p2.z, _colorR, _colorG, _colorB)
+    drawDebugLine(p2.x, p2.y, p2.z, _colorR, _colorG, _colorB, p2.x, p2.y + FS22_EnhancedVehicle.snap.spikeHeight, p2.z, _colorR, _colorG, _colorB)
   end
 
   FS22_EnhancedVehicle:drawVisualizationLines(_step + 1, _segments, p2.x, p2.y, p2.z, _dX, _dZ, _length, _colorR, _colorG, _colorB, _addY, _spikes)
@@ -721,7 +727,7 @@ function FS22_EnhancedVehicle:onDraw()
       local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
       p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine
       FS22_EnhancedVehicle:drawVisualizationLines(1,
-        20,
+        10,
         p1.x,
         p1.y,
         p1.z,
@@ -735,12 +741,33 @@ function FS22_EnhancedVehicle:onDraw()
 
       -- draw attachment helper lines
       if self.vData.workWidth ~= nil then
+        _maxwidth = -999999
         for i,_ in pairs(self.vData.workWidth) do
           if self.vData.workWidth[i] > 0 and self.vData.leftMarker[i] ~= nil and self.vData.rightMarker[i] ~= nil then
+            -- update work width with live data (e.g. unfolding a device)
+            local leftx  = localToLocal(self.vData.leftMarker[i],  self.vData.node[i], 0, 0, 0)
+            local rightx = localToLocal(self.vData.rightMarker[i], self.vData.node[i], 0, 0, 0)
+            self.vData.workWidth[i] = math.abs(leftx - rightx)
+            self.vData.offset[i] = (leftx + rightx) * 0.5
+
+            -- is it a asymmetric attachment?
+            local _o = math.abs(leftx) - math.abs(rightx)
+            if _o < -0.1 or _o > 0.1 then
+              local leftx  = localToLocal(self.vData.leftMarker[i],  self.rootNode, 0, 0, 0)
+              local rightx = localToLocal(self.vData.rightMarker[i], self.rootNode, 0, 0, 0)
+              self.vData.offset[i] = (leftx + rightx) * 0.5
+            end
+
+            -- is this attachment wider than the previous?
+            if self.vData.workWidth[i] > _maxwidth then
+              _maxwidth = self.vData.workWidth[i]
+              self.vData.grid.offset = self.vData.offset[i]
+            end
+
             -- left line beside vehicle
             local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
-            p1.x = p1.x + -dZ * self.vData.workWidth[i] / 2
-            p1.z = p1.z + dX * self.vData.workWidth[i] / 2
+            p1.x = p1.x + (-dZ * self.vData.workWidth[i] / 2) - (-dZ * self.vData.offset[i])
+            p1.z = p1.z + ( dX * self.vData.workWidth[i] / 2) - ( dX * self.vData.offset[i])
             p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine
             FS22_EnhancedVehicle:drawVisualizationLines(1,
               20,
@@ -757,9 +784,9 @@ function FS22_EnhancedVehicle:onDraw()
 
             -- right line beside vehicle
             local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
-            p1.x = p1.x - -dZ * self.vData.workWidth[i] / 2
-            p1.z = p1.z - dX * self.vData.workWidth[i] / 2
-            p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + 0.3
+            p1.x = p1.x - (-dZ * self.vData.workWidth[i] / 2) - (-dZ * self.vData.offset[i])
+            p1.z = p1.z - ( dX * self.vData.workWidth[i] / 2) - ( dX * self.vData.offset[i])
+            p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine
             FS22_EnhancedVehicle:drawVisualizationLines(1,
               20,
               p1.x,
@@ -795,7 +822,7 @@ function FS22_EnhancedVehicle:onDraw()
 
             -- draw attachment right helper line
             p1.x, p1.y, p1.z = localToWorld(self.vData.rightMarker[i], 0, 0, 0)
-            p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + 0.25
+            p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundAttachmentSideLine
             local dx, dy, dz = localDirectionToWorld(self.vData.rightMarker[i], 0, 0, 1)
             length = MathUtil.vector2Length(dx, dz);
             adX = dx / length
@@ -845,8 +872,8 @@ function FS22_EnhancedVehicle:onDraw()
             k = k + 2 * dir
             segments = 12
           end
-          local startX = self.vData.grid.px + -self.vData.grid.dZ * (j*self.vData.grid.workWidth) - self.vData.grid.dX * (k*self.vData.grid.workWidth)
-          local startZ = self.vData.grid.pz + self.vData.grid.dX * (j*self.vData.grid.workWidth) - self.vData.grid.dZ * (k*self.vData.grid.workWidth)
+          local startX = self.vData.grid.px + (-self.vData.grid.dZ * (j * self.vData.grid.workWidth)) - (self.vData.grid.dX * (k * self.vData.grid.workWidth))
+          local startZ = self.vData.grid.pz + ( self.vData.grid.dX * (j * self.vData.grid.workWidth)) - (self.vData.grid.dZ * (k * self.vData.grid.workWidth))
           local startY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, startX, 0, startZ) + FS22_EnhancedVehicle.grid.distanceAboveGround
           FS22_EnhancedVehicle:drawVisualizationLines(1,
             segments,
@@ -860,9 +887,13 @@ function FS22_EnhancedVehicle:onDraw()
             FS22_EnhancedVehicle.grid.color[1],
             FS22_EnhancedVehicle.grid.color[2],
             FS22_EnhancedVehicle.grid.distanceAboveGround)
+          -- middle line
           if (i == 0) then
-            local startX = self.vData.grid.px + -self.vData.grid.dZ * ((j+.5)*self.vData.grid.workWidth) - self.vData.grid.dX * (k*self.vData.grid.workWidth)
-            local startZ = self.vData.grid.pz + self.vData.grid.dX * ((j+.5)*self.vData.grid.workWidth) - self.vData.grid.dZ * (k*self.vData.grid.workWidth)
+            if self.vData.grid.offset < (-self.vData.grid.workWidth / 2) then self.vData.grid.offset = self.vData.grid.offset + (self.vData.grid.workWidth) end
+            if self.vData.grid.offset > ( self.vData.grid.workWidth / 2) then self.vData.grid.offset = self.vData.grid.offset - (self.vData.grid.workWidth) end
+
+            local startX = self.vData.grid.px + (-self.vData.grid.dZ * ((j + .5) * self.vData.grid.workWidth)) - (self.vData.grid.dX * (k * self.vData.grid.workWidth)) + (-self.vData.grid.dZ * self.vData.grid.offset * dir)
+            local startZ = self.vData.grid.pz + ( self.vData.grid.dX * ((j + .5) * self.vData.grid.workWidth)) - (self.vData.grid.dZ * (k * self.vData.grid.workWidth)) + ( self.vData.grid.dX * self.vData.grid.offset * dir)
             local startY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, startX, 0, startZ) + FS22_EnhancedVehicle.grid.distanceAboveGround
             FS22_EnhancedVehicle:drawVisualizationLines(1,
               segments,
@@ -1531,34 +1562,58 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     _snap = true
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
-    self.vData.want[4] = Round(self.vData.want[4] + 1, 0)
-    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] + 1, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
-    self.vData.want[4] = Round(self.vData.want[4] - 1, 0)
-    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] - 1, 0)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-    self.vData.want[4] = Round(self.vData.want[4] + 90.0, 0)
-    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] + 90.0, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-    self.vData.want[4] = Round(self.vData.want[4] - 90.0, 0)
-    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] - 90.0, 0)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
-    self.vData.want[4] = Round(self.vData.want[4] + 45.0, 1)
-    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] + 45.0, 1)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-    self.vData.want[4] = Round(self.vData.want[4] - 45.0, 1)
-    if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-    _snap = true
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.want[4] - 45.0, 1)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+    end
   end
 
   -- disable steering angle snap if user interacts
@@ -1567,6 +1622,14 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       self.vData.want[5] = false
       _snap = true
     end
+  end
+
+  if _snap then
+    if self.isClient and not self.isServer then
+      self.vData.is[4] = self.vData.want[4]
+      self.vData.is[5] = self.vData.want[5]
+    end
+    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
   -- helping grid on/off
@@ -1585,15 +1648,15 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
   -- recalculate grid
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_GRID_RESET" then
-    FS22_EnhancedVehicle:calculateGrid(self)
-  end
-
-  if _snap then
-    if self.isClient and not self.isServer then
-      self.vData.is[4] = self.vData.want[4]
-      self.vData.is[5] = self.vData.want[5]
+    if not FS22_EnhancedVehicle:calculateGrid(self) then
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
     end
-    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
+
+    -- turn on grid visibility
+    if not self.vData.grid.isVisible then
+      self.vData.grid.isVisible = true
+      self.vData.snaplines = true
+    end
   end
 
   -- configuration dialog
@@ -1626,38 +1689,63 @@ function FS22_EnhancedVehicle:calculateGrid(self)
 
   -- search widest attachment
   _width = 0
+  _offset = 0
   for i,_ in pairs(self.vData.workWidth) do
     if self.vData.workWidth[i] > _width then
       _width = self.vData.workWidth[i]
+      _offset = self.vData.offset[i]
+      _leftMarker = self.vData.leftMarker[i]
     end
   end
 
   if _width > 0 then
     self.vData.grid.workWidth = _width
+    self.vData.grid.offset = _offset
 
     -- copy current vehicle position and direction as base for our grid
     local length = MathUtil.vector2Length(self.vData.dx, self.vData.dz);
-    local dX = -self.vData.dz / length
-    local dZ = self.vData.dx / length
+    local dX = self.vData.dx / length
+    local dZ = self.vData.dz / length
 
-    self.vData.grid.px = self.vData.px + dX * (self.vData.grid.workWidth / 2)
+    -- smoothen grid angle to snapToAngle
+    local rot = 180 - math.deg(math.atan2(dX, dZ))
+    -- if cabin is rotated -> direction should rotate also
+    if self.spec_drivable.reverserDirection < 0 then
+      rot = rot + 180
+      if rot >= 360 then rot = rot - 360 end
+    end
+    rot = Round(rot, 1)
+    local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
+    if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle >= 360 then
+      snapToAngle = rot
+    end
+    -- if snap is active then snap to angle
+    if self.vData.is[5] then
+      rot = Round(closestAngle(rot, snapToAngle), 0)
+    else
+      rot = Round(rot, 0)
+    end
+    dX = math.sin(math.rad(rot))
+    dZ = -math.cos(math.rad(rot))
+
+    -- grid start position
+    self.vData.grid.px = self.vData.px + -dZ * (self.vData.grid.workWidth / 2) - (-dZ * _offset)
     self.vData.grid.py = self.vData.py
-    self.vData.grid.pz = self.vData.pz + dZ * (self.vData.grid.workWidth / 2)
+    self.vData.grid.pz = self.vData.pz + dX * (self.vData.grid.workWidth / 2) - (dX * _offset)
 
-    self.vData.grid.dx = self.vData.dx
-    self.vData.grid.dy = self.vData.dy
-    self.vData.grid.dz = self.vData.dz
-
-    length = MathUtil.vector2Length(self.vData.grid.dx, self.vData.grid.dz);
-    self.vData.grid.dX = self.vData.grid.dx / length
-    self.vData.grid.dZ = self.vData.grid.dz / length
+    self.vData.grid.dX = dX
+    self.vData.grid.dZ = dZ
 
     self.vData.grid.dotFBPrev = 999999
 
     self.vData.grid.isCalculated = true
 
-    if debug > 1 then print("p: ("..self.vData.grid.px.."/"..self.vData.grid.py.."/"..self.vData.grid.pz..") d: ("..self.vData.grid.dx.."/"..self.vData.grid.dy.."/"..self.vData.grid.dz..") w: "..self.vData.grid.workWidth) end
+    if debug > 1 then print("p: ("..self.vData.grid.px.."/"..self.vData.grid.py.."/"..self.vData.grid.pz..") dXZ: ("..self.vData.grid.dX.."/"..self.vData.grid.dZ..") w: "..self.vData.grid.workWidth) end
+  else
+    return false
   end
+
+  return true
 end
 
 -- #############################################################################
@@ -1668,6 +1756,8 @@ function FS22_EnhancedVehicle:calculateWorkWidth(self)
   self.vData.workWidth = {}
   self.vData.leftMarker = {}
   self.vData.rightMarker = {}
+  self.vData.offset = {}
+  self.vData.node = {}
 
   local attachedImplements
   local i = 0
@@ -1675,44 +1765,78 @@ function FS22_EnhancedVehicle:calculateWorkWidth(self)
     attachedImplements = self:getAttachedImplements()
   end
   if attachedImplements ~= nil then
+    -- go through all attached implements
     for _, implement in pairs(attachedImplements) do
-      if implement.object ~= nil then
-        if implement.object.spec_workArea ~= nil then
-          self.vData.workWidth[i] = 0
-          self.vData.leftMarker[i] = nil
-          self.vData.rightMarker[i] = nil
-          for _, workArea in pairs(implement.object.spec_workArea.workAreas) do
-            if workArea.workWidth > self.vData.workWidth[i] then
-              self.vData.workWidth[i] = workArea.workWidth
-              self.vData.leftMarker[i], self.vData.rightMarker[i] = implement.object:getAIMarkers()
+      if implement.object ~= nil and implement.object.spec_workArea ~= nil then
+        self.vData.workWidth[i]   = 0
+        self.vData.leftMarker[i]  = nil
+        self.vData.rightMarker[i] = nil
+        self.vData.offset[i]      = nil
+        self.vData.node[i]        = nil
 
-              -- for safety we calculate the distance between left and right marker and use that value if its greater than engine value
---              p1x, _, p1z = localToWorld(self.vData.leftMarker[i], 0, 0, 0)
---              p2x, _, p2z = localToWorld(self.vData.rightMarker[i], 0, 0, 0)
---              dist = math.sqrt( (p2x-p1x)^2 + (p2z-p1z)^2 )
---              if dist > self.vData.workWidth[i] then
---                self.vData.workWidth[i] = dist
---              end
-            end
+  --print(DebugUtil.printTableRecursively(implement.object, 0, 0, 1))
+
+--[[
+        -- go through all workAreas of this implement
+        for _, workArea in pairs(implement.object.spec_workArea.workAreas) do
+          -- only areas with a function
+          if workArea.functionName ~= nil then
+            -- calculate min/max values from width+height nodes
+            _min = 99999999
+            _max = -99999999
+            x0 = localToLocal(workArea.start, self.rootNode, 0, 0, 0)
+            x1 = localToLocal(workArea.width, self.rootNode, 0, 0, 0)
+            x2 = localToLocal(workArea.height, self.rootNode, 0, 0, 0)
+            if x1 < _min then _min = x1 end
+            if x2 > _max then _max = x2 end
+            self.vData.offset[i] = (_min + _max) * 0.5
+            _width = _max + math.abs(_min)
+
+            if debug > 1 then print("x0: "..x0..", x1: "..x1..", x2: "..x2..", min: ".._min..", max: ".._max..", width: ".._width) end
           end
---          if debug > 1 then print("i: "..i.." / type: "..implement.object.typeName.." / width: "..self.vData.workWidth[i].." / w2: "..dist) end
-          i =  i + 1
+        end -- end of workAreas
+]]--
+
+        -- distance between getAIMarkers
+        self.vData.leftMarker[i], self.vData.rightMarker[i] = implement.object:getAIMarkers()
+        self.vData.node[i] = implement.object.rootNode
+        if self.vData.leftMarker[i] ~= nil and self.vData.rightMarker[i] ~= nil then
+          local leftx  = localToLocal(self.vData.leftMarker[i],  implement.object.rootNode, 0, 0, 0)
+          local rightx = localToLocal(self.vData.rightMarker[i], implement.object.rootNode, 0, 0, 0)
+          self.vData.workWidth[i] = math.abs(leftx - rightx)
+          self.vData.offset[i] = (leftx + rightx) * 0.5
+          local _o = math.abs(leftx) - math.abs(rightx)
+          -- is it a asymetric attachment?
+          if _o < -0.1 or _o > 0.1 then
+            local leftx  = localToLocal(self.vData.leftMarker[i],  self.rootNode, 0, 0, 0)
+            local rightx = localToLocal(self.vData.rightMarker[i], self.rootNode, 0, 0, 0)
+            self.vData.offset[i] = (leftx + rightx) * 0.5
+          end
         end
+
+        if debug > 1 then print("i: "..i.." / type: "..implement.object.typeName.." / width: "..self.vData.workWidth[i].." / offset: "..self.vData.offset[i]) end
+        i =  i + 1
       end
     end
   end
 
   -- and for our own vehicle
   if (self.spec_workArea ~= nil) then
-    self.vData.workWidth[i] = 0
-    self.vData.leftMarker[i] = nil
+    self.vData.workWidth[i]   = 0
+    self.vData.leftMarker[i]  = nil
     self.vData.rightMarker[i] = nil
-    for _, workArea in pairs(self.spec_workArea.workAreas) do
-      if workArea.workWidth > self.vData.workWidth[i] then
-        self.vData.workWidth[i] = workArea.workWidth
-        self.vData.leftMarker[i], self.vData.rightMarker[i] = self:getAIMarkers()
-      end
+    self.vData.offset[i]      = nil
+    self.vData.node[i]        = nil
+
+    self.vData.leftMarker[i], self.vData.rightMarker[i] = self:getAIMarkers()
+    self.vData.node[i] = self.rootNode
+    if self.vData.leftMarker[i] ~= nil and self.vData.rightMarker[i] ~= nil then
+      local leftx  = localToLocal(self.vData.leftMarker[i],  self.rootNode, 0, 0, 0)
+      local rightx = localToLocal(self.vData.rightMarker[i], self.rootNode, 0, 0, 0)
+      self.vData.offset[i] = (leftx + rightx) * 0.5
+      self.vData.workWidth[i] = math.abs(leftx - rightx)
     end
+
     if debug > 1 then print("i: "..i.." / type: "..self.typeName.." / width: "..self.vData.workWidth[i]) end
     i =  i + 1
   end

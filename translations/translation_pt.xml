@@ -13,6 +13,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Diminui bloqueio de sentido em 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Aumenta bloqueio de sentido em 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Diminui bloqueio de sentido em 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Grid on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloqueio do diferencial traseiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Bloqueio de ambos os diferenciais on/off"/>
@@ -66,6 +68,9 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>
+
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Lane Keeping Assistant is not enabled."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>
 
   </texts>
 </l10n>

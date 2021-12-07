@@ -69,5 +69,8 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Einrastwinkel"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Legt fest, in welchen Gradschritten die Fahrtrichtung eingerastet wird (1°-90°)"/>
 
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"  text="Der Spurhalteassistent ist nicht aktiviert."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Kein Gerät mit einer Arbeitsbreite gefunden."/>
+
   </texts>
 </l10n>

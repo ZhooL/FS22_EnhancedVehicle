@@ -69,5 +69,8 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>
 
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Lane Keeping Assistant is not enabled."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>
+
   </texts>
 </l10n>

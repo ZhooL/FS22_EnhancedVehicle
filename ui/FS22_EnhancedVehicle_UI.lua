@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 05.12.2021
+-- @Date: 07.12.2021
 -- @Version: 1.0.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
@@ -155,7 +155,7 @@ function FS22_EnhancedVehicle_UI:updateValues()
   end
 
   -- snap to angle
-  self.snapSettingsAngleValue:setText(tostring(lC:getConfigValue("snap.snapToAngle", "angle")))
+  self.snapSettingsAngleValue:setText(tostring(lC:getConfigValue("snap", "snapToAngle")))
 
   -- HUD dmg display mode
   self.HUDdmgAmountLeftSetting:setState(lC:getConfigValue("hud.dmg", "showAmountLeft") and 1 or 2)
@@ -194,7 +194,7 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   else
     n = 10
   end
-  lC:setConfigValue("snap.snapToAngle", "angle", n)
+  lC:setConfigValue("snap", "snapToAngle", n)
 
   -- write and update our config
   lC:writeConfig()
