@@ -9,15 +9,19 @@
 --[[
 CHANGELOG
 
+2021-12-10 - V0.9.9.1
+* fixed track numbers
+* improved track handling (can now rotate grid)
+
 2021-12-09 - V0.9.9.0
-+ verhicle can now auto steer into the track lane (press rStrg + End if grid mode is on)
++ verhicle can now auto steer into the track (press rStrg + End if grid mode is on)
 
 2021-12-07 - V0.9.8.3
 * reworked workwidth calculation
 + support for attachments with offset (e.g. plow)
 
 2021-12-06 - V0.9.8.0
-+ added grid to visualize lanes (on/off: strg + numpad 1 # recalculate: strg + numpad 2)
++ added grid to visualize tracks (on/off: strg + numpad 1 # recalculate: strg + numpad 2)
 
 2021-12-05 - V0.9.7.0
 + added configuration dialog for mod settings (strg + numpad /)
@@ -339,7 +343,7 @@ function FS22_EnhancedVehicle:activateConfig()
   -- grid
   FS22_EnhancedVehicle.grid = {}
   FS22_EnhancedVehicle.grid.distanceAboveGround = lC:getConfigValue("grid", "distanceAboveGround")
-  FS22_EnhancedVehicle.grid.numberOfLanes       = lC:getConfigValue("grid", "numberOfLanes")
+  FS22_EnhancedVehicle.grid.numberOfTracks      = lC:getConfigValue("grid", "numberOfTracks")
   FS22_EnhancedVehicle.grid.color = {}
   FS22_EnhancedVehicle.grid.color[0]            = lC:getConfigValue("grid.color", "red")
   FS22_EnhancedVehicle.grid.color[1]            = lC:getConfigValue("grid.color", "green")
@@ -416,7 +420,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
 
   -- grid
   lC:addConfigValue("grid",       "distanceAboveGround", "float", 0.15)
-  lC:addConfigValue("grid",       "numberOfLanes",       "int", 5)
+  lC:addConfigValue("grid",       "numberOfTracks",      "int", 5)
   lC:addConfigValue("grid.color", "red",                 "float", 255/255)
   lC:addConfigValue("grid.color", "green",               "float", 150/255)
   lC:addConfigValue("grid.color", "blue",                "float", 0/255)
@@ -506,21 +510,23 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
 
   -- (server) set defaults when vehicle is "new"
   -- vData
-  --  1 - frontDiffIsOn
-  --  2 - backDiffIsOn
-  --  3 - drive mode
-  --  4 - snapAngle
-  --  5 - snap.enable
-  --  6 - snap on track
-  --  7 - snap grid px
-  --  8 - snap grid pz
-  --  9 - snap grid dX
+  --   1 - frontDiffIsOn
+  --   2 - backDiffIsOn
+  --   3 - drive mode
+  --   4 - snapAngle
+  --   5 - snap.enable
+  --   6 - snap on track
+  --   7 - snap grid px
+  --   8 - snap grid pz
+  --   9 - snap grid dX
   --  10 - snap grid dZ
+  --  11 - snap grid mpx
+  --  12 - snap grid mpz
   if self.isServer then
     if self.vData == nil then
       self.vData = {}
-      self.vData.is   = { true, true, -1, 1.0, true, true, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }
-      self.vData.want = { false, false, 1, 0.0, false, false, 0, 0, 0, 0, 0, 0 }
+      self.vData.is   = {  true,  true, -1, 1.0,  true,  true, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }
+      self.vData.want = { false, false,  1, 0.0, false, false, 0,   0,   0,   0,   0,   0 }
       self.vData.torqueRatio   = { 0.5, 0.5, 0.5 }
       self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
       self.vData.rot = 0.0
@@ -612,15 +618,15 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
   end
 
   -- receive initial data from server
-  self.vData.is[1] = streamReadBool(streamId)    -- front diff
-  self.vData.is[2] = streamReadBool(streamId)    -- back diff
-  self.vData.is[3] = streamReadInt8(streamId)    -- drive mode
-  self.vData.is[4] = streamReadFloat32(streamId) -- snap angle
-  self.vData.is[5] = streamReadBool(streamId)    -- snap.enable
-  self.vData.is[6] = streamReadBool(streamId)    -- snap on track
-  self.vData.is[7] = streamReadFloat32(streamId) -- snap grid px
-  self.vData.is[8] = streamReadFloat32(streamId) -- snap grid pz
-  self.vData.is[9] = streamReadFloat32(streamId) -- snap grid dX
+  self.vData.is[1] =  streamReadBool(streamId)    -- front diff
+  self.vData.is[2] =  streamReadBool(streamId)    -- back diff
+  self.vData.is[3] =  streamReadInt8(streamId)    -- drive mode
+  self.vData.is[4] =  streamReadFloat32(streamId) -- snap angle
+  self.vData.is[5] =  streamReadBool(streamId)    -- snap.enable
+  self.vData.is[6] =  streamReadBool(streamId)    -- snap on track
+  self.vData.is[7] =  streamReadFloat32(streamId) -- snap grid px
+  self.vData.is[8] =  streamReadFloat32(streamId) -- snap grid pz
+  self.vData.is[9] =  streamReadFloat32(streamId) -- snap grid dX
   self.vData.is[10] = streamReadFloat32(streamId) -- snap grid dZ
   self.vData.is[11] = streamReadFloat32(streamId) -- snap grid mpx
   self.vData.is[12] = streamReadFloat32(streamId) -- snap grid mpz
@@ -990,8 +996,12 @@ function FS22_EnhancedVehicle:onDraw()
 
       -- draw our helping grid
       if self.vData.grid.isVisible and self.vData.grid.isCalculated then
-        -- calculate lane number in direction left-right and forward-backward
+        -- calculate track number with original grid position
         local dx, dz = self.vData.px - self.vData.is[7], self.vData.pz - self.vData.is[8]
+        local dotLR = dx * -self.vData.grid.origdZ + dz * self.vData.grid.origdX
+        self.vData.grid.trackLR2 = dotLR / self.vData.grid.workWidth
+
+        -- calculate track number in direction left-right and forward-backward
         local dotLR = dx * -self.vData.is[10] + dz * self.vData.is[9]
         local dotFB = dx * -self.vData.is[9] - dz * self.vData.is[10]
         if math.abs(dotFB - self.vData.grid.dotFBPrev) > 0.01 then
@@ -1003,8 +1013,12 @@ function FS22_EnhancedVehicle:onDraw()
         end
         self.vData.grid.dotFBPrev = dotFB  -- we need to save this for detecting forward/backward movement
 
-        self.vData.grid.laneLR = dotLR / self.vData.grid.workWidth
-        self.vData.grid.laneFB = dotFB / self.vData.grid.workWidth
+        self.vData.grid.trackLR = dotLR / self.vData.grid.workWidth
+        self.vData.grid.trackFB = dotFB / self.vData.grid.workWidth
+
+        -- do we move in original grid oriontation direction?
+        self.vData.grid.drivingDir = self.vData.grid.trackLR - self.vData.grid.trackLR2
+        if self.vData.grid.drivingDir == 0 then self.vData.grid.drivingDir = 1 else self.vData.grid.drivingDir = -1 end
 
         -- prepare for track numbers
         local activeCamera = self:getActiveCamera()
@@ -1014,18 +1028,34 @@ function FS22_EnhancedVehicle:onDraw()
         setTextAlignment(RenderText.ALIGN_CENTER)
 
         -- draw lines from left to right
-        local _s = math.floor(1 - FS22_EnhancedVehicle.grid.numberOfLanes / 2)
-        for i = _s, (_s + FS22_EnhancedVehicle.grid.numberOfLanes), 1 do
-          j = i + math.floor(self.vData.grid.laneLR)
-          k = dir * 1 + self.vData.grid.laneFB
+        local _s = math.floor(1 - FS22_EnhancedVehicle.grid.numberOfTracks / 2)
+        for i = _s, (_s + FS22_EnhancedVehicle.grid.numberOfTracks), 1 do
+          trackLR = i + math.floor(self.vData.grid.trackLR)
+          if self.vData.grid.drivingDir == 1 then
+            trackText = i + math.floor(self.vData.grid.trackLR2)
+          else
+            trackText = -i + math.floor(self.vData.grid.trackLR2)
+          end
+          trackFB = dir * 0.5 + self.vData.grid.trackFB
+          trackTextFB = trackFB
           segments = 10
+          -- middle segment of tracks -> draw longer lines
           if i == 0 or i == 1 then
-            k = k + 2 * dir
+            trackFB = trackFB + 1.0 * dir
             segments = 12
           end
-          local startX = self.vData.is[7] + (-self.vData.is[10] * (j * self.vData.grid.workWidth)) - (self.vData.is[9] * (k * self.vData.grid.workWidth))
-          local startZ = self.vData.is[8] + ( self.vData.is[9] * (j * self.vData.grid.workWidth)) - (self.vData.is[10] * (k * self.vData.grid.workWidth))
+          -- move track text "backwards"
+          if i == 0 then
+            trackTextFB = trackTextFB + 1.0 * dir
+          end
+          -- start coordinates of line
+          local startX = self.vData.is[7] + (-self.vData.is[10] * (trackLR * self.vData.grid.workWidth)) - (self.vData.is[9]  * (trackFB * self.vData.grid.workWidth))
+          local startZ = self.vData.is[8] + ( self.vData.is[9]  * (trackLR * self.vData.grid.workWidth)) - (self.vData.is[10] * (trackFB * self.vData.grid.workWidth))
           local startY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, startX, 0, startZ) + FS22_EnhancedVehicle.grid.distanceAboveGround
+          -- coordinates for track number text
+          local textX = self.vData.is[7] + (-self.vData.is[10] * (trackLR * self.vData.grid.workWidth)) - (self.vData.is[9]  * (trackTextFB * self.vData.grid.workWidth))
+          local textZ = self.vData.is[8] + ( self.vData.is[9]  * (trackLR * self.vData.grid.workWidth)) - (self.vData.is[10] * (trackTextFB * self.vData.grid.workWidth))
+          -- draw the line
           FS22_EnhancedVehicle:drawVisualizationLines(1,
             segments,
             startX,
@@ -1039,17 +1069,16 @@ function FS22_EnhancedVehicle:onDraw()
             FS22_EnhancedVehicle.grid.color[2],
             FS22_EnhancedVehicle.grid.distanceAboveGround)
 
-          -- render lane number
-          renderText3D(startX + (-self.vData.is[10] * 0.2), startY + 0.1, startZ + (self.vData.is[9] * 0.2), rx, ry, rz, fS * 20, tostring(math.floor(j+1)))
-
           -- middle line
           if (i == 0) then
             if self.vData.grid.offset < (-self.vData.grid.workWidth / 2) then self.vData.grid.offset = self.vData.grid.offset + (self.vData.grid.workWidth) end
             if self.vData.grid.offset > ( self.vData.grid.workWidth / 2) then self.vData.grid.offset = self.vData.grid.offset - (self.vData.grid.workWidth) end
 
-            local startX = self.vData.is[7] + (-self.vData.is[10] * ((j + .5) * self.vData.grid.workWidth)) - (self.vData.is[9] * (k * self.vData.grid.workWidth)) + (-self.vData.is[10] * self.vData.grid.offset * dir)
-            local startZ = self.vData.is[8] + ( self.vData.is[9] * ((j + .5) * self.vData.grid.workWidth)) - (self.vData.is[10] * (k * self.vData.grid.workWidth)) + ( self.vData.is[9] * self.vData.grid.offset * dir)
+            -- start coordinates of line
+            local startX = self.vData.is[7] + (-self.vData.is[10] * ((trackLR + .5) * self.vData.grid.workWidth)) - (self.vData.is[9]  * (trackFB * self.vData.grid.workWidth)) + (-self.vData.is[10] * self.vData.grid.offset * dir)
+            local startZ = self.vData.is[8] + ( self.vData.is[9]  * ((trackLR + .5) * self.vData.grid.workWidth)) - (self.vData.is[10] * (trackFB * self.vData.grid.workWidth)) + ( self.vData.is[9]  * self.vData.grid.offset * dir)
             local startY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, startX, 0, startZ) + FS22_EnhancedVehicle.grid.distanceAboveGround
+            -- update grid data when it wasnt done yet
             if not self.vData.is[6] and self.vData.is[5] then
               self.vData.want[6]  = true
               self.vData.want[11]  = startX
@@ -1063,6 +1092,7 @@ function FS22_EnhancedVehicle:onDraw()
               if debug > 1 then print("turn on snap on track, x: "..startX..", y: "..startY..", z: "..startZ) end
             end
 
+            -- draw the line
             FS22_EnhancedVehicle:drawVisualizationLines(1,
               segments,
               startX,
@@ -1075,6 +1105,11 @@ function FS22_EnhancedVehicle:onDraw()
               FS22_EnhancedVehicle.grid.color[1] / 2,
               FS22_EnhancedVehicle.grid.color[2] / 2,
               FS22_EnhancedVehicle.grid.distanceAboveGround)
+          end
+
+          -- render track number
+          if i < _s + FS22_EnhancedVehicle.grid.numberOfTracks then
+            renderText3D(textX + (-self.vData.is[10] * (self.vData.grid.workWidth / 2)), startY + 0.1, textZ + (self.vData.is[9] * (self.vData.grid.workWidth / 2)), rx, ry, rz, fS * 20, tostring(trackText + 1))
           end
         end
       end
@@ -1644,7 +1679,14 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         -- ToDo: optimize this
         local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
         local rot = 180 - math.deg(math.atan2(lx, lz))
-        local _w1 = self.vData.grid.rot
+
+        -- if cabin is rotated -> direction should rotate also
+        if self.spec_drivable.reverserDirection < 0 then
+          rot = rot + 180
+          if rot >= 360 then rot = rot - 360 end
+        end
+
+        local _w1 = 180 - math.deg(math.atan2(self.vData.want[9], self.vData.want[10]))
         if _w1 > 180 then _w1 = _w1 - 360 end
         local _w2 = rot
         if _w2 > 180 then _w2 = _w2 - 360 end
@@ -1655,16 +1697,16 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
         -- flip grid
         if diffdeg < -90 or diffdeg > 90 then
-          self.vData.grid.rot = self.vData.grid.rot + 180
-          if self.vData.grid.rot >= 360 then
-            self.vData.grid.rot = self.vData.grid.rot - 360
+          _w1 = _w1 + 180
+          if _w1 >= 360 then
+            _w1 = _w1 - 360
           end
           self.vData.want[9] = -self.vData.is[9]
           self.vData.want[10] = -self.vData.is[10]
         end
 
         -- our new snap angle
-        self.vData.want[4] = self.vData.grid.rot
+        self.vData.want[4] = _w1
         self.vData.want[6] = false
       end
     else
@@ -1684,83 +1726,103 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     _snap = true
   end
 
-  -- steering angle snap inc/dec
+  -- reverse snap
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
     if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
       playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
     end
 
-    -- reverse snap angle
-    self.vData.want[4] = Round(self.vData.want[4] + 180, 0)
-    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-
-    -- if grid is enabled -> also rotate grid
-    if self.vData.grid.isVisible and self.vData.grid.isCalculated then
-      self.vData.want[9]  = -self.vData.is[9]
-      self.vData.want[10] = -self.vData.is[10]
-      self.vData.grid.rot = self.vData.want[4]
-    end
-
     -- turn snap on
     self.vData.want[5] = true
+
+    self.vData.want[4] = Round(self.vData.is[4] + 180, 0)
+    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+    -- if grid is enabled -> also rotate grid
+    if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+      FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false)
+    end
     _snap = true
   end
 
-  -- only if grid is invisible
-  if not self.vData.grid.isVisible then
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] + 1, 0)
-        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  -- 1°
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] + 1, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] - 1, 0)
-        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  end
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] - 1, 0)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] + 90.0, 0)
-        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  end
+  -- 90°
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] + 90.0, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] - 90.0, 0)
-        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  end
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] - 90.0, 0)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] + 45.0, 1)
-        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  end
+  -- 45°
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] + 45.0, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.want[4] - 45.0, 1)
-        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+  end
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
+    if self.vData.is[5] then
+      self.vData.want[4] = Round(self.vData.is[4] - 45.0, 0)
+      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+      -- if grid is enabled -> also rotate grid
+      if self.vData.grid.isVisible and self.vData.grid.isCalculated then
+        FS22_EnhancedVehicle:setGrid(self, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true)
       end
+      _snap = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
   end
 
@@ -1840,17 +1902,11 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle:calculateGrid(self)
-  if debug > 1 then print("-> " .. myName .. ": calculateGrid" .. mySelf(self)) end
+function FS22_EnhancedVehicle:setGrid(self, angle, updateOrig)
+  if angle == nil then angle = -1 end
+  if updateOrig == nil then updateOrig = true end
 
-  if self.vData.grid == nil then
-    self.vData.grid = {}
-    self.vData.grid.isVisible = false
-    self.vData.grid.isCalculated = false
-  end
-
-  -- we need the working width
-  FS22_EnhancedVehicle:calculateWorkWidth(self)
+  if debug > 1 then print("-> " .. myName .. ": setGrid" .. mySelf(self)..", angle: "..angle) end
 
   -- search widest attachment
   _width = 0
@@ -1867,45 +1923,75 @@ function FS22_EnhancedVehicle:calculateGrid(self)
     self.vData.grid.workWidth = _width
     self.vData.grid.offset = _offset
 
-    -- copy current vehicle position and direction as base for our grid
-    local length = MathUtil.vector2Length(self.vData.dx, self.vData.dz);
-    local dX = self.vData.dx / length
-    local dZ = self.vData.dz / length
+    if angle == -1 then
+      -- copy current vehicle position and direction as base for our grid
+      local length = MathUtil.vector2Length(self.vData.dx, self.vData.dz);
+      local dX = self.vData.dx / length
+      local dZ = self.vData.dz / length
+      rot = 180 - math.deg(math.atan2(dX, dZ))
 
-    -- smoothen grid angle to snapToAngle
-    local rot = 180 - math.deg(math.atan2(dX, dZ))
-    -- if cabin is rotated -> direction should rotate also
-    if self.spec_drivable.reverserDirection < 0 then
-      rot = rot + 180
-      if rot >= 360 then rot = rot - 360 end
+      -- smoothen grid angle to snapToAngle
+      -- if cabin is rotated -> direction should rotate also
+      if self.spec_drivable.reverserDirection < 0 then
+        rot = rot + 180
+        if rot >= 360 then rot = rot - 360 end
+      end
+      rot = Round(rot, 1)
+      local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
+      if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle >= 360 then
+        snapToAngle = rot
+      end
+      rot = Round(closestAngle(rot, snapToAngle), 0)
+    else
+      rot = angle
     end
-    rot = Round(rot, 1)
-    local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
-    if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle >= 360 then
-      snapToAngle = rot
-    end
-    rot = Round(closestAngle(rot, snapToAngle), 0)
+
     dX = math.sin(math.rad(rot))
     dZ = -math.cos(math.rad(rot))
 
     -- grid start position
-    self.vData.want[7] = self.vData.px + -dZ * (self.vData.grid.workWidth / 2) - (-dZ * _offset)
-    self.vData.want[8] = self.vData.pz + dX * (self.vData.grid.workWidth / 2) - (dX * _offset)
+    if updateOrig then
+      self.vData.want[7] = self.vData.px + -dZ * (self.vData.grid.workWidth / 2) - (-dZ * _offset)
+      self.vData.want[8] = self.vData.pz + dX * (self.vData.grid.workWidth / 2) - (dX * _offset)
+
+      -- save original orientation
+      self.vData.grid.origdX = dX
+      self.vData.grid.origdZ = dZ
+    end
 
     self.vData.want[9] = dX
     self.vData.want[10] = dZ
-    self.vData.grid.rot = rot
+
+    self.vData.want[6] = false
 
     self.vData.grid.dotFBPrev = 999999
 
     self.vData.grid.isCalculated = true
 
-    if debug > 1 then print("p: ("..self.vData.want[7].."/"..self.vData.want[8]..") dXZ: ("..dX.."/"..dZ..") w: "..self.vData.grid.workWidth..", rot: "..self.vData.grid.rot) end
+    if debug > 1 then print("p: ("..self.vData.want[7].."/"..self.vData.want[8]..") dXZ: ("..dX.."/"..dZ..") w: "..self.vData.grid.workWidth) end
   else
     return false
   end
 
   return true
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:calculateGrid(self)
+  if debug > 1 then print("-> " .. myName .. ": calculateGrid" .. mySelf(self)) end
+
+  if self.vData.grid == nil then
+    self.vData.grid = {}
+    self.vData.grid.isVisible = false
+    self.vData.grid.isCalculated = false
+  end
+
+  -- we need the working width
+  FS22_EnhancedVehicle:calculateWorkWidth(self)
+
+  -- set the grid
+  return FS22_EnhancedVehicle:setGrid(self)
 end
 
 -- #############################################################################
@@ -2114,6 +2200,37 @@ function Between(a, minA, maxA)
   if minA ~= nil and a <= minA then return minA end
   if maxA ~= nil and a >= maxA then return maxA end
   return a
+end
+
+-- #############################################################################
+
+function AngleModAngle(a, diff)
+  _a = a + diff
+  if _a < 0 then _a = _a + 360 end
+  if _a >= 360 then _a = _a - 360 end
+  return a
+end
+
+-- #############################################################################
+
+function Angle2ModAngle2(x, z, diff)
+  local rot = 180 - math.deg(math.atan2(x, z))
+  rot = rot + diff
+  if rot < 0 then rot = rot + 360 end
+  if rot >= 360 then rot = rot - 360 end
+  local _x = math.sin(math.rad(rot))
+  local _z = math.cos(math.rad(rot))
+  return _x, _z
+end
+
+-- #############################################################################
+
+function Angle2ModAngle(x, z, diff)
+  local rot = 180 - math.deg(math.atan2(x, z))
+  rot = rot + diff
+  if rot < 0 then rot = rot + 360 end
+  if rot >= 360 then rot = rot - 360 end
+  return rot
 end
 
 -- #############################################################################

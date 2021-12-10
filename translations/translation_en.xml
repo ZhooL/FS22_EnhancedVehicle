@@ -30,7 +30,7 @@
 
     <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Global Settings"/>
     <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="HUD Settings"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Lane Keeping Assistent Settings"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Track Assistent Settings"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Reset Mod configuration"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Reset configuration file"/>
@@ -39,8 +39,8 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Reload configuration file"/>
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Reload the configuration file from disk. Necessary after manual changes in the XML file."/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Lane Keeping Assistent"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Turn on/off global lane keeping assistent functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Track Assistent"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Turn on/off global track assistent functionality"/>
     <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Differential lock"/>
     <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Turn on/off global differential lock functionality"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Improved hydraulic control"/>
@@ -52,8 +52,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Turn on/off the HUD display for damage values"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Fuel values"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Turn on/off the HUD display for fuel values"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Lane keeping assistant"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Turn on/off the HUD display for the lane keeping assistant driving direction"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Track assistant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Turn on/off the HUD display for the track assistant driving direction"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: RPM"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Turn on/off the HUD display for the RPM number"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Engine temperature"/>
@@ -69,7 +69,7 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Lane Keeping Assistant is not enabled."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Track Assistant is not enabled."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>
 
   </texts>

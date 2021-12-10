@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>0.9.9.0</version>
+  <version>0.9.9.1</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -11,8 +11,8 @@
   </title>
 
   <description>
-    <de><![CDATA[Einfacher Spurhalteassistent. Differentialsperren und Antriebsmodi für dein Fahrzeug. Mehr Fahrzeugsdetails im HUD.]]></de>
-    <en><![CDATA[Simple lane keeping assistant. Differential locks and wheel drive modes for your vehicle. Shows more vehicle details on HUD.]]></en>
+    <de><![CDATA[Einfacher Fahrspurassistent. Differentialsperren und Antriebsmodi für dein Fahrzeug. Mehr Fahrzeugsdetails im HUD.]]></de>
+    <en><![CDATA[Simple track assistant. Differential locks and wheel drive modes for your vehicle. Shows more vehicle details on HUD.]]></en>
   </description>
 
   <iconFilename>FS22_EnhancedVehicle.dds</iconFilename>

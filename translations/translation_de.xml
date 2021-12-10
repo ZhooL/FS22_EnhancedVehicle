@@ -39,8 +39,8 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Konfigurationsdatei neu laden"/>
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Lädt die Konfigurationsdatei neu ein. Notwendig nach manuellen Änderungen in der XML"/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Spurhalteassistent"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Schaltet die globale Funktionalität des Spurhalteassistenten an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Fahrspurassistent"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Schaltet die globale Funktionalität des Fahrspurassistenten an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Differentialsperren"/>
     <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Schaltet die globale Funktionalität der Differentialsperren an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Verbesserte Hydrauliksteuerung"/>
@@ -52,8 +52,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Schaltet die HUD Anzeige für die Schadenswerte an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Kraftstoffwerteanzeige"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Schaltet die HUD Anzeige für die Kraftstoffwerte an/aus"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Spurhalteassistent Ausrichtungsanzeige"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Schaltet die HUD Anzeige für die Gradzahlen des Spurhalteassistenten an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Fahrspurassistent Ausrichtungsanzeige"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Schaltet die HUD Anzeige für die Gradzahlen des Fahrspurassistenten an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Motordrehzahlanzeige"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Schaltet die HUD Anzeige für die Motordrehzahl an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Motortemperaturanzeige"/>
@@ -69,7 +69,7 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Einrastwinkel"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Legt fest, in welchen Gradschritten die Fahrtrichtung eingerastet wird (1°-90°)"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"  text="Der Spurhalteassistent ist nicht aktiviert."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"  text="Der Fahrspurassistent ist nicht aktiviert."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Kein Gerät mit einer Arbeitsbreite gefunden."/>
 
   </texts>
