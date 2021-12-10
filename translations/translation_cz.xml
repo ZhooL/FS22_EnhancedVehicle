@@ -16,7 +16,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Mřížka Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Změna režimu pohonu kol"/>
     <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Zadní hydraulika Nahoru/Dolu"/>
@@ -62,9 +62,9 @@
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Zap./Vyp. displeje HUD pro různé hodnoty (např. hmotnost)"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Režim hodnot poškození"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Zobrazit hodnoty poškození '% left' spíše než '% damaged'"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% left"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% damaged"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Zobrazit hodnoty poškození '% kondice' nebo '% poškození'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% kondice"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% poškození"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Přichytit k úhlu"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
