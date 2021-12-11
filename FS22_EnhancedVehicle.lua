@@ -1679,6 +1679,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         -- ToDo: optimize this
         local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
         local rot = 180 - math.deg(math.atan2(lx, lz))
+        if rot < 0 then rot = rot + 360 end
 
         -- if cabin is rotated -> direction should rotate also
         if self.spec_drivable.reverserDirection < 0 then
