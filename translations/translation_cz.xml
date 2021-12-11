@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>Majo76</translationContributors>
+
+  <texts>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Předchozí směr"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Linie Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Přidat 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Ubrat 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Přidat 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Ubrat 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Přidat 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Ubrat 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Mřížka Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Změna režimu pohonu kol"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Zadní hydraulika Nahoru/Dolu"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Zadní hydraulika Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Přední hydraulika Nahoru/Dolu"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
+
+    <text name="ui_FS22_EnhancedVehicle_on"  text="Zap."/>
+    <text name="ui_FS22_EnhancedVehicle_off" text="Vyp."/>
+
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Globální nastavení"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="Nastavení okna"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Nastavení asistenta pro jízdu v pruhu"/>
+
+    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Obnovit konfiguraci Modu"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Obnovit konfigurační soubor"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="POZOR: Tím se všechna nastavení tohoto modu vrátí na výchozí hodnoty!"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="Znovu načíst konfiguraci Modu (XML)"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Znovu načíst konfigurační soubor"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Znovu načtěte konfigurační soubor z disku. Nezbytné po ručních změnách v souboru XML."/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Zapněte/vypněte funkci asistenta globálního udržování jízdního pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Zámek diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Zapnutí/vypnutí funkce globální uzávěrky diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Vylepšené hydraulické ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Zapnutí/vypnutí globální vylepšené funkce hydraulického ovládání"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Zámek diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Zap./Vyp. displeje HUD pro uzávěrku diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD: Hodnota poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Zap./Vyp. displeje HUD pro poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Hodnota paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Zap./Vyp. displeje HUD pro množství paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Zap./Vyp. displeje HUD pro asistenta"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Otáčky"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Zap./Vyp. displeje HUD pro počet otáček"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Teplota motoru"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Zap./Vyp. displeje HUD pro teplotu motoru"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Různé hodnoty (hmotnost)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Zap./Vyp. displeje HUD pro různé hodnoty (např. hmotnost)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Režim hodnot poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Zobrazit hodnoty poškození '% kondice' nebo '% poškození'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% kondice"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% poškození"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Přichytit k úhlu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
+
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Asistent pro jízdu v pruhu není povolen."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Nenalezeno zařízení s pracovní šířkou."/>
+
+  </texts>
+</l10n>
