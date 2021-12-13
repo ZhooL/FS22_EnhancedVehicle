@@ -15,6 +15,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Diminui bloqueio de sentido em 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Grid on/off"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Increase amount of turnover tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloqueio do diferencial traseiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Bloqueio de ambos os diferenciais on/off"/>

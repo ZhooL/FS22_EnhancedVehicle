@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-  <translationContributors>Majo76</translationContributors>
+  <translationContributors>Kynuska</translationContributors>
 
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
@@ -15,6 +15,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Ubrat 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Mřížka Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Increase amount of turnover tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>

@@ -68,7 +68,7 @@
 
       <!-- angle -->
       <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
-        <GuiElement type="textInput" profile="ingameMenuGameSettingsTextInput" id="snapSettingsAngleValue" imeKeyboardType="normal" onTextChanged="onTextChanged_SnapAngle" />
+        <GuiElement type="textInput" profile="ingameMenuGameSettingsTextInput" id="snapSettingsAngleValue" imeKeyboardType="normal" maxCharacters="5" onTextChanged="onTextChanged_SnapAngle" />
         <GuiElement type="text"      profile="multiTextOptionSettingsTitle"    id="snapSettingsAngleTitle"/>
         <GuiElement type="text"      profile="multiTextOptionSettingsTooltip"  id="snapSettingsAngleTT"/>
       </GuiElement>

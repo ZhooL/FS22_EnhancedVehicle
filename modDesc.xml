@@ -35,6 +35,8 @@
     <action name="FS22_EnhancedVehicle_SNAP_DEC3"       category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_SNAP_GRID_ONOFF" category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC_TRACK"  category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC_TRACK"  category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_FD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_RD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_BD"              category="VEHICLE"/>
@@ -85,6 +87,12 @@
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_GRID_RESET">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_2" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC_TRACK">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_4" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC_TRACK">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_6" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_FD">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_7" axisComponent="+" inputComponent="+" index="1"/>
