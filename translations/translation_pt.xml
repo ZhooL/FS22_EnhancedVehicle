@@ -17,6 +17,10 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Increase amount of turnover tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Move tracks to the right"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Move tracks to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Move offset line to the right"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Move offset line to the left"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloqueio do diferencial traseiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Bloqueio de ambos os diferenciais on/off"/>

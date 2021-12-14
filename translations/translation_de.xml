@@ -3,20 +3,24 @@
   <translationContributors>Majo76</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: aktuelle Fahrtrichtung fixieren"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: vorheriger Fahrtrichtung fixieren"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Fahrtrichtung umkehren (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: aktuelle Fahrt-/Spurrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: vorheriger Fahrt-/Spurrichtung fixieren"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Fahrt-/Spurrichtung umkehren (180°)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Hilfslinien an/aus"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Fahrtrichtung erhöhen um 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Fahrtrichtung verringern um 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Fahrtrichtung erhöhen um 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Fahrtrichtung verringern um 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Fahrtrichtung erhöhen um 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Fahrtrichtung verringern um 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Hilfsgitter an/aus"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Hilfsgitter neu ausrichten"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Fahrt-/Spurrichtung erhöhen um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Fahrt-/Spurrichtung verringern um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Fahrt-/Spurrichtung erhöhen um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Fahrt-/Spurrichtung verringern um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Fahrt-/Spurrichtung erhöhen um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Fahrt-/Spurrichtung verringern um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Fahrspuranzeige an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Fahrspuren neu ausrichten"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Anzahl Wende-Fahrspuren erhöhen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Anzahl Wende-Fahrspuren verringern"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Fahrspuren nach rechts verschieben"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Fahrspuren nach links verschieben"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Offsetlinie nach rechts verschieben"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Offsetlinie nach links verschieben"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differentialsperre Vorderachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differentialsperre Hinterachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Beide Differentialsperren an/aus"/>

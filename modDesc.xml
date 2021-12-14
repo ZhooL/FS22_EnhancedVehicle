@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>0.9.9.2</version>
+  <version>0.9.9.3</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -35,8 +35,12 @@
     <action name="FS22_EnhancedVehicle_SNAP_DEC3"       category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_SNAP_GRID_ONOFF" category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_DEC_TRACK"  category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_SNAP_INC_TRACK"  category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC_TRACK"  category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC_TRACKP" category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC_TRACKP" category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_INC_TRACKO" category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_SNAP_DEC_TRACKO" category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_FD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_RD"              category="VEHICLE"/>
     <action name="FS22_EnhancedVehicle_BD"              category="VEHICLE"/>
@@ -93,6 +97,18 @@
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_INC_TRACK">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_6" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC_TRACKP">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_minus" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC_TRACKP">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_plus" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_DEC_TRACKO">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_KP_minus" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_INC_TRACKO">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_KP_plus" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_FD">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_7" axisComponent="+" inputComponent="+" index="1"/>

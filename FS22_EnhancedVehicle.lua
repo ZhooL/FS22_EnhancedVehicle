@@ -3,14 +3,19 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 13.12.2021
+-- @Date: 14.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
 
+2021-12-14 - V0.9.9.3
++ added functionality to move track layout left/right (rctrl+numpad minus/numpad plus)
++ added functionality to move track offset line left/right (rshift+numpad minus/numpad plus)
+* smaller bugfixes
+
 2021-12-13 - V0.9.9.2
-+ added simple "autoturn" feature. (when tracks enabled) press rctrl+home to turn. select amount of tracks to turn left/right by rctrl+num4/num6
++ added simple "turn around" feature. (when tracks enabled) press rctrl+home to turn. select amount of tracks to turn left/right by rctrl+num4/num6
 + added a small track number display above the speedometer
 + added a "snap off" sound. Not happy with that yet; it's just the "snap on" sound in reverse
 * reworked the complete track handling and display code
@@ -117,6 +122,10 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
                                              'FS22_EnhancedVehicle_SNAP_GRID_RESET',
                                              'FS22_EnhancedVehicle_SNAP_INC_TRACK',
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACK',
+                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKP',
+                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKP',
+                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKO',
+                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKO',
                                              'AXIS_MOVE_SIDE_VEHICLE' }
   FS22_EnhancedVehicle.actions.diff  =     { 'FS22_EnhancedVehicle_FD',
                                              'FS22_EnhancedVehicle_RD',
@@ -968,7 +977,8 @@ function FS22_EnhancedVehicle:onDraw()
           if self.vData.impl.plow.rotationMax ~= self.vData.track.plow then
             self.vData.track.plow = self.vData.impl.plow.rotationMax
             self.vData.impl.offset = -self.vData.impl.offset
-            FS22_EnhancedVehicle:updateTrack(self, false, 0, false, true)
+            self.vData.track.offset = -self.vData.track.offset
+            FS22_EnhancedVehicle:updateTrack(self, false, 0, false, 0, true, 0)
           end
         end
 
@@ -1022,8 +1032,8 @@ function FS22_EnhancedVehicle:onDraw()
 
         -- draw offset line
         if self.vData.track.offset > 0.01 or self.vData.track.offset < -0.01 then
-          startX = startX + (-self.vData.track.origin.dZ * self.vData.track.offset * dir)
-          startZ = startZ + ( self.vData.track.origin.dX * self.vData.track.offset * dir)
+          startX = startX + (-self.vData.track.origin.dZ * self.vData.track.offset)
+          startZ = startZ + ( self.vData.track.origin.dX * self.vData.track.offset)
           startY = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, startX, 0, startZ) + FS22_EnhancedVehicle.track.distanceAboveGround
           FS22_EnhancedVehicle:drawVisualizationLines(1,
             12,
@@ -1086,10 +1096,11 @@ function FS22_EnhancedVehicle:onDraw()
           -- coordinates for track number text
           local textX = self.vData.track.origin.px + (-self.vData.track.origin.originaldZ * (trackLRText * self.vData.track.workWidth)) - ( self.vData.track.origin.dX * (trackTextFB * self.vData.track.workWidth))
           local textZ = self.vData.track.origin.pz + ( self.vData.track.origin.originaldX * (trackLRText * self.vData.track.workWidth)) - ( self.vData.track.origin.dZ * (trackTextFB * self.vData.track.workWidth))
+          local textY = 0.1 + getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, textX, 0, textZ) + FS22_EnhancedVehicle.track.distanceAboveGround
 
           -- render track number
           if i < _s + FS22_EnhancedVehicle.track.numberOfTracks then
-            renderText3D(textX, startY + 0.1, textZ, rx, ry, rz, fS * 20, tostring(math.floor(trackLRText)))
+            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 25, 75), tostring(math.floor(trackLRText)))
           end
 
           -- advance to next lane
@@ -1711,7 +1722,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         if diffdeg < -90 or diffdeg > 90 then
           rot2 = AngleFix(rot2 + 180)
         end
-        FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, 0, true, 0, 0)
         self.vData.want[4] = rot2
       end
     else
@@ -1752,7 +1763,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
     -- if track is enabled -> also rotate track
     if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, true, self.vData.track.deltaTrack)
+      FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, 0, true, self.vData.track.deltaTrack, 0)
     end
     _snap = true
   end
@@ -1764,7 +1775,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1777,7 +1788,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1791,7 +1802,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1804,7 +1815,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1818,7 +1829,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1831,7 +1842,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true, true)
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true, 0, true, 0, 0)
       end
       _snap = true
     else
@@ -1849,6 +1860,32 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACK" then
     if self.vData.track.isVisible and self.vData.track.isCalculated then
       self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + 1, -5, 5)
+    end
+  end
+
+  -- track position--
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKP" then
+    if self.vData.track.isVisible and self.vData.track.isCalculated then
+      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, -0.1, true, 0, 0)
+    end
+  end
+  -- track position++
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKP" then
+    if self.vData.track.isVisible and self.vData.track.isCalculated then
+      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1, true, 0, 0)
+    end
+  end
+
+  -- track offset--
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKO" then
+    if self.vData.track.isVisible and self.vData.track.isCalculated then
+      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, -0.05)
+    end
+  end
+  -- track offset++
+  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKO" then
+    if self.vData.track.isVisible and self.vData.track.isCalculated then
+      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05)
     end
   end
 
@@ -1927,7 +1964,7 @@ end
 -- # updatePosition true -> use current vehicle position as new track origin
 -- # updateSnap true -> update the snap to track position
 
-function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, updatePosition, updateSnap, deltaTrack)
+function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, updatePosition, deltaPosition, updateSnap, deltaTrack, deltaOffset)
   if debug > 1 then print("-> " .. myName .. ": updateTrack" .. mySelf(self)) end
 
   -- defaults
@@ -1936,13 +1973,17 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
     updateAngleValue = -1
   end
   if updatePosition == nil then updatePosition = true end
-  if updateSnap == nil then updateOffset = false end
-  if deltaTrack == nil then deltaTrack = 0 end
+  if deltaPosition == nil  then deltaPosition = 0 end
+  if updateSnap == nil     then updateSnap = false end
+  if deltaTrack == nil     then deltaTrack = 0 end
+  if deltaOffset == nil    then deltaOffset = 0 end
 
   -- only if there is valid implement data
   if self.vData.impl.workWidth > 0 then
     self.vData.track.workWidth = self.vData.impl.workWidth
-    self.vData.track.offset    = self.vData.impl.offset
+    if self.vData.track.offset == nil then
+      self.vData.track.offset = self.vData.impl.offset
+    end
 
     if self.vData.track.offset < (-self.vData.track.workWidth / 2) then self.vData.track.offset = self.vData.track.offset + (self.vData.track.workWidth) end
     if self.vData.track.offset > ( self.vData.track.workWidth / 2) then self.vData.track.offset = self.vData.track.offset - (self.vData.track.workWidth) end
@@ -2002,6 +2043,35 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
       _broadcastUpdate = true
     end
 
+    -- should we move the track
+    if deltaPosition ~= 0 then
+      self.vData.track.origin.px = self.vData.track.origin.px + (-self.vData.track.origin.dZ * deltaPosition)
+      self.vData.track.origin.pz = self.vData.track.origin.pz + ( self.vData.track.origin.dX * deltaPosition)
+
+      -- send new position to server
+      self.vData.want[7]  = self.vData.track.origin.px
+      self.vData.want[8]  = self.vData.track.origin.pz
+      _broadcastUpdate = true
+      updateSnap = true
+    end
+
+    -- should we move the offset
+    if deltaOffset ~= 0 then
+      self.vData.track.offset = self.vData.track.offset + deltaOffset
+
+      -- snap position
+--      self.vData.track.origin.snapx = self.vData.track.origin.snapx + (-self.vData.track.origin.dZ * deltaOffset)
+--      self.vData.track.origin.snapz = self.vData.track.origin.snapz + ( self.vData.track.origin.dX * deltaOffset)
+
+      -- send new snap position to server
+--      self.vData.want[11]  = self.vData.track.origin.snapx
+--      self.vData.want[12]  = self.vData.track.origin.snapz
+--      self.vData.want[6]   = true
+--      _broadcastUpdate = true
+
+      updateSnap = true
+    end
+
     -- shall we update the snap position?
     if updateSnap then
       local dx, dz = self.vData.px - self.vData.track.origin.px, self.vData.pz - self.vData.track.origin.pz
@@ -2020,7 +2090,7 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
       -- new destination track
       trackLR2 = trackLR2 + deltaTrack
 
-      -- snap to position
+      -- snap position
       self.vData.track.origin.snapx = self.vData.track.origin.px + (-self.vData.track.origin.originaldZ * (trackLR2 * self.vData.track.workWidth)) - ( self.vData.track.origin.dX * dotFB) + (-self.vData.track.origin.dZ * self.vData.track.offset)
       self.vData.track.origin.snapz = self.vData.track.origin.pz + ( self.vData.track.origin.originaldX * (trackLR2 * self.vData.track.workWidth)) - ( self.vData.track.origin.dZ * dotFB) + ( self.vData.track.origin.dX * self.vData.track.offset)
 
@@ -2066,12 +2136,13 @@ function FS22_EnhancedVehicle:calculateTrack(self)
   self.vData.track.origin = {}
   self.vData.track.isCalculated = false
   self.vData.track.dotFBPrev = 99999999
+  self.vData.track.offset = nil
 
   -- first, we need information about implements
   FS22_EnhancedVehicle:enumerateImplements(self)
 
   -- then we update the tracks with "current" angle and new origin
-  if not FS22_EnhancedVehicle:updateTrack(self, true, -1, true, true) then
+  if not FS22_EnhancedVehicle:updateTrack(self, true, -1, true, 0, true, 0) then
     g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
     return false
   end
@@ -2141,17 +2212,17 @@ function FS22_EnhancedVehicle:enumerateImplements(self)
         end
 
         -- working width
-        self.vData.impl.workWidth = math.abs(self.vData.impl.left.px - self.vData.impl.right.px)
+        self.vData.impl.workWidth = Round(math.abs(self.vData.impl.left.px - self.vData.impl.right.px), 4)
+
+        -- offset
+        self.vData.impl.offset = Round((self.vData.impl.left.px + self.vData.impl.right.px) * 0.5, 4)
+        if self.vData.impl.offset > -0.1 and self.vData.impl.offset < 0.1 then self.vData.impl.offset = 0 end
 
         -- if it is a plow -> save plow rotation
         if obj.typeName == "plow" or obj.typeName == "plowPacker" then
           self.vData.impl.plow = obj.spec_plow
           self.vData.track.plow = self.vData.impl.plow.rotationMax
         end
-
-        -- offset
-        self.vData.impl.offset = (self.vData.impl.left.px + self.vData.impl.right.px) * 0.5
-        if self.vData.impl.offset > -0.1 and self.vData.impl.offset < 0.1 then self.vData.impl.offset = 0 end
       end
     end
 
@@ -2159,7 +2230,7 @@ function FS22_EnhancedVehicle:enumerateImplements(self)
   end
 
   if debug > 1 then print("--> Width: "..self.vData.impl.workWidth..", Offset: "..self.vData.impl.offset) end
-  if debug > 2 then print_r(self.vData.impl) end
+  if debug > 1 then print(DebugUtil.printTableRecursively(self.vData.impl, 0, 0, 1)) end
 end
 
 -- #############################################################################
