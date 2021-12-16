@@ -5,7 +5,7 @@ This is a Mod for Farming Simulator 22. It adds a track assistant and a "snap dr
 
 **WARNING: Work-in-progress. This is a dev version - it might contain bugs. Please report unusual issues.**
 
-**NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: (still to be defined). All other download locations are not validated by me - so handle with care.**
+**NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: https://www.modhoster.de/mods/enhancedvehicle-9a59d5c5-c65c-49ce-a1a9-5681a023381b. All other download locations are not validated by me - so handle with care.**
 
 **NOTE2: I implemented the track assistant only because no proper GPS/GuidanceSteering was released when development started.**
 

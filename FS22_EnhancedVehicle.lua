@@ -3,11 +3,16 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 14.12.2021
+-- @Date: 16.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-16 - V0.9.9.4
+* display track number even when guide lines are turned off
+* changed appearance of track display a bit: #actualtrack -> turnover -> nexttrack
+* next track number in game world is rendered in green
 
 2021-12-14 - V0.9.9.3
 + added functionality to move track layout left/right (rctrl+numpad minus/numpad plus)
@@ -150,6 +155,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
     adblue   = {  48/255,  78/255, 249/255, 1 },
     electric = { 255/255, 255/255,   0/255, 1 },
     methane  = {   0/255, 198/255, 255/255, 1 },
+    ls22blue = {   0/255, 198/255, 253/255, 1 },
   }
 
   -- for overlays
@@ -882,6 +888,17 @@ function FS22_EnhancedVehicle:onDraw()
     local fS = FS22_EnhancedVehicle.fontSize * FS22_EnhancedVehicle.uiScale
     local tP = FS22_EnhancedVehicle.textPadding * FS22_EnhancedVehicle.uiScale
 
+    -- update current track
+    local dx, dz = 0, 0
+    if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.track.isCalculated then
+      -- calculate track number in direction left-right and forward-backward
+      dx, dz = self.vData.px - self.vData.track.origin.px, self.vData.pz - self.vData.track.origin.pz
+      -- with original track orientation
+      local dotLR = dx * -self.vData.track.origin.originaldZ + dz * self.vData.track.origin.originaldX
+      self.vData.track.originalTrackLR = dotLR / self.vData.track.workWidth
+    end
+
+
     -- snap helper lines
     if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.snaplines then
       local length = MathUtil.vector2Length(self.vData.dx, self.vData.dz);
@@ -983,10 +1000,6 @@ function FS22_EnhancedVehicle:onDraw()
         end
 
         -- calculate track number in direction left-right and forward-backward
-        local dx, dz = self.vData.px - self.vData.track.origin.px, self.vData.pz - self.vData.track.origin.pz
-        -- with original track orientation
-        local dotLR = dx * -self.vData.track.origin.originaldZ + dz * self.vData.track.origin.originaldX
-        self.vData.track.originalTrackLR = dotLR / self.vData.track.workWidth
         -- with current track orientation
         local dotLR = dx * -self.vData.track.origin.dZ + dz * self.vData.track.origin.dX
         local dotFB = dx * -self.vData.track.origin.dX - dz * self.vData.track.origin.dZ
@@ -1100,7 +1113,16 @@ function FS22_EnhancedVehicle:onDraw()
 
           -- render track number
           if i < _s + FS22_EnhancedVehicle.track.numberOfTracks then
-            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 25, 75), tostring(math.floor(trackLRText)))
+            setTextColor(FS22_EnhancedVehicle.track.color[1], FS22_EnhancedVehicle.track.color[2], FS22_EnhancedVehicle.track.color[3], 1)
+            local _curTrack = math.floor(trackLRText)
+            if Round(self.vData.track.originalTrackLR, 0) + self.vData.track.deltaTrack == _curTrack then
+              if self.vData.is[5] then
+                setTextColor(0, 1, 0, 1)
+              else
+                setTextColor(1, 1, 1, 1)
+              end
+            end
+            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 25, 75), tostring(_curTrack))
           end
 
           -- advance to next lane
@@ -1296,17 +1318,13 @@ function FS22_EnhancedVehicle:onDraw()
     end
 
     -- ### do the track stuff ###
-    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.track.enabled and self.vData.track.isVisible and self.vData.snaplines then
+    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.track.enabled and self.vData.track.isCalculated then --and self.vData.snaplines then
       -- prepare text
       _prefix = "+"
       if self.vData.track.deltaTrack == 0 then _prefix = "+/-" end
       if self.vData.track.deltaTrack < 0 then _prefix = "" end
-      local track_txt = string.format("#%i      %s%i", Round(self.vData.track.originalTrackLR, 0), _prefix, self.vData.track.deltaTrack)
-
-      -- render overlay
-      w = getTextWidth(fS, track_txt)
-      h = getTextHeight(fS, track_txt)
---      renderOverlay(FS22_EnhancedVehicle.overlay["misc"], FS22_EnhancedVehicle.hud.misc.posX - FS22_EnhancedVehicle.overlayBorder - (w/2), FS22_EnhancedVehicle.hud.misc.posY - FS22_EnhancedVehicle.overlayBorder, w + (FS22_EnhancedVehicle.overlayBorder * 2), h + (FS22_EnhancedVehicle.overlayBorder * 2))
+      local _curTrack = Round(self.vData.track.originalTrackLR, 0)
+      local track_txt = string.format("#%i  ->  %s%i  ->  %i", _curTrack, _prefix, self.vData.track.deltaTrack, (_curTrack + self.vData.track.deltaTrack))
 
       -- render text
       if self.vData.is[5] and self.vData.is[6] then
