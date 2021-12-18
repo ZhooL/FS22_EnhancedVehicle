@@ -34,9 +34,10 @@
     <text name="ui_FS22_EnhancedVehicle_on"  text="An"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Aus"/>
 
-    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Globale Einstellungen"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="HUD Einstellungen"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Spurhalteassistent Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Globale Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="HUD Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Fahrspurassistent Einstellungen"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Vorgewende Einstellungen für"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Mod-Konfiguration zurücksetzen"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Konfigurationsdatei zurücksetzen"/>
@@ -74,6 +75,18 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Einrastwinkel"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Legt fest, in welchen Gradschritten die Fahrtrichtung eingerastet wird (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Vorgewende Modus"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Legt fest, was beim Erreichen des Vorgewendes passieren soll"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nichts"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Automatisch umdrehen"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Tempomat deaktivieren"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Vorgewende Abstand"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Legt fest, wieviel Meter vor dem Feldende das Vorgewende beginnt"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Arbeitsbreite"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="vor dem Feldende"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="hinter dem Feldende"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"  text="Der Fahrspurassistent ist nicht aktiviert."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Kein Gerät mit einer Arbeitsbreite gefunden."/>

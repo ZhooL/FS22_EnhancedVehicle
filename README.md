@@ -53,6 +53,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 1</kbd> to enable the track assistant
   * If you now enable snap mode the vehicle will drive on the current marked track
   * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 4/6</kbd> to adjust the turnover track number (from -5 to 5)
+  * Configure headland behavior in configuration menu
 * On HUD it displays:
   * (When snap/track is enabled) The current snap to angle and current track and turnover number(
   * Damage values in % for controlled vehicle and all its attachments.

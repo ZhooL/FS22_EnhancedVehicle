@@ -61,6 +61,31 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hydraulicTT"/>
       </GuiElement> 
 
+      <!-- headland settings -->
+      <GuiElement type="text" profile="dialogHeaderText"/>
+      <GuiElement type="text" profile="dialogHeaderText" id="sectionHeadlandSettings"/>
+      <GuiElement type="text" profile="dialogHeaderText"/>
+
+      <!-- headland mode -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="headlandModeSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="headlandModeTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="headlandModeTT"/>
+      </GuiElement>
+
+      <!-- headland distance -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="headlandDistanceSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="headlandDistanceTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="headlandDistanceTT"/>
+      </GuiElement>
+
       <!-- snap settings -->
       <GuiElement type="text" profile="dialogHeaderText"/>
       <GuiElement type="text" profile="dialogHeaderText" id="sectionSnapSettings"/>

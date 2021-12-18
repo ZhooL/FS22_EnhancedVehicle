@@ -34,9 +34,10 @@
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
 
-    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Global Settings"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="HUD Settings"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Track Assistent Settings"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Global Settings"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="HUD Settings"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Track Assistent Settings"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Headland Settings for"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Reset Mod configuration"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Reset configuration file"/>
@@ -74,6 +75,18 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Turn around automatically"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Disable cruise control"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Headland distance"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Turn around how many meters before end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Working width"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Track Assistant is not enabled."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>

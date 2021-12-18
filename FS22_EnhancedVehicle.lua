@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 16.12.2021
+-- @Date: 18.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-18 - V0.9.9.5
++ added headland behavior. open configuration menu to configure headland behavior for each vehicle.
 
 2021-12-16 - V0.9.9.4
 * display track number even when guide lines are turned off
@@ -554,7 +557,7 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
       self.vData.axisSidePrev = 0.0
       self.vData.snaplines = false
       self.vData.triggerCalculate = false
-      self.vData.track = { isVisible = false, isCalculated = false, deltaTrack = 1 }
+      self.vData.track = { isVisible = false, isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0 }
       for _, differential in ipairs(self.spec_motorized.differentials) do
         if differential.diffIndex1 == 1 then -- front
           self.vData.torqueRatio[1]   = differential.torqueRatio
@@ -631,7 +634,7 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
     self.vData.axisSidePrev = 0.0
     self.vData.snaplines = false
     self.vData.triggerCalculate = false
-    self.vData.track = { isVisible = false, isCalculated = false, deltaTrack = 1 }
+    self.vData.track = { isVisible = false, isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0 }
   end
 
   -- receive initial data from server
@@ -902,8 +905,8 @@ function FS22_EnhancedVehicle:onDraw()
     -- snap helper lines
     if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.snaplines then
       local length = MathUtil.vector2Length(self.vData.dx, self.vData.dz);
-      local dX = self.vData.dx / length
-      local dZ = self.vData.dz / length
+      self.vData.dX = self.vData.dx / length
+      self.vData.dZ = self.vData.dz / length
 
       -- draw helper line in front of vehicle
       local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
@@ -913,8 +916,8 @@ function FS22_EnhancedVehicle:onDraw()
         p1.x,
         p1.y,
         p1.z,
-        dX,
-        dZ,
+        self.vData.dX,
+        self.vData.dZ,
         4,
         FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[1], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[2], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[3],
         FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine)
@@ -924,32 +927,32 @@ function FS22_EnhancedVehicle:onDraw()
 
         -- left line beside vehicle
         local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
-        p1.x = p1.x + (-dZ * self.vData.impl.workWidth / 2) - (-dZ * self.vData.impl.offset)
-        p1.z = p1.z + ( dX * self.vData.impl.workWidth / 2) - ( dX * self.vData.impl.offset)
+        p1.x = p1.x + (-self.vData.dZ * self.vData.impl.workWidth / 2) - (-self.vData.dZ * self.vData.impl.offset)
+        p1.z = p1.z + ( self.vData.dX * self.vData.impl.workWidth / 2) - ( self.vData.dX * self.vData.impl.offset)
         p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine
         FS22_EnhancedVehicle:drawVisualizationLines(1,
           20,
           p1.x,
           p1.y,
           p1.z,
-          dX,
-          dZ,
+          self.vData.dX,
+          self.vData.dZ,
           4,
           FS22_EnhancedVehicle.snap.colorVehicleSideLine[1], FS22_EnhancedVehicle.snap.colorVehicleSideLine[2], FS22_EnhancedVehicle.snap.colorVehicleSideLine[3],
           FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine, true)
 
         -- right line beside vehicle
         local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
-        p1.x = p1.x - (-dZ * self.vData.impl.workWidth / 2) - (-dZ * self.vData.impl.offset)
-        p1.z = p1.z - ( dX * self.vData.impl.workWidth / 2) - ( dX * self.vData.impl.offset)
+        p1.x = p1.x - (-self.vData.dZ * self.vData.impl.workWidth / 2) - (-self.vData.dZ * self.vData.impl.offset)
+        p1.z = p1.z - ( self.vData.dX * self.vData.impl.workWidth / 2) - ( self.vData.dX * self.vData.impl.offset)
         p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine
         FS22_EnhancedVehicle:drawVisualizationLines(1,
           20,
           p1.x,
           p1.y,
           p1.z,
-          dX,
-          dZ,
+          self.vData.dX,
+          self.vData.dZ,
           4,
           FS22_EnhancedVehicle.snap.colorVehicleSideLine[1], FS22_EnhancedVehicle.snap.colorVehicleSideLine[2], FS22_EnhancedVehicle.snap.colorVehicleSideLine[3],
           FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleSideLine, true)
@@ -996,6 +999,36 @@ function FS22_EnhancedVehicle:onDraw()
             self.vData.impl.offset = -self.vData.impl.offset
             self.vData.track.offset = -self.vData.track.offset
             FS22_EnhancedVehicle:updateTrack(self, false, 0, false, 0, true, 0)
+          end
+        end
+
+        -- headland
+        if self.vData.is[5] then
+          local isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self)
+          if self.vData.track.isOnField <= 5 and isOnField then
+            if Round(self.vData.rot, 0) == Round(self.vData.is[4], 0) then
+              self.vData.track.isOnField = self.vData.track.isOnField + 1
+              if debug > 1 then print("Headland: enter field") end
+            end
+          end
+          if self.vData.track.isOnField > 5 and not isOnField then
+            self.vData.track.isOnField = 0
+            if debug > 1 then print("Headland: left field") end
+
+            -- handle headland
+            if self.vData.track.headlandMode <= 1 then
+              if debug > 1 then print("Headland: do nothing") end
+            elseif self.vData.track.headlandMode == 2 then
+              if debug > 1 then print("Headland: turn around") end
+              FS22_EnhancedVehicle.onActionCall(self, "FS22_EnhancedVehicle_SNAP_REVERSE", 0, 0, 0, 0)
+            elseif self.vData.track.headlandMode == 3 then
+              if debug > 1 then print("Headland: disable cruise control") end
+              if self.spec_drivable ~= nil and self.spec_drivable.cruiseControl ~= nil then
+                if self.spec_drivable.cruiseControl.state ~= Drivable.CRUISECONTROL_STATE_OFF then
+                  self.spec_drivable:setCruiseControlState(Drivable.CRUISECONTROL_STATE_OFF)
+                end
+              end
+            end
           end
         end
 
@@ -1065,7 +1098,6 @@ function FS22_EnhancedVehicle:onDraw()
         -- prepare for track numbers
         local activeCamera = self:getActiveCamera()
         local rx, ry, rz = getWorldRotation(activeCamera.cameraNode)
-        setTextBold(true)
         setTextColor(FS22_EnhancedVehicle.track.color[1], FS22_EnhancedVehicle.track.color[2], FS22_EnhancedVehicle.track.color[3], 1)
         setTextAlignment(RenderText.ALIGN_CENTER)
 
@@ -1113,16 +1145,18 @@ function FS22_EnhancedVehicle:onDraw()
 
           -- render track number
           if i < _s + FS22_EnhancedVehicle.track.numberOfTracks then
+            setTextBold(false)
             setTextColor(FS22_EnhancedVehicle.track.color[1], FS22_EnhancedVehicle.track.color[2], FS22_EnhancedVehicle.track.color[3], 1)
             local _curTrack = math.floor(trackLRText)
             if Round(self.vData.track.originalTrackLR, 0) + self.vData.track.deltaTrack == _curTrack then
+              setTextBold(true)
               if self.vData.is[5] then
-                setTextColor(0, 1, 0, 1)
+                setTextColor(0, 0.8, 0, 1)
               else
                 setTextColor(1, 1, 1, 1)
               end
             end
-            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 25, 75), tostring(_curTrack))
+            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 40, 90), tostring(_curTrack))
           end
 
           -- advance to next lane
@@ -1742,6 +1776,11 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         end
         FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, 0, true, 0, 0)
         self.vData.want[4] = rot2
+
+        -- update headland
+        if FS22_EnhancedVehicle:getHeadlandInfo(self) then
+          self.vData.track.isOnField = 10
+        end
       end
     else
       if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
@@ -1757,6 +1796,12 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     if not self.vData.is[5] then
       if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
         playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+      end
+      -- update headland
+      if self.vData.track.isVisible and self.vData.track.isCalculated then
+        if FS22_EnhancedVehicle:getHeadlandInfo(self) then
+          self.vData.track.isOnField = 10
+        end
       end
     else
       if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
@@ -1782,6 +1827,11 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     -- if track is enabled -> also rotate track
     if self.vData.track.isVisible and self.vData.track.isCalculated then
       FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, 0, true, self.vData.track.deltaTrack, 0)
+
+      -- update headland
+      if FS22_EnhancedVehicle:getHeadlandInfo(self) then
+        self.vData.track.isOnField = 10
+      end
     end
     _snap = true
   end
@@ -1969,10 +2019,26 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
     if self == g_currentMission.controlledVehicle and not g_currentMission.isSynchronizingWithPlayers then
       if not g_gui:getIsGuiVisible() then
+        UI_main:setVehicle(self)
         g_gui:showDialog("FS22_EnhancedVehicle_UI")
       end
     end
   end
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:getHeadlandInfo(self)
+  local distance = self.vData.track.headlandDistance
+  if distance == 9999 and self.vData.track.workWidth ~= nil then
+    distance = self.vData.track.workWidth
+  end
+
+  x = self.vData.px + (self.vData.dX * distance)
+  z = self.vData.pz + (self.vData.dZ * distance)
+  local _density = getDensityAtWorldPos(g_currentMission.terrainDetailId, x, 0, z)
+  local isOnField = _density ~= 0
+  return(isOnField)
 end
 
 -- #############################################################################

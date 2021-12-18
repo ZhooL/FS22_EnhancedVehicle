@@ -34,9 +34,10 @@
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
 
-    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions" text="Réglages"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHUD"             text="parametre du HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"    text="Réglages de l'assistant de conduite en ligne"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Réglages"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="parametre du HUD"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Réglages de l'assistant de conduite en ligne"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Headland Settings for"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Réinitialisation de la configuration du Mod"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Réinitialisation du fichier de configuration"/>
@@ -74,6 +75,18 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Blocage Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Pas de réglagle du Blocage de direction (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Turn around automatically"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Disable cruise control"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Headland distance"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Turn around how many meters before end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Working width"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Lane Keeping Assistant is not enabled."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>
