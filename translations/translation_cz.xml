@@ -6,7 +6,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Předchozí směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Linie Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Řádky Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Přidat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Ubrat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Přidat 45°"/>
@@ -15,10 +15,10 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Ubrat 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Mřížka Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Zvýšit počet oblinií pro otočku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Snížit počet oblinií pro otočku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Přesunout linii doprava"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Přesunout linii doleva"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Zvýšit počet obřádků pro otočku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Snížit počet obřádků pro otočku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Přesunout řádek doprava"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Přesunout řádek doleva"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Posunout ofset doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Posunout ofset doleva"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
@@ -37,7 +37,7 @@
     <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Globální nastavení"/>
     <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="Nastavení okna"/>
     <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Nastavení asistenta pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Headland Settings for"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Nastavení souvrati pro"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Obnovit konfiguraci Modu"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Obnovit konfigurační soubor"/>
@@ -76,17 +76,17 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Přichytit k úhlu"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Turn around automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Disable cruise control"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Souvraťový režim"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Co by se mělo stát při dosažení souvrati"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nic"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Automaticky otočit"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Vypnout tempomat"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Headland distance"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Turn around how many meters before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Working width"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Šířka souvratě"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Vzdálenost otáčení před koncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Pracovní šířka"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="před koncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="zakoncem pole"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Asistent pro jízdu v pruhu není povolen."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Nenalezeno zařízení s pracovní šířkou."/>
