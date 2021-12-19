@@ -6,7 +6,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Předchozí směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Linie Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Řádky Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Přidat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Ubrat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Přidat 45°"/>
