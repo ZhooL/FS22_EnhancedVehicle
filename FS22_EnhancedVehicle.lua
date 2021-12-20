@@ -782,6 +782,10 @@ function FS22_EnhancedVehicle:onUpdate(dt)
               if self.spec_drivable ~= nil and self.spec_drivable.cruiseControl ~= nil then
                 if self.spec_drivable.cruiseControl.state ~= Drivable.CRUISECONTROL_STATE_OFF then
                   self.spec_drivable:setCruiseControlState(Drivable.CRUISECONTROL_STATE_OFF)
+                  -- update server/clients
+                  if not self.isServer then
+                    g_client:getServerConnection():sendEvent(SetCruiseControlStateEvent.new(self, Drivable.CRUISECONTROL_STATE_OFF))
+                  end
                 end
               end
             end
