@@ -19,6 +19,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Move tracks to the right"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Move tracks to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Increase width of tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Move offset line to the right"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Move offset line to the left"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>

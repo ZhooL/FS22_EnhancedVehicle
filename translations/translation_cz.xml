@@ -19,6 +19,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Snížit počet obřádků pro otočku"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Přesunout řádek doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Přesunout řádek doleva"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Increase width of tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Posunout ofset doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Posunout ofset doleva"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>

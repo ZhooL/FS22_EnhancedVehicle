@@ -10,7 +10,10 @@
 CHANGELOG
 
 2021-12-20 - V0.9.9.7
++ support to increase/decrease width of calculated tracks
++ added support for "fake" tracks. use this if you have no attachment but want tracks. press rctrl+numpad2 twice.
 * bugfix for attachments on attachments
+* minor fixes
 
 2021-12-19 - V0.9.9.6
 * fixed some logic code bugs
@@ -139,6 +142,8 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACK',
                                              'FS22_EnhancedVehicle_SNAP_INC_TRACKP',
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACKP',
+                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKW',
+                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKW',
                                              'FS22_EnhancedVehicle_SNAP_INC_TRACKO',
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACKO',
                                              'AXIS_MOVE_SIDE_VEHICLE' }
@@ -1765,281 +1770,292 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     end
   end
 
-  -- steering angle snap on/off
-  local _snap = false
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
-    if not self.vData.is[5] then
+  -- snap/track assisstant
+  if FS22_EnhancedVehicle.functionSnapIsEnabled then
+    local _snap = false
+
+    -- steering angle snap on/off
+    if actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
+      if not self.vData.is[5] then
+        if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+          playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+        end
+        self.vData.want[5] = true
+
+        -- calculate snap angle
+        local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
+        if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle >= 360 then
+          snapToAngle = self.vData.rot
+        end
+        self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
+        if self.vData.want[4] == 360 then self.vData.want[4] = 0 end
+
+        -- if track is enabled -> set angle to track angle
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          -- ToDo: optimize this
+          local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+          local rot1 = 180 - math.deg(math.atan2(lx, lz))
+          if rot1 >= 360 then rot1 = rot1 - 360 end
+
+          -- if cabin is rotated -> direction should rotate also
+          if self.spec_drivable.reverserDirection < 0 then
+            rot1 = rot1 + 180
+            if rot1 >= 360 then rot1 = rot1 - 360 end
+          end
+
+          local rot2 = 180 - math.deg(math.atan2(self.vData.track.origin.dX, self.vData.track.origin.dZ))
+          if rot2 >= 360 then rot2 = rot2 - 360 end
+          local diffdeg = rot1 - rot2
+          if diffdeg > 180 then diffdeg = diffdeg - 360 end
+          if diffdeg < -180 then diffdeg = diffdeg + 360 end
+
+          -- when facing "backwards" -> flip grid
+          if diffdeg < -90 or diffdeg > 90 then
+            rot2 = AngleFix(rot2 + 180)
+          end
+          FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, 0, true, 0, 0)
+          self.vData.want[4] = rot2
+
+          -- update headland
+          self.vData.track.isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self) and 10 or 0
+        end
+      else
+        if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+        end
+        self.vData.want[5] = false
+      end
+      _snap = true
+    end
+
+    -- just turn snap on/off
+    if actionName == "FS22_EnhancedVehicle_SNAP_ONOFF2" then
+      if not self.vData.is[5] then
+        if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+          playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+        end
+        -- update headland
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          self.vData.track.isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self) and 10 or 0
+        end
+      else
+        if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+        end
+      end
+
+      self.vData.want[5] = not self.vData.want[5]
+      _snap = true
+    end
+
+    -- reverse snap
+    if actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
       if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
         playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
       end
+
+      -- turn snap on
       self.vData.want[5] = true
-      
-      -- calculate snap angle
-      local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
-      if snapToAngle == 0 or snapToAngle == 1 or snapToAngle < 0 or snapToAngle >= 360 then
-        snapToAngle = self.vData.rot
-      end
-      self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
-      if self.vData.want[4] == 360 then self.vData.want[4] = 0 end
 
-      -- if track is enabled -> set angle to track angle
+      self.vData.want[4] = Round(self.vData.is[4] + 180, 0)
+      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+      -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        -- ToDo: optimize this
-        local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
-        local rot1 = 180 - math.deg(math.atan2(lx, lz))
-        if rot1 >= 360 then rot1 = rot1 - 360 end
-
-        -- if cabin is rotated -> direction should rotate also
-        if self.spec_drivable.reverserDirection < 0 then
-          rot1 = rot1 + 180
-          if rot1 >= 360 then rot1 = rot1 - 360 end
-        end
-
-        local rot2 = 180 - math.deg(math.atan2(self.vData.track.origin.dX, self.vData.track.origin.dZ))
-        if rot2 >= 360 then rot2 = rot2 - 360 end
-        local diffdeg = rot1 - rot2
-        if diffdeg > 180 then diffdeg = diffdeg - 360 end
-        if diffdeg < -180 then diffdeg = diffdeg + 360 end
-
-        -- when facing "backwards" -> flip grid
-        if diffdeg < -90 or diffdeg > 90 then
-          rot2 = AngleFix(rot2 + 180)
-        end
-        FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, 0, true, 0, 0)
-        self.vData.want[4] = rot2
+        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, 0, true, self.vData.track.deltaTrack, 0)
 
         -- update headland
-        if FS22_EnhancedVehicle:getHeadlandInfo(self) then
-          self.vData.track.isOnField = 10
+        self.vData.track.isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self) and 10 or 0
+      end
+      _snap = true
+    end
+
+    -- 1°
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] + 1, 0)
+        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true, 0, true, 0, 0)
         end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
       end
-    else
-      if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
-      end
-      self.vData.want[5] = false
     end
-    _snap = true
-  end
-
-  -- just turn snap on/off
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_ONOFF2" then
-    if not self.vData.is[5] then
-      if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
-      end
-      -- update headland
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
-        if FS22_EnhancedVehicle:getHeadlandInfo(self) then
-          self.vData.track.isOnField = 10
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] - 1, 0)
+        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true, 0, true, 0, 0)
         end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
       end
-    else
-      if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+    end
+    -- 90°
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] + 90.0, 0)
+        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true, 0, true, 0, 0)
+        end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+      end
+    end
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] - 90.0, 0)
+        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true, 0, true, 0, 0)
+        end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+      end
+    end
+    -- 45°
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] + 45.0, 0)
+        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true, 0, true, 0, 0)
+        end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+      end
+    end
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] - 45.0, 0)
+        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true, 0, true, 0, 0)
+        end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
       end
     end
 
-    self.vData.want[5] = not self.vData.want[5]
-    _snap = true
-  end
-
-  -- reverse snap
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
-    if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
-    end
-
-    -- turn snap on
-    self.vData.want[5] = true
-
-    self.vData.want[4] = Round(self.vData.is[4] + 180, 0)
-    if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-    -- if track is enabled -> also rotate track
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, 0, true, self.vData.track.deltaTrack, 0)
-
-      -- update headland
-      if FS22_EnhancedVehicle:getHeadlandInfo(self) then
-        self.vData.track.isOnField = 10
-      end
-    end
-    _snap = true
-  end
-
-  -- 1°
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] + 1, 0)
-      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-      -- if track is enabled -> also rotate track
+    -- delta track--
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACK" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true, 0, true, 0, 0)
+        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack - 1, -5, 5)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] - 1, 0)
-      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-      -- if track is enabled -> also rotate track
+    -- delta track++
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACK" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true, 0, true, 0, 0)
+        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + 1, -5, 5)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
-  -- 90°
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] + 90.0, 0)
-      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-      -- if track is enabled -> also rotate track
+
+    -- track position--
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKP" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true, 0, true, 0, 0)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, -0.1, true, 0, 0)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] - 90.0, 0)
-      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-      -- if track is enabled -> also rotate track
+    -- track position++
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKP" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true, 0, true, 0, 0)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1, true, 0, 0)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
-  -- 45°
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] + 45.0, 0)
-      if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-      -- if track is enabled -> also rotate track
+
+    -- track width--
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKW" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true, 0, true, 0, 0)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, -0.05)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-    if self.vData.is[5] then
-      self.vData.want[4] = Round(self.vData.is[4] - 45.0, 0)
-      if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-      -- if track is enabled -> also rotate track
+    -- track width++
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKW" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true, 0, true, 0, 0)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, 0.05)
       end
-      _snap = true
-    else
-      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
     end
-  end
 
-  -- delta track--
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACK" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack - 1, -5, 5)
+    -- track offset--
+    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKO" then
+      if self.vData.track.isVisible and self.vData.track.isCalculated then
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, -0.05)
+      end
     end
-  end
-  -- delta track++
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACK" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + 1, -5, 5)
+    -- track offset++
+    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKO" then
+      if self.vData.track.isVisible and self.vData.track.isCalculated then
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05)
+      end
     end
-  end
 
-  -- track position--
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKP" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, -0.1, true, 0, 0)
-    end
-  end
-  -- track position++
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKP" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1, true, 0, 0)
-    end
-  end
+    -- track display on/off
+    if actionName == "FS22_EnhancedVehicle_SNAP_GRID_ONOFF" then
+      self.vData.track.isVisible = not self.vData.track.isVisible
 
-  -- track offset--
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKO" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, -0.05)
-    end
-  end
-  -- track offset++
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKO" then
-    if self.vData.track.isVisible and self.vData.track.isCalculated then
-      FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05)
-    end
-  end
+      -- if we turn on track we must also switch lines on
+      if self.vData.track.isVisible then
+        self.vData.snaplines = true
 
-  -- track display on/off
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_GRID_ONOFF" then
-    self.vData.track.isVisible = not self.vData.track.isVisible
-
-    -- if we turn on track we must also switch lines on
-    if self.vData.track.isVisible then
-      self.vData.snaplines = true
-
-      if not self.vData.track.isCalculated then
-        if not FS22_EnhancedVehicle:calculateTrack(self) then
-          self.vData.track.isVisible = false
+        if not self.vData.track.isCalculated then
+          if not FS22_EnhancedVehicle:calculateTrack(self) then
+            self.vData.track.isVisible = false
+          end
         end
       end
     end
-  end
 
-  -- recalculate track
-  if FS22_EnhancedVehicle.functionSnapIsEnabled and actionName == "FS22_EnhancedVehicle_SNAP_GRID_RESET" then
-    FS22_EnhancedVehicle:calculateTrack(self)
+    -- recalculate track
+    if actionName == "FS22_EnhancedVehicle_SNAP_GRID_RESET" then
+      FS22_EnhancedVehicle:calculateTrack(self)
 
-    -- turn on track visibility
-    if not self.vData.track.isVisible then
-      self.vData.track.isVisible = true
-      self.vData.snaplines = true
-    end
-  end
-
-  -- disable steering angle snap if user interacts
-  if actionName == "AXIS_MOVE_SIDE_VEHICLE" and math.abs( keyStatus ) > 0.05 then
-    if self.vData.is[5] then
-      if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+      -- turn on track visibility
+      if not self.vData.track.isVisible then
+        self.vData.track.isVisible = true
+        self.vData.snaplines = true
       end
-
-      self.vData.want[5] = false
-      self.vData.want[6] = false
-      _snap = true
     end
-  end
 
-  -- update client-server
-  if _snap then
-    if self.isClient and not self.isServer then
-      self.vData.is[4] = self.vData.want[4]
-      self.vData.is[5] = self.vData.want[5]
-      self.vData.is[6] = self.vData.want[6]
-      self.vData.is[7] = self.vData.want[7]
-      self.vData.is[8] = self.vData.want[8]
-      self.vData.is[9] = self.vData.want[9]
-      self.vData.is[10] = self.vData.want[10]
+    -- disable steering angle snap if user interacts
+    if actionName == "AXIS_MOVE_SIDE_VEHICLE" and math.abs( keyStatus ) > 0.05 then
+      if self.vData.is[5] then
+        if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+        end
+
+        self.vData.want[5] = false
+        self.vData.want[6] = false
+        _snap = true
+      end
     end
-    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
+
+    -- update client-server
+    if _snap then
+      if self.isClient and not self.isServer then
+        self.vData.is[4] = self.vData.want[4]
+        self.vData.is[5] = self.vData.want[5]
+        self.vData.is[6] = self.vData.want[6]
+        self.vData.is[7] = self.vData.want[7]
+        self.vData.is[8] = self.vData.want[8]
+        self.vData.is[9] = self.vData.want[9]
+        self.vData.is[10] = self.vData.want[10]
+      end
+      FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
+    end
   end
 
   -- configuration dialog
@@ -2080,7 +2096,7 @@ end
 -- # updatePosition true -> use current vehicle position as new track origin
 -- # updateSnap true -> update the snap to track position
 
-function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, updatePosition, deltaPosition, updateSnap, deltaTrack, deltaOffset)
+function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, updatePosition, deltaPosition, updateSnap, deltaTrack, deltaOffset, deltaWorkWidth)
   if debug > 1 then print("-> " .. myName .. ": updateTrack" .. mySelf(self)) end
 
   -- defaults
@@ -2093,12 +2109,23 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
   if updateSnap == nil     then updateSnap = false end
   if deltaTrack == nil     then deltaTrack = 0 end
   if deltaOffset == nil    then deltaOffset = 0 end
+  if deltaWorkWidth == nil then deltaWorkWidth = 0 end
 
   -- only if there is valid implement data
-  if self.vData.impl.workWidth > 0 then
-    self.vData.track.workWidth = self.vData.impl.workWidth
+  if self.vData.impl.workWidth > 0 or self.vData.track.forceFake or self.vData.track.isCalculated then
+    if self.vData.track.workWidth == nil then
+      if self.vData.track.forceFake then
+        self.vData.track.workWidth = 4
+      else
+        self.vData.track.workWidth = self.vData.impl.workWidth
+      end
+    end
     if self.vData.track.offset == nil then
-      self.vData.track.offset = self.vData.impl.offset
+      if self.vData.track.forceFake then
+        self.vData.track.offset = 0
+      else
+        self.vData.track.offset = self.vData.impl.offset
+      end
     end
 
     if self.vData.track.offset < (-self.vData.track.workWidth / 2) then self.vData.track.offset = self.vData.track.offset + (self.vData.track.workWidth) end
@@ -2146,8 +2173,13 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
     -- shall we update the track position?
     if updatePosition then
       -- use middle between left and right marker of implement as track origin position
-      self.vData.track.origin.px = self.vData.px - (-self.vData.track.origin.dZ * self.vData.impl.left.px) + (-self.vData.track.origin.dZ * (self.vData.track.workWidth / 2))
-      self.vData.track.origin.pz = self.vData.pz - ( self.vData.track.origin.dX * self.vData.impl.left.px) + ( self.vData.track.origin.dX * (self.vData.track.workWidth / 2))
+      if self.vData.track.forceFake then
+        self.vData.track.origin.px = self.vData.px
+        self.vData.track.origin.pz = self.vData.pz
+      else
+        self.vData.track.origin.px = self.vData.px - (-self.vData.track.origin.dZ * self.vData.impl.left.px) + (-self.vData.track.origin.dZ * (self.vData.track.workWidth / 2))
+        self.vData.track.origin.pz = self.vData.pz - ( self.vData.track.origin.dX * self.vData.impl.left.px) + ( self.vData.track.origin.dX * (self.vData.track.workWidth / 2))
+      end
 
       -- save original orientation
       self.vData.track.origin.originaldX = self.vData.track.origin.dX
@@ -2174,17 +2206,12 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
     -- should we move the offset
     if deltaOffset ~= 0 then
       self.vData.track.offset = self.vData.track.offset + deltaOffset
+      updateSnap = true
+    end
 
-      -- snap position
---      self.vData.track.origin.snapx = self.vData.track.origin.snapx + (-self.vData.track.origin.dZ * deltaOffset)
---      self.vData.track.origin.snapz = self.vData.track.origin.snapz + ( self.vData.track.origin.dX * deltaOffset)
-
-      -- send new snap position to server
---      self.vData.want[11]  = self.vData.track.origin.snapx
---      self.vData.want[12]  = self.vData.track.origin.snapz
---      self.vData.want[6]   = true
---      _broadcastUpdate = true
-
+    -- should we change size of track
+    if deltaWorkWidth ~= 0 then
+      self.vData.track.workWidth = self.vData.track.workWidth + deltaWorkWidth
       updateSnap = true
     end
 
@@ -2249,20 +2276,27 @@ function FS22_EnhancedVehicle:calculateTrack(self)
   if debug > 1 then print("-> " .. myName .. ": calculateTrack" .. mySelf(self)) end
 
   -- reset/delete all tracks data
-  self.vData.track.origin = {}
+  self.vData.track.origin       = {}
   self.vData.track.isCalculated = false
-  self.vData.track.dotFBPrev = 99999999
-  self.vData.track.offset = nil
+  self.vData.track.dotFBPrev    = 99999999
+  self.vData.track.offset       = nil
+  self.vData.track.workWidth    = nil
 
   -- first, we need information about implements
   FS22_EnhancedVehicle:enumerateImplements(self)
 
   -- then we update the tracks with "current" angle and new origin
   if not FS22_EnhancedVehicle:updateTrack(self, true, -1, true, 0, true, 0) then
-    g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
+    if self.vData.track.forceFake == nil then
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement2"), 4000)
+      self.vData.track.forceFake = true
+    else
+      g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
+    end
     return false
   end
 
+  self.vData.track.forceFake = nil
   return true
 end
 

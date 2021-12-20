@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 07.12.2021
+-- @Date: 20.12.2021
 -- @Version: 1.0.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
@@ -232,6 +232,9 @@ end
 
 function FS22_EnhancedVehicle_UI:onClickOk()
   if debug > 1 then print("-> " .. myName .. ": onClickOk ") end
+
+  -- jump out if no vehicle is present
+  if self.vehicle == nil then return end
 
   local state
 
