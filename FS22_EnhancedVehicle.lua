@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 19.12.2021
+-- @Date: 20.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-20 - V0.9.9.7
+* bugfix for attachments on attachments
 
 2021-12-19 - V0.9.9.6
 * fixed some logic code bugs
@@ -1369,7 +1372,7 @@ function FS22_EnhancedVehicle:onDraw()
       if self.vData.track.deltaTrack < 0 then _prefix = "" end
       local _curTrack = Round(self.vData.track.originalTrackLR, 0)
       local track_txt = string.format("#%i  →  %s%i  →  %i", _curTrack, _prefix, self.vData.track.deltaTrack, (_curTrack + self.vData.track.deltaTrack))
-      local track_txt2 = string.format("|-- %.1fm --|", Round(self.vData.track.workWidth, 1))
+      local track_txt2 = string.format("|← %.1fm →|", Round(self.vData.track.workWidth, 1))
       local _tmp = self.vData.track.headlandDistance
       if _tmp == 9999 then _tmp = Round(self.vData.track.workWidth, 1) end
       local track_txt3 = string.format("↑ %.1f", _tmp)
@@ -2273,23 +2276,11 @@ end
 function FS22_EnhancedVehicle:enumerateImplements(self)
   if debug > 1 then print("-> " .. myName .. ": enumerateImplements" .. mySelf(self)) end
 
-  local listOfObjects = {}
+  -- build list of attachments
+  listOfObjects = {}
+  FS22_EnhancedVehicle:enumerateImplements2(self)
 
-  -- first enumerate attachments
-  if self.getAttachedImplements ~= nil then
-    attachedImplements = self:getAttachedImplements()
-  end
-  if attachedImplements ~= nil then
-    -- go through all attached implements
-    for _, implement in pairs(attachedImplements) do
-      -- if implement has a work area -> add to list
-      if implement.object ~= nil and implement.object.spec_workArea ~= nil then
-        table.insert(listOfObjects, implement.object)
-      end
-    end
-  end
-
-  -- second add our own vehicle
+  -- add our own vehicle
   if (self.spec_workArea ~= nil) then
     table.insert(listOfObjects, self)
   end
@@ -2344,6 +2335,33 @@ function FS22_EnhancedVehicle:enumerateImplements(self)
 
   if debug > 1 then print("--> Width: "..self.vData.impl.workWidth..", Offset: "..self.vData.impl.offset) end
   if debug > 1 then print(DebugUtil.printTableRecursively(self.vData.impl, 0, 0, 1)) end
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:enumerateImplements2(self)
+  if debug > 1 then print("-> " .. myName .. ": enumerateImplements2" .. mySelf(self)) end
+
+  local attachedImplements = nil
+
+  -- are there attachments?
+  if self.getAttachedImplements ~= nil then
+    attachedImplements = self:getAttachedImplements()
+  end
+  if attachedImplements ~= nil then
+    -- go through all attached implements
+    for _, implement in pairs(attachedImplements) do
+      -- if implement has a work area -> add to list
+      if implement.object ~= nil and implement.object.spec_workArea ~= nil then
+        table.insert(listOfObjects, implement.object)
+      end
+
+      -- recursive dive into more attachments
+      if implement.object.getAttachedImplements ~= nil then
+        FS22_EnhancedVehicle:enumerateImplements2(implement.object)
+      end
+    end
+  end
 end
 
 -- #############################################################################
