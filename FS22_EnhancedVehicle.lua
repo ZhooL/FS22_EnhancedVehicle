@@ -9,6 +9,11 @@
 --[[
 CHANGELOG
 
+2021-12-23 - V0.9.9.8
+* rewritten the complete HUD code. looks better, fits GUI scaling.
++ added key binding to quickly cycle through headland modes
+- removed key binding for "resume previous snap direction"
+
 2021-12-20 - V0.9.9.7
 + support to increase/decrease width of calculated tracks
 + added support for "fake" tracks. use this if you have no attachment but want tracks. press rctrl+numpad2 twice.
@@ -116,18 +121,11 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
 
   -- some global stuff - DONT touch
   FS22_EnhancedVehicle.hud = {}
-  FS22_EnhancedVehicle.hud.diff_overlayWidth  = 512
-  FS22_EnhancedVehicle.hud.diff_overlayHeight = 1024
-  FS22_EnhancedVehicle.hud.uiScale = 1
-  if g_gameSettings.uiScale ~= nil then
-    if debug > 2 then print("-> uiScale: "..FS22_EnhancedVehicle.uiScale) end
-    FS22_EnhancedVehicle.uiScale = g_gameSettings.uiScale
-  end
-  FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'snap', 'track' }
+  FS22_EnhancedVehicle.fS = g_currentMission.hud.speedMeter:scalePixelToScreenHeight(12)
+  FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track' }
   FS22_EnhancedVehicle.actions = {}
   FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_MENU' }
   FS22_EnhancedVehicle.actions.snap =      { 'FS22_EnhancedVehicle_SNAP_ONOFF',
-                                             'FS22_EnhancedVehicle_SNAP_ONOFF2',
                                              'FS22_EnhancedVehicle_SNAP_REVERSE',
                                              'FS22_EnhancedVehicle_SNAP_LINES',
                                              'FS22_EnhancedVehicle_SNAP_INC1',
@@ -146,6 +144,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACKW',
                                              'FS22_EnhancedVehicle_SNAP_INC_TRACKO',
                                              'FS22_EnhancedVehicle_SNAP_DEC_TRACKO',
+                                             'FS22_EnhancedVehicle_SNAP_HL_MODE',
                                              'AXIS_MOVE_SIDE_VEHICLE' }
   FS22_EnhancedVehicle.actions.diff  =     { 'FS22_EnhancedVehicle_FD',
                                              'FS22_EnhancedVehicle_RD',
@@ -165,43 +164,13 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
     blue     = {   0/255,   0/255, 255/255, 1 },
     yellow   = { 255/255, 255/255,   0/255, 1 },
     gray     = { 128/255, 128/255, 128/255, 1 },
-    dmg      = {  86/255, 142/255,  42/255, 1 },
+    dmg      = { 255/255, 174/255,   0/255, 1 },
     fuel     = { 178/255, 214/255,  22/255, 1 },
     adblue   = {  48/255,  78/255, 249/255, 1 },
     electric = { 255/255, 255/255,   0/255, 1 },
     methane  = {   0/255, 198/255, 255/255, 1 },
     ls22blue = {   0/255, 198/255, 253/255, 1 },
   }
-
-  -- for overlays
-  FS22_EnhancedVehicle.overlay = {}
-
-  -- prepare overlays
-  if FS22_EnhancedVehicle.overlay["fuel"] == nil then
-    FS22_EnhancedVehicle.overlay["fuel"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["dmg"] == nil then
-    FS22_EnhancedVehicle.overlay["dmg"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["misc"] == nil then
-    FS22_EnhancedVehicle.overlay["misc"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["snap"] == nil then
-    FS22_EnhancedVehicle.overlay["snap"] = createImageOverlay(self.modDirectory .. "resources/overlay_bg.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["diff_bg"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_bg"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_bg.dds")
-    setOverlayColor(FS22_EnhancedVehicle.overlay["diff_bg"], 0, 0, 0, 1)
-  end
-  if FS22_EnhancedVehicle.overlay["diff_front"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_front"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_front.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["diff_back"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_back"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_back.dds")
-  end
-  if FS22_EnhancedVehicle.overlay["diff_dm"] == nil then
-    FS22_EnhancedVehicle.overlay["diff_dm"] = createImageOverlay(self.modDirectory .. "resources/overlay_diff_dm.dds")
-  end
 
   -- load sound effects
   if g_dedicatedServerInfo == nil then
@@ -223,7 +192,10 @@ function FS22_EnhancedVehicle:delete()
   if debug > 1 then print("-> " .. myName .. ": delete ") end
 
   -- delete our UI
-  UI_main:delete()
+  self.mission.EnhancedVehicle.ui:delete()
+
+  -- delete our HUD
+  self.mission.EnhancedVehicle.hud:delete()
 end
 
 -- #############################################################################
@@ -232,8 +204,14 @@ function FS22_EnhancedVehicle:onMissionLoaded(mission)
   if debug > 1 then print("-> " .. myName .. ": onMissionLoaded ") end
 
   g_gui:loadProfiles(self.modDirectory.."ui/guiProfiles.xml")
-  UI_main = FS22_EnhancedVehicle_UI.new()
-  g_gui:loadGui(self.modDirectory.."ui/FS22_EnhancedVehicle_UI.xml", "FS22_EnhancedVehicle_UI", UI_main)
+  local ui = FS22_EnhancedVehicle_UI.new()
+  mission.EnhancedVehicle.ui = ui
+  g_gui:loadGui(self.modDirectory.."ui/FS22_EnhancedVehicle_UI.xml", "FS22_EnhancedVehicle_UI", ui)
+
+  local hud = FS22_EnhancedVehicle_HUD:new(mission.hud.speedMeter, self.modDirectory)
+  mission.EnhancedVehicle.hud = hud
+
+  hud:load()
 end
 
 -- #############################################################################
@@ -259,7 +237,7 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle.installSpecializations(vehicleTypeManager, specializationManager, modDirectory)
+function FS22_EnhancedVehicle.installSpecializations(vehicleTypeManager, specializationManager, modDirectory, modName)
   if debug > 1 then print("-> " .. myName .. ": installSpecializations ") end
 
   specializationManager:addSpecialization("EnhancedVehicle", "FS22_EnhancedVehicle", Utils.getFilename("FS22_EnhancedVehicle.lua", modDirectory), nil)
@@ -275,8 +253,8 @@ function FS22_EnhancedVehicle.installSpecializations(vehicleTypeManager, special
          not SpecializationUtil.hasSpecialization(ConveyorBelt,   typeDef.specializations) and
          not SpecializationUtil.hasSpecialization(AIConveyorBelt, typeDef.specializations)
       then
-        if debug > 1 then print("--> attached specialization 'FS22_EnhancedVehicle' to vehicleType '" .. tostring(typeName) .. "'") end
-        vehicleTypeManager:addSpecialization(typeName, "FS22_EnhancedVehicle.EnhancedVehicle")
+        if debug > 1 then print("--> attached specialization 'EnhancedVehicle' to vehicleType '" .. tostring(typeName) .. "'") end
+        vehicleTypeManager:addSpecialization(typeName, modName..".EnhancedVehicle")
       end
     end
   end
@@ -350,10 +328,6 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.functionSnapIsEnabled      = lC:getConfigValue("global.functions", "snapIsEnabled")
 
   -- globals
-  FS22_EnhancedVehicle.fontSize            = lC:getConfigValue("global.text", "fontSize")
-  FS22_EnhancedVehicle.textPadding         = lC:getConfigValue("global.text", "textPadding")
-  FS22_EnhancedVehicle.overlayBorder       = lC:getConfigValue("global.text", "overlayBorder")
-  FS22_EnhancedVehicle.overlayTransparancy = lC:getConfigValue("global.text", "overlayTransparancy")
   FS22_EnhancedVehicle.showKeysInHelpMenu  = lC:getConfigValue("global.misc", "showKeysInHelpMenu")
   FS22_EnhancedVehicle.soundIsOn           = lC:getConfigValue("global.misc", "soundIsOn")
 
@@ -379,18 +353,8 @@ function FS22_EnhancedVehicle:activateConfig()
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
     FS22_EnhancedVehicle.hud[section] = {}
     FS22_EnhancedVehicle.hud[section].enabled = lC:getConfigValue("hud."..section, "enabled")
-    FS22_EnhancedVehicle.hud[section].posX    = lC:getConfigValue("hud."..section, "posX")
-    FS22_EnhancedVehicle.hud[section].posY    = lC:getConfigValue("hud."..section, "posY")
   end
-  FS22_EnhancedVehicle.hud.diff.zoomFactor    = lC:getConfigValue("hud.diff", "zoomFactor")
   FS22_EnhancedVehicle.hud.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
-  FS22_EnhancedVehicle.hud.snap.zoomFactor    = lC:getConfigValue("hud.snap", "zoomFactor")
-
-  -- update HUD transparency
-  setOverlayColor(FS22_EnhancedVehicle.overlay["fuel"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-  setOverlayColor(FS22_EnhancedVehicle.overlay["dmg"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-  setOverlayColor(FS22_EnhancedVehicle.overlay["misc"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
-  setOverlayColor(FS22_EnhancedVehicle.overlay["snap"], 0, 0, 0, FS22_EnhancedVehicle.overlayTransparancy)
 end
 
 -- #############################################################################
@@ -398,19 +362,6 @@ end
 function FS22_EnhancedVehicle:resetConfig(disable)
   if debug > 0 then print("-> " .. myName .. ": resetConfig ") end
   disable = false or disable
-
-  local _x, _y
-
-  if g_gameSettings.uiScale ~= nil then
-    FS22_EnhancedVehicle.uiScale = g_gameSettings.uiScale
---    local screenWidth, screenHeight = getScreenModeInfo(getScreenMode())
-    if debug > 1 then print("-> uiScale: "..FS22_EnhancedVehicle.uiScale) end
-  end
-
-  -- to make life easier
---  print(DebugUtil.printTableRecursively(g_currentMission.inGameMenu.hud.speedMeter, 0, 0, 2))
-  local baseX = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX
-  local baseY = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterY
 
   -- start fresh
   lC:clearConfig()
@@ -421,10 +372,6 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("global.functions", "snapIsEnabled",      "bool", true)
 
   -- globals
-  lC:addConfigValue("global.text", "fontSize", "float",            0.01)
-  lC:addConfigValue("global.text", "textPadding", "float",         0.001)
-  lC:addConfigValue("global.text", "overlayBorder", "float",       0.003)
-  lC:addConfigValue("global.text", "overlayTransparancy", "float", 0.70)
   lC:addConfigValue("global.misc", "showKeysInHelpMenu", "bool",   true)
   lC:addConfigValue("global.misc", "soundIsOn", "bool",            true)
 
@@ -452,81 +399,26 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("track.color", "blue",                "float", 0/255)
 
   -- fuel
-  if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
-    _x = baseX + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.4)
-    _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
-  end
   lC:addConfigValue("hud.fuel", "enabled", "bool", true)
-  lC:addConfigValue("hud.fuel", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.fuel", "posY", "float",   _y or 0)
 
   -- dmg
-  if g_currentMission.inGameMenu.hud.speedMeter.damageGaugeIconElement ~= nil then
-    _x = baseX - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.4)
-    _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
-  end
   lC:addConfigValue("hud.dmg", "enabled", "bool", true)
-  lC:addConfigValue("hud.dmg", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.dmg", "posY", "float",   _y or 0)
   lC:addConfigValue("hud.dmg", "showAmountLeft", "bool", false)
 
-  -- snap
-  lC:addConfigValue("hud.snap", "zoomFactor", "float", 2)
-  if g_currentMission.inGameMenu.hud.speedMeter.damageGaugeIconElement ~= nil then
-    _x = baseX
-    _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 2.0)
-  end
-  lC:addConfigValue("hud.snap", "enabled", "bool", true)
-  lC:addConfigValue("hud.snap", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.snap", "posY", "float",   _y or 0)
-
   -- track
-  if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
-    _x = baseX
-    _y = baseY + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 1.8)
-  end
   lC:addConfigValue("hud.track", "enabled", "bool", true)
-  lC:addConfigValue("hud.track", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.track", "posY", "float",   _y or 0)
-
 
   -- misc
-  if g_currentMission.inGameMenu.hud.speedMeter.operatingTimeElement ~= nil then
-    _x = baseX
-    _y = lC:getConfigValue("global.text", "overlayBorder") * 1
-  end
   lC:addConfigValue("hud.misc", "enabled", "bool", true)
-  lC:addConfigValue("hud.misc", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.misc", "posY", "float",   _y or 0)
 
   -- rpm
-  if g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX ~= nil then
-    _x = baseX - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.55)
-    _y = baseY
-  end
   lC:addConfigValue("hud.rpm", "enabled", "bool", true)
-  lC:addConfigValue("hud.rpm", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.rpm", "posY", "float",   _y or 0)
 
   -- temp
-  if g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX ~= nil then
-    _x = baseX + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX / 1.55)
-    _y = baseY
-  end
   lC:addConfigValue("hud.temp", "enabled", "bool", true)
-  lC:addConfigValue("hud.temp", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.temp", "posY", "float",   _y or 0)
 
   -- diff
-  lC:addConfigValue("hud.diff", "zoomFactor", "float", 18)
-  if g_currentMission.inGameMenu.hud.speedMeter.fuelGaugeIconElement ~= nil then
-    _x = baseX + (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusX * 3.15)
-    _y = baseY - (g_currentMission.inGameMenu.hud.speedMeter.speedIndicatorRadiusY * 1.43)
-  end
   lC:addConfigValue("hud.diff", "enabled", "bool", true)
-  lC:addConfigValue("hud.diff", "posX", "float",   _x or 0)
-  lC:addConfigValue("hud.diff", "posY", "float",   _y or 0)
-
 end
 
 -- #############################################################################
@@ -953,10 +845,6 @@ function FS22_EnhancedVehicle:onDraw()
 
   -- only on client side and GUI is visible
   if self.isClient and not g_gui:getIsGuiVisible() and self:getIsControlled() then
-
-    local fS = FS22_EnhancedVehicle.fontSize * FS22_EnhancedVehicle.uiScale
-    local tP = FS22_EnhancedVehicle.textPadding * FS22_EnhancedVehicle.uiScale
-
     -- update current track
     local dx, dz = 0, 0
     if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.track.isCalculated then
@@ -1178,7 +1066,7 @@ function FS22_EnhancedVehicle:onDraw()
                 setTextColor(1, 1, 1, 1)
               end
             end
-            renderText3D(textX, textY, textZ, rx, ry, rz, fS * Between(self.vData.track.workWidth * 5, 40, 90), tostring(_curTrack))
+            renderText3D(textX, textY, textZ, rx, ry, rz, FS22_EnhancedVehicle.fS * Between(self.vData.track.workWidth * 5, 40, 90), tostring(_curTrack))
           end
 
           -- advance to next lane
@@ -1188,322 +1076,12 @@ function FS22_EnhancedVehicle:onDraw()
       end -- <- end of draw tracks
     end -- <- end of snap enabled and lines enabled
 
-    -- ### do the fuel stuff ###
-    if self.spec_fillUnit ~= nil and FS22_EnhancedVehicle.hud.fuel.enabled then
-      -- get values
-      fuel_diesel_current   = -1
-      fuel_adblue_current   = -1
-      fuel_electric_current = -1
-      fuel_methane_current  = -1
-
-      for _, fillUnit in ipairs(self.spec_fillUnit.fillUnits) do
-        if fillUnit.fillType == FillType.DIESEL then -- Diesel
-          fuel_diesel_max = fillUnit.capacity
-          fuel_diesel_current = fillUnit.fillLevel
-        end
-        if fillUnit.fillType == FillType.DEF then -- AdBlue
-          fuel_adblue_max = fillUnit.capacity
-          fuel_adblue_current = fillUnit.fillLevel
-        end
-        if fillUnit.fillType == FillType.ELECTRICCHARGE then -- Electric
-          fuel_electric_max = fillUnit.capacity
-          fuel_electric_current = fillUnit.fillLevel
-        end
-        if fillUnit.fillType == FillType.METHANE then -- Methan
-          fuel_methane_max = fillUnit.capacity
-          fuel_methane_current = fillUnit.fillLevel
-        end
-      end
-
-      -- prepare text
-      h = 0
-      fuel_txt_usage = ""
-      fuel_txt_diesel = ""
-      fuel_txt_adblue = ""
-      fuel_txt_electric = ""
-      fuel_txt_methane = ""
-      if fuel_diesel_current >= 0 then
-        fuel_txt_diesel = string.format("%.1f l/%.1f l", fuel_diesel_current, fuel_diesel_max)
-        h = h + fS + tP
-      end
-      if fuel_adblue_current >= 0 then
-        fuel_txt_adblue = string.format("%.1f l/%.1f l", fuel_adblue_current, fuel_adblue_max)
-        h = h + fS + tP
-      end
-      if fuel_electric_current >= 0 then
-        fuel_txt_electric = string.format("%.1f kWh/%.1f kWh", fuel_electric_current, fuel_electric_max)
-        h = h + fS + tP
-      end
-      if fuel_methane_current >= 0 then
-        fuel_txt_methane = string.format("%.1f l/%.1f l", fuel_methane_current, fuel_methane_max)
-        h = h + fS + tP
-      end
-      if self.spec_motorized.isMotorStarted == true and self.isServer then
-        if fuel_electric_current >= 0 then
-          fuel_txt_usage = string.format("%.1f kW/h", self.spec_motorized.lastFuelUsage)
-        else
-          fuel_txt_usage = string.format("%.1f l/h", self.spec_motorized.lastFuelUsage)
-        end
-        h = h + fS + tP
-      end
-
-      -- render overlay
-      w = getTextWidth(fS, fuel_txt_diesel)
-      tmp = getTextWidth(fS, fuel_txt_adblue)
-      if  tmp > w then w = tmp end
-      tmp = getTextWidth(fS, fuel_txt_electric)
-      if  tmp > w then w = tmp end
-      tmp = getTextWidth(fS, fuel_txt_methane)
-      if  tmp > w then w = tmp end
-      tmp = getTextWidth(fS, fuel_txt_usage)
-      if  tmp > w then w = tmp end
-      renderOverlay(FS22_EnhancedVehicle.overlay["fuel"], FS22_EnhancedVehicle.hud.fuel.posX - FS22_EnhancedVehicle.overlayBorder, FS22_EnhancedVehicle.hud.fuel.posY - FS22_EnhancedVehicle.overlayBorder, w + (FS22_EnhancedVehicle.overlayBorder*2), h + (FS22_EnhancedVehicle.overlayBorder*2))
-
-      -- render text
-      tmpY = FS22_EnhancedVehicle.hud.fuel.posY
-      setTextAlignment(RenderText.ALIGN_LEFT)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
-      setTextBold(false)
-      if fuel_txt_diesel ~= "" then
-        setTextColor(unpack(FS22_EnhancedVehicle.color.fuel))
-        renderText(FS22_EnhancedVehicle.hud.fuel.posX, tmpY, fS, fuel_txt_diesel)
-        tmpY = tmpY + fS + tP
-      end
-      if fuel_txt_adblue ~= "" then
-        setTextColor(unpack(FS22_EnhancedVehicle.color.adblue))
-        renderText(FS22_EnhancedVehicle.hud.fuel.posX, tmpY, fS, fuel_txt_adblue)
-        tmpY = tmpY + fS + tP
-      end
-      if fuel_txt_electric ~= "" then
-        setTextColor(unpack(FS22_EnhancedVehicle.color.electric))
-        renderText(FS22_EnhancedVehicle.hud.fuel.posX, tmpY, fS, fuel_txt_electric)
-        tmpY = tmpY + fS + tP
-      end
-      if fuel_txt_methane ~= "" then
-        setTextColor(unpack(FS22_EnhancedVehicle.color.methane))
-        renderText(FS22_EnhancedVehicle.hud.fuel.posX, tmpY, fS, fuel_txt_methane)
-        tmpY = tmpY + fS + tP
-      end
-      if fuel_txt_usage ~= "" then
-        setTextColor(1,1,1,1)
-        renderText(FS22_EnhancedVehicle.hud.fuel.posX, tmpY, fS, fuel_txt_usage)
-      end
-      setTextColor(1,1,1,1)
-    end
-
-    -- ### do the damage stuff ###
-    if self.spec_wearable ~= nil and FS22_EnhancedVehicle.hud.dmg.enabled then
-      -- prepare text
-      h = 0
-      dmg_txt = ""
-      if self.spec_wearable ~= nil then
-        dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (self.spec_wearable:getDamageAmount() * 100), (self.spec_wearable:getWearTotalAmount() * 100))
-        
-        if FS22_EnhancedVehicle.hud.dmg.showAmountLeft then
-          dmg_txt = string.format("%s: %.1f%% | %.1f%%", self.typeDesc, (100 - (self.spec_wearable:getDamageAmount() * 100)), (100 - (self.spec_wearable:getWearTotalAmount() * 100)))
-        end
-        
-        h = h + fS + tP
-      end
-
-      dmg_txt2 = ""
-      if self.spec_attacherJoints ~= nil then
-        getDmg(self.spec_attacherJoints)
-      end
-
-      -- render overlay
-      w = getTextWidth(fS, dmg_txt)
-      tmp = getTextWidth(fS, dmg_txt2) + 0.005
-      if tmp > w then
-        w = tmp
-      end
-      renderOverlay(FS22_EnhancedVehicle.overlay["dmg"], FS22_EnhancedVehicle.hud.dmg.posX - FS22_EnhancedVehicle.overlayBorder - w, FS22_EnhancedVehicle.hud.dmg.posY - FS22_EnhancedVehicle.overlayBorder, w + (FS22_EnhancedVehicle.overlayBorder * 2), h + (FS22_EnhancedVehicle.overlayBorder * 2))
-
-      -- render text
-      setTextColor(1,1,1,1)
-      setTextAlignment(RenderText.ALIGN_RIGHT)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
-      setTextColor(unpack(FS22_EnhancedVehicle.color.dmg))
-      setTextBold(false)
-      renderText(FS22_EnhancedVehicle.hud.dmg.posX, FS22_EnhancedVehicle.hud.dmg.posY, fS, dmg_txt)
-      setTextColor(1,1,1,1)
-      renderText(FS22_EnhancedVehicle.hud.dmg.posX, FS22_EnhancedVehicle.hud.dmg.posY + fS + tP, fS, dmg_txt2)
-    end
-
-    -- ### do the snap stuff ###
-    if FS22_EnhancedVehicle.functionSnapIsEnabled and FS22_EnhancedVehicle.hud.snap.enabled and self.vData.rot ~= nil then
-      -- prepare text
-      snap_txt2 = ''
-      if self.vData.is[5] then
-        snap_txt = string.format("%.1f°", self.vData.is[4])
-        if (Round(self.vData.rot, 0) ~= Round(self.vData.is[4], 0)) then
-          snap_txt2 = string.format("%.1f°", self.vData.rot)
-        end
-      else
-        snap_txt = string.format("%.1f°", self.vData.rot)
-      end
-
-      -- render overlay
-      w = getTextWidth(fS * FS22_EnhancedVehicle.hud.snap.zoomFactor, "000.0°")
-      h = getTextHeight(fS * FS22_EnhancedVehicle.hud.snap.zoomFactor, snap_txt)
-      if snap_txt2 ~= '' then h = h * 2 end
-      tmp = w + (FS22_EnhancedVehicle.overlayBorder * 2)
-      tmp = tmp / 2
-      renderOverlay(FS22_EnhancedVehicle.overlay["snap"],
-        FS22_EnhancedVehicle.hud.snap.posX - tmp,
-        FS22_EnhancedVehicle.hud.snap.posY - FS22_EnhancedVehicle.overlayBorder,
-        tmp * 2,
-        h + (FS22_EnhancedVehicle.overlayBorder*2))
-
-      -- render text
-      setTextAlignment(RenderText.ALIGN_CENTER)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
-      setTextBold(true)
-
-      if self.vData.is[5] then
-        setTextColor(0,1,0,1)
-      else
-        setTextColor(1,1,1,1)
-      end
-      renderText(FS22_EnhancedVehicle.hud.snap.posX, FS22_EnhancedVehicle.hud.snap.posY, fS * FS22_EnhancedVehicle.hud.snap.zoomFactor, snap_txt)
-
-      if (snap_txt2 ~= "") then
-        setTextColor(1,1,1,1)
-        renderText(FS22_EnhancedVehicle.hud.snap.posX, FS22_EnhancedVehicle.hud.snap.posY + fS * FS22_EnhancedVehicle.hud.snap.zoomFactor, fS * FS22_EnhancedVehicle.hud.snap.zoomFactor, snap_txt2)
-      end
-    end
-
-    -- ### do the track stuff ###
-    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.track.enabled and self.vData.track.isCalculated then --and self.vData.snaplines then
-      -- prepare text
-      _prefix = "+"
-      if self.vData.track.deltaTrack == 0 then _prefix = "+/-" end
-      if self.vData.track.deltaTrack < 0 then _prefix = "" end
-      local _curTrack = Round(self.vData.track.originalTrackLR, 0)
-      local track_txt = string.format("#%i  →  %s%i  →  %i", _curTrack, _prefix, self.vData.track.deltaTrack, (_curTrack + self.vData.track.deltaTrack))
-      local track_txt2 = string.format("|← %.1fm →|", Round(self.vData.track.workWidth, 1))
-      local _tmp = self.vData.track.headlandDistance
-      if _tmp == 9999 then _tmp = Round(self.vData.track.workWidth, 1) end
-      local track_txt3 = string.format("↑ %.1f", _tmp)
-
-      -- render text
-      setTextAlignment(RenderText.ALIGN_CENTER)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
-      setTextBold(false)
-
-      -- track number
-      if self.vData.is[5] and self.vData.is[6] then
-        setTextColor(0,1,0,1)
-      else
-        setTextColor(1,1,1,1)
-      end
-      renderText(FS22_EnhancedVehicle.hud.track.posX, FS22_EnhancedVehicle.hud.track.posY, fS, track_txt)
-
-      -- working width
-      setTextColor(1,1,1,1)
-      renderText(FS22_EnhancedVehicle.hud.track.posX + 0.05, FS22_EnhancedVehicle.hud.track.posY, fS, track_txt2)
-
-      -- headland distance
-      if self.vData.track.headlandMode == 2 then
-        setTextColor(0,1,0,1)
-      else
-        setTextColor(1,1,1,1)
-      end
-      renderText(FS22_EnhancedVehicle.hud.track.posX - 0.05, FS22_EnhancedVehicle.hud.track.posY, fS, track_txt3)
-    end
-
-    -- ### do the misc stuff ###
-    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.misc.enabled then
-      -- prepare text
-      misc_txt = string.format("%.1f", self:getTotalMass(true)) .. "t (total: " .. string.format("%.1f", self:getTotalMass()) .. " t)"
-
-      -- render overlay
-      w = getTextWidth(fS, misc_txt)
-      h = getTextHeight(fS, misc_txt)
-      renderOverlay(FS22_EnhancedVehicle.overlay["misc"], FS22_EnhancedVehicle.hud.misc.posX - FS22_EnhancedVehicle.overlayBorder - (w/2), FS22_EnhancedVehicle.hud.misc.posY - FS22_EnhancedVehicle.overlayBorder, w + (FS22_EnhancedVehicle.overlayBorder * 2), h + (FS22_EnhancedVehicle.overlayBorder * 2))
-
-      -- render text
-      setTextColor(1,1,1,1)
-      setTextAlignment(RenderText.ALIGN_CENTER)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
-      setTextBold(false)
-      renderText(FS22_EnhancedVehicle.hud.misc.posX, FS22_EnhancedVehicle.hud.misc.posY, fS, misc_txt)
-    end
-
-    -- ### do the rpm stuff ###
-    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.rpm.enabled then
-      -- prepare text
-      rpm_txt = "--\nrpm"
-      if self.spec_motorized.isMotorStarted == true then
-        rpm_txt = string.format("%i\nrpm", self.spec_motorized:getMotorRpmReal()) --.motor.lastMotorRpm)
-      end
-
-      -- render text
-      setTextColor(1,1,1,1)
-      setTextAlignment(RenderText.ALIGN_CENTER)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
-      setTextBold(true)
-      renderText(FS22_EnhancedVehicle.hud.rpm.posX, FS22_EnhancedVehicle.hud.rpm.posY, fS, rpm_txt)
-    end
-
-    -- ### do the temperature stuff ###
-    if self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.temp.enabled and self.isServer then
-      -- prepare text
-      temp_txt = "--\n°C"
-      if self.spec_motorized.isMotorStarted == true then
-        temp_txt = string.format("%i\n°C", self.spec_motorized.motorTemperature.value)
-      end
-
-      -- render text
-      setTextColor(1,1,1,1)
-      setTextAlignment(RenderText.ALIGN_CENTER)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
-      setTextBold(true)
-      renderText(FS22_EnhancedVehicle.hud.temp.posX, FS22_EnhancedVehicle.hud.temp.posY, fS, temp_txt)
-    end
-
-    -- ### do the differential stuff ###
-    if FS22_EnhancedVehicle.functionDiffIsEnabled and self.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.diff.enabled then
-      -- prepare text
-      _txt = {}
-      _txt.color = { "green", "green", "gray" }
-      if self.vData ~= nil then
-        if self.vData.is[1] then
-          _txt.color[1] = "red"
-        end
-        if self.vData.is[2] then
-          _txt.color[2] = "red"
-        end
-        if self.vData.is[3] == 0 then
-          _txt.color[3] = "gray"
-        end
-        if self.vData.is[3] == 1 then
-          _txt.color[3] = "yellow"
-        end
-        if self.vData.is[3] == 2 then
-          _txt.color[3] = "gray"
-        end
-      end
-
-      -- render overlay
-      w, h = getNormalizedScreenValues(FS22_EnhancedVehicle.hud.diff_overlayWidth / FS22_EnhancedVehicle.hud.diff.zoomFactor * FS22_EnhancedVehicle.uiScale, FS22_EnhancedVehicle.hud.diff_overlayHeight / FS22_EnhancedVehicle.hud.diff.zoomFactor * FS22_EnhancedVehicle.uiScale)
-      setOverlayColor(FS22_EnhancedVehicle.overlay["diff_front"], unpack(FS22_EnhancedVehicle.color[_txt.color[1]]))
-      setOverlayColor(FS22_EnhancedVehicle.overlay["diff_back"],  unpack(FS22_EnhancedVehicle.color[_txt.color[2]]))
-      setOverlayColor(FS22_EnhancedVehicle.overlay["diff_dm"],    unpack(FS22_EnhancedVehicle.color[_txt.color[3]]))
-
-      renderOverlay(FS22_EnhancedVehicle.overlay["diff_bg"],    FS22_EnhancedVehicle.hud.diff.posX, FS22_EnhancedVehicle.hud.diff.posY, w, h)
-      renderOverlay(FS22_EnhancedVehicle.overlay["diff_front"], FS22_EnhancedVehicle.hud.diff.posX, FS22_EnhancedVehicle.hud.diff.posY, w, h)
-      renderOverlay(FS22_EnhancedVehicle.overlay["diff_back"],  FS22_EnhancedVehicle.hud.diff.posX, FS22_EnhancedVehicle.hud.diff.posY, w, h)
-      renderOverlay(FS22_EnhancedVehicle.overlay["diff_dm"],    FS22_EnhancedVehicle.hud.diff.posX, FS22_EnhancedVehicle.hud.diff.posY, w, h)
-    end
-
     -- reset text stuff to "defaults"
     setTextColor(1,1,1,1)
     setTextAlignment(RenderText.ALIGN_LEFT)
     setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BASELINE)
     setTextBold(false)
   end
-
 end
 
 -- #############################################################################
@@ -1515,12 +1093,24 @@ function FS22_EnhancedVehicle:onEnterVehicle()
   if self.vData ~= nil and self.vData.snaplines then
     FS22_EnhancedVehicle:enumerateImplements(self)
   end
+
+  -- set vehicle for UI & HUD
+  if self.isClient then
+    g_currentMission.EnhancedVehicle.ui:setVehicle(self)
+    g_currentMission.EnhancedVehicle.hud:setVehicle(self)
+  end
 end
 
 -- #############################################################################
 
 function FS22_EnhancedVehicle:onLeaveVehicle()
   if debug > 1 then print("-> " .. myName .. ": onLeaveVehicle" .. mySelf(self)) end
+
+  -- set vehicle for UI & HUD
+  if self.isClient then
+    g_currentMission.EnhancedVehicle.ui:setVehicle(nil)
+    g_currentMission.EnhancedVehicle.hud:setVehicle(nil)
+  end
 
   -- disable snap if you leave a vehicle
   if self.vData.is[5] then
@@ -1796,6 +1386,8 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
         -- if track is enabled -> set angle to track angle
         if self.vData.track.isVisible and self.vData.track.isCalculated then
+          self.vData.want[6] = true
+
           -- ToDo: optimize this
           local lx,_,lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
           local rot1 = 180 - math.deg(math.atan2(lx, lz))
@@ -1832,26 +1424,6 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       _snap = true
     end
 
-    -- just turn snap on/off
-    if actionName == "FS22_EnhancedVehicle_SNAP_ONOFF2" then
-      if not self.vData.is[5] then
-        if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-          playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
-        end
-        -- update headland
-        if self.vData.track.isVisible and self.vData.track.isCalculated then
-          self.vData.track.isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self) and 10 or 0
-        end
-      else
-        if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
-        end
-      end
-
-      self.vData.want[5] = not self.vData.want[5]
-      _snap = true
-    end
-
     -- reverse snap
     if actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
       if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
@@ -1865,6 +1437,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
       -- if track is enabled -> also rotate track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
+        self.vData.want[6] = true
         FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 180), false, 0, true, self.vData.track.deltaTrack, 0)
 
         -- update headland
@@ -2034,6 +1607,12 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       end
     end
 
+    -- headland mode
+    if actionName == "FS22_EnhancedVehicle_SNAP_HL_MODE" and self.vData.track.headlandMode ~= nil then
+      self.vData.track.headlandMode = self.vData.track.headlandMode + 1
+      if self.vData.track.headlandMode > 3 then self.vData.track.headlandMode = 1 end
+    end
+
     -- disable steering angle snap if user interacts
     if actionName == "AXIS_MOVE_SIDE_VEHICLE" and math.abs( keyStatus ) > 0.05 then
       if self.vData.is[5] then
@@ -2070,7 +1649,6 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
     if self == g_currentMission.controlledVehicle and not g_currentMission.isSynchronizingWithPlayers then
       if not g_gui:getIsGuiVisible() then
-        UI_main:setVehicle(self)
         g_gui:showDialog("FS22_EnhancedVehicle_UI")
       end
     end
@@ -2244,7 +1822,9 @@ function FS22_EnhancedVehicle:updateTrack(self, updateAngle, updateAngleValue, u
       -- send new snap position to server
       self.vData.want[11]  = self.vData.track.origin.snapx
       self.vData.want[12]  = self.vData.track.origin.snapz
-      self.vData.want[6]   = true
+      if self.vData.is[5] then
+        self.vData.want[6]   = true
+      end
       _broadcastUpdate = true
     end
 
@@ -2294,6 +1874,7 @@ function FS22_EnhancedVehicle:calculateTrack(self)
     if self.vData.track.forceFake == nil then
       g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement2"), 4000)
       self.vData.track.forceFake = true
+      self.vData.track.isCalculated = false
     else
       g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
     end
@@ -2459,32 +2040,6 @@ function FS22_EnhancedVehicle:enumerateAttachments(obj)
 
   -- assemble a list of all attachments
   FS22_EnhancedVehicle:enumerateAttachments2(obj.rootNode, obj)
-end
-
--- #############################################################################
-
-function getDmg(start)
-  if start.spec_attacherJoints.attachedImplements ~= nil then
-    for _, implement in pairs(start.spec_attacherJoints.attachedImplements) do
-      local tA = 0
-      local tL = 0
-      if implement.object.spec_wearable ~= nil then
-        tA = implement.object.spec_wearable:getDamageAmount()
-        tL = implement.object.spec_wearable:getWearTotalAmount()
-      end
-            
-      if FS22_EnhancedVehicle.hud.dmg.showAmountLeft then
-        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (100 - (tA * 100)), (100 - (tL * 100))) .. "\n" .. dmg_txt2
-      else
-        dmg_txt2 = string.format("%s: %.1f%% | %.1f%%", implement.object.typeDesc, (tA * 100), (tL * 100)) .. "\n" .. dmg_txt2
-      end
-      
-      h = h + (FS22_EnhancedVehicle.fontSize + FS22_EnhancedVehicle.textPadding) * FS22_EnhancedVehicle.uiScale
-      if implement.object.spec_attacherJoints ~= nil then
-        getDmg(implement.object)
-      end
-    end
-  end
 end
 
 -- #############################################################################

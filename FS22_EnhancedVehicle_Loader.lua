@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 01.12.2021
+-- @Date: 22.12.2021
 -- @Version: 1.0.0.0
 
 -- #############################################################################
@@ -16,6 +16,7 @@ local modName = g_currentModName
 source(Utils.getFilename("FS22_EnhancedVehicle.lua", directory))
 source(Utils.getFilename("FS22_EnhancedVehicle_Event.lua", directory))
 source(Utils.getFilename("ui/FS22_EnhancedVehicle_UI.lua", directory))
+source(Utils.getFilename("ui/FS22_EnhancedVehicle_HUD.lua", directory))
 
 -- include our libUtils
 source(Utils.getFilename("libUtils.lua", g_currentModDirectory))
@@ -60,6 +61,8 @@ function EV_load(mission)
   EnhancedVehicle = FS22_EnhancedVehicle:new(mission, directory, modName, g_i18n, g_gui, g_gui.inputManager, g_messageCenter)
   getfenv(0)["g_EnhancedVehicle"] = EnhancedVehicle
 
+  mission.EnhancedVehicle = EnhancedVehicle
+
   addModEventListener(EnhancedVehicle);
 end
 
@@ -102,7 +105,7 @@ function EV_validateTypes(types)
     
   -- attach only to vehicles
   if (types.typeName == 'vehicle') then
-    FS22_EnhancedVehicle.installSpecializations(g_vehicleTypeManager, g_specializationManager, directory)
+    FS22_EnhancedVehicle.installSpecializations(g_vehicleTypeManager, g_specializationManager, directory, modName)
   end
 end
 

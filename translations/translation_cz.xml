@@ -4,7 +4,6 @@
 
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Předchozí směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Řádky Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Přidat 1°"/>
@@ -23,6 +22,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Posunout ofset doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Posunout ofset doleva"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
@@ -32,6 +32,10 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Přední hydraulika Nahoru/Dolu"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
+
+    <text name="hud_FS22_EnhancedVehicle_notrack"    text="no track"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="no width"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland" text="no headland"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="Zap."/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Vyp."/>
@@ -61,8 +65,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Zap./Vyp. displeje HUD pro poškození"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Hodnota paliva"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Zap./Vyp. displeje HUD pro množství paliva"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Asistent pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Zap./Vyp. displeje HUD pro asistenta"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"   text="HUD: Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"      text="Zap./Vyp. displeje HUD pro asistenta"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Otáčky"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Zap./Vyp. displeje HUD pro počet otáček"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Teplota motoru"/>

@@ -4,7 +4,6 @@
 
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Snap current direction/track"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF2"     text="EV: Snap previous direction/track"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Reverse snap/track direction (180°)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Helplines on/off"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Increase snap/track direction by 1°"/>
@@ -23,6 +22,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Move offset line to the right"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Move offset line to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differential lock front axle on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differential lock rear axle on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Both differential locks on/off"/>
@@ -32,6 +32,10 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
+
+    <text name="hud_FS22_EnhancedVehicle_notrack"    text="no track"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="no width"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland" text="no headland"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
@@ -61,8 +65,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Turn on/off the HUD display for damage values"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Fuel values"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Turn on/off the HUD display for fuel values"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTitle"   text="HUD: Track assistant"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDsnapTT"      text="Turn on/off the HUD display for the track assistant driving direction"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD: Track assistant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Turn on/off the HUD display for the track assistant"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: RPM"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Turn on/off the HUD display for the RPM number"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Engine temperature"/>
@@ -91,7 +95,7 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Track Assistant is not enabled."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width. Press again to create a default track layout."/>
 
   </texts>
 </l10n>

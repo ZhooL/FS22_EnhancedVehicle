@@ -103,6 +103,15 @@
       <GuiElement type="text" profile="dialogHeaderText" id="sectionHUD"/>
       <GuiElement type="text" profile="dialogHeaderText"/>
 
+      <!-- HUD: track -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDtrackSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDtrackTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDtrackTT"/>
+      </GuiElement>
       <!-- HUD: diff -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDdiffSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -137,15 +146,6 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDfuelTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDfuelTT"/>
-      </GuiElement> 
-      <!-- HUD: snap -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDsnapSetting">
-        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
-        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDsnapTitle"/>
-        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDsnapTT"/>
       </GuiElement> 
       <!-- HUD: rpm -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDrpmSetting">

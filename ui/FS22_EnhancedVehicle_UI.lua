@@ -57,7 +57,7 @@ for _, v in pairs( EV_elements_global ) do
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, v.."TT")
 end
 
-local EV_elements_HUD = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'snap' }
+local EV_elements_HUD = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track' }
   for _, v in pairs( EV_elements_HUD ) do
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."Setting")
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."Title")
@@ -286,6 +286,9 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   -- write and update our config
   lC:writeConfig()
   FS22_EnhancedVehicle:activateConfig()
+
+  -- update HUD
+  g_currentMission.EnhancedVehicle.hud:storeScaledValues()
 
   -- close screen
   g_gui:closeDialogByName("FS22_EnhancedVehicle_UI")
