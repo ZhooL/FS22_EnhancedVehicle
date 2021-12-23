@@ -18,11 +18,11 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Snížit počet obřádků pro otočku"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Přesunout řádek doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Přesunout řádek doleva"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Increase width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Zvětšit šířku řádku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Zmenšit šířku řádku"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Posunout ofset doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Posunout ofset doleva"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Změnit režim souvratí"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
@@ -33,9 +33,9 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"    text="no track"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="no width"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland" text="no headland"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"    text="žádná stopa"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="žádná šířka"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland" text="žádná souvrať"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="Zap."/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Vyp."/>
@@ -53,11 +53,11 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Znovu načtěte konfigurační soubor z disku. Nezbytné po ručních změnách v souboru XML."/>
 
     <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Asistent pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Zapněte/vypněte funkci asistenta globálního udržování jízdního pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Zapněte/vypněte funkci asistenta udržování jízdního pruhu"/>
     <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Zámek diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Zapnutí/vypnutí funkce globální uzávěrky diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Zapnutí/vypnutí funkce uzávěrky diferenciálu"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Vylepšené hydraulické ovládání"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Zapnutí/vypnutí globální vylepšené funkce hydraulického ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Zapnutí/vypnutí vylepšené funkce hydraulického ovládání"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Zámek diferenciálu"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Zap./Vyp. displeje HUD pro uzávěrku diferenciálu"/>
