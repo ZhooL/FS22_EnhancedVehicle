@@ -94,8 +94,9 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Lane Keeping Assistant is not enabled."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Did not find a device with a working width. Press again to create a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Track Assistant is not enabled."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Did not find a device with a working width."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Did not find a device with a working width. Press again to create a default track layout."/>
 
   </texts>
 </l10n>

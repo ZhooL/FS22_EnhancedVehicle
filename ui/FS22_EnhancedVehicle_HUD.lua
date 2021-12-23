@@ -53,8 +53,8 @@ FS22_EnhancedVehicle_HUD.POSITION = {
   DMG         = { -15, 5 },
   FUEL        = {  15, 5 },
   MISC        = { 100, 5 },
-  RPM         = { -40, 0 },
-  TEMP        = {  40, 0 },
+  RPM         = { -42, 0 },
+  TEMP        = {  42, 0 },
 }
 
 FS22_EnhancedVehicle_HUD.COLOR = {
@@ -157,6 +157,9 @@ function FS22_EnhancedVehicle_HUD:createElements()
 
   -- create our misc box
   self:createMiscBox(baseX + width / 2, baseY)
+
+  -- update some positions (for playing on dedi server)
+  self:storeScaledValues()
 end
 
 -- #############################################################################
@@ -331,7 +334,7 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues()
     -- for dmg and fuel display
     local addPosX = boxPosX + boxWidth / 2
     local addPosY = boxPosY
-    if FS22_EnhancedVehicle.hud.track.enabled then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled and FS22_EnhancedVehicle.hud.track.enabled then
       addPosY = addPosY + boxHeight
     end
 
@@ -397,8 +400,7 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
 
   -- jump out if we're not ready
   if self.vehicle == nil or not self.speedMeterDisplay.isVehicleDrawSafe or self.trackBox == nil or self.diffBox == nil then return end
---  if not g_gui:getIsGuiVisible() or not self.vehicle:getIsControlled() then return end
-  if not self.vehicle:getIsControlled() then return end
+  if g_dedicatedServerInfo ~= nil or not self.vehicle:getIsControlled() then return end
 
   if not FS22_EnhancedVehicle.functionSnapIsEnabled then
     self.trackBox:setVisible(false)

@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 20.12.2021
+-- @Date: 23.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-23 - V0.9.9.9
+* HUD bugfix for dedicated server
 
 2021-12-23 - V0.9.9.8
 * rewritten the complete HUD code. looks better, fits GUI scaling.

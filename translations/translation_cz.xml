@@ -94,8 +94,9 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="před koncem pole"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="zakoncem pole"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="Asistent pro jízdu v pruhu není povolen."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Nenalezeno zařízení s pracovní šířkou."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Did not find a device with a working width. Press again to create a default track layout."/>
 
   </texts>
 </l10n>
