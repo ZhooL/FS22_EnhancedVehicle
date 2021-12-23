@@ -64,9 +64,9 @@ FS22_EnhancedVehicle_HUD.COLOR = {
 
 FS22_EnhancedVehicle_HUD.TEXT_SIZE = {
   SNAP       = 20,
-  TRACK      = 13,
-  WORKWIDTH  = 13,
-  HLDISTANCE = 13,
+  TRACK      = 12,
+  WORKWIDTH  = 12,
+  HLDISTANCE = 12,
   DMG        = 12,
   FUEL       = 12,
   MISC       = 13,
@@ -108,8 +108,8 @@ function FS22_EnhancedVehicle_HUD:new(speedMeterDisplay, modDirectory)
   self.default_workwidth_txt = g_i18n:getText("hud_FS22_EnhancedVehicle_noheadland")
 
   -- hook into some original HUD functions
-  SpeedMeterDisplay.storeScaledValues = Utils.appendedFunction(SpeedMeterDisplay.storeScaledValues, FS22_EnhancedVehicle_HUD.speedMeterDisplay_storeScaledValues)
-  SpeedMeterDisplay.draw              = Utils.appendedFunction(SpeedMeterDisplay.draw, FS22_EnhancedVehicle_HUD.speedMeterDisplay_draw)
+--  SpeedMeterDisplay.storeScaledValues = Utils.appendedFunction(SpeedMeterDisplay.storeScaledValues, FS22_EnhancedVehicle_HUD.speedMeterDisplay_storeScaledValues)
+--  SpeedMeterDisplay.draw              = Utils.appendedFunction(SpeedMeterDisplay.draw, FS22_EnhancedVehicle_HUD.speedMeterDisplay_draw)
 
   return self
 end
@@ -296,10 +296,17 @@ end
 function FS22_EnhancedVehicle_HUD:storeScaledValues()
   if debug > 2 then print("-> " .. myName .. ": storeScaledValues ") end
 
+  local baseX = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX
+  local baseY = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterY
+  local width = self.speedMeterDisplay.gaugeBackgroundElement:getWidth()
+  local height = self.speedMeterDisplay.gaugeBackgroundElement:getHeight()
+
   if self.trackBox ~= nil then
     -- some globals
-    local boxPosX, boxPosY = self.trackBox:getPosition()
+--    local boxPosX, boxPosY = self.trackBox:getPosition()
     local boxWidth, boxHeight = self.trackBox:getWidth(), self.trackBox:getHeight()
+    local boxPosX = baseX - boxWidth / 2
+    local boxPosY = baseY + height / 2
 
     -- snap text
     local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.SNAP1)
@@ -351,8 +358,10 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues()
 
   if self.miscBox ~= nil then
     -- some globals
-    local boxPosX, boxPosY = self.miscBox:getPosition()
+--    local boxPosX, boxPosY = self.miscBox:getPosition()
     local boxWidth, boxHeight = self.miscBox:getWidth(), self.miscBox:getHeight()
+    local boxPosX = baseX - boxWidth / 2
+    local boxPosY = baseY - height / 2 - boxHeight
 
     -- misc text
     local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.MISC)
@@ -362,11 +371,11 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues()
   end
 
   -- rpm & temp
-  local baseX, baseY = self.speedMeterDisplay.gaugeBackgroundElement:getPosition()
-  local width = self.speedMeterDisplay.gaugeBackgroundElement:getWidth()
-  local height = self.speedMeterDisplay.gaugeBackgroundElement:getHeight()
-  baseX = baseX + width / 2
-  baseY = baseY + height / 2
+--  local baseX, baseY = self.speedMeterDisplay.gaugeBackgroundElement:getPosition()
+--  local width = self.speedMeterDisplay.gaugeBackgroundElement:getWidth()
+--  local height = self.speedMeterDisplay.gaugeBackgroundElement:getHeight()
+--  baseX = baseX + width / 2
+--  baseY = baseY + height / 2
 
   local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.RPM)
   self.rpmText.posX = baseX + textX
@@ -729,11 +738,11 @@ end
 -- #############################################################################
 
 function FS22_EnhancedVehicle_HUD.speedMeterDisplay_storeScaledValues(speedMeterDisplay)
-  g_currentMission.EnhancedVehicle.hud:storeScaledValues()
+  FS22_EnhancedVehicle.ui_hud:storeScaledValues()
 end
 
 function FS22_EnhancedVehicle_HUD.speedMeterDisplay_draw(speedMeterDisplay)
-  g_currentMission.EnhancedVehicle.hud:drawHUD()
+  FS22_EnhancedVehicle.ui_hud:drawHUD()
 end
 
 -- #############################################################################

@@ -288,7 +288,7 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   FS22_EnhancedVehicle:activateConfig()
 
   -- update HUD
-  g_currentMission.EnhancedVehicle.hud:storeScaledValues()
+  FS22_EnhancedVehicle.ui_hud:storeScaledValues()
 
   -- close screen
   g_gui:closeDialogByName("FS22_EnhancedVehicle_UI")

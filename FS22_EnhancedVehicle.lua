@@ -9,6 +9,9 @@
 --[[
 CHANGELOG
 
+2021-12-23 - V1.0.0.0-rc1
+* another bugfix for multiplayer
+
 2021-12-23 - V0.9.9.9
 * HUD bugfix for dedicated server
 
@@ -195,10 +198,10 @@ function FS22_EnhancedVehicle:delete()
   if debug > 1 then print("-> " .. myName .. ": delete ") end
 
   -- delete our UI
-  self.mission.EnhancedVehicle.ui:delete()
+  FS22_EnhancedVehicle.ui_menu:delete()
 
   -- delete our HUD
-  self.mission.EnhancedVehicle.hud:delete()
+  FS22_EnhancedVehicle.ui_hud:delete()
 end
 
 -- #############################################################################
@@ -207,14 +210,12 @@ function FS22_EnhancedVehicle:onMissionLoaded(mission)
   if debug > 1 then print("-> " .. myName .. ": onMissionLoaded ") end
 
   g_gui:loadProfiles(self.modDirectory.."ui/guiProfiles.xml")
-  local ui = FS22_EnhancedVehicle_UI.new()
-  mission.EnhancedVehicle.ui = ui
-  g_gui:loadGui(self.modDirectory.."ui/FS22_EnhancedVehicle_UI.xml", "FS22_EnhancedVehicle_UI", ui)
+  FS22_EnhancedVehicle.ui_menu = FS22_EnhancedVehicle_UI.new()
+  g_gui:loadGui(self.modDirectory.."ui/FS22_EnhancedVehicle_UI.xml", "FS22_EnhancedVehicle_UI", FS22_EnhancedVehicle.ui_menu)
 
-  local hud = FS22_EnhancedVehicle_HUD:new(mission.hud.speedMeter, self.modDirectory)
-  mission.EnhancedVehicle.hud = hud
+  FS22_EnhancedVehicle.ui_hud = FS22_EnhancedVehicle_HUD:new(mission.hud.speedMeter, self.modDirectory)
 
-  hud:load()
+  FS22_EnhancedVehicle.ui_hud:load()
 end
 
 -- #############################################################################
@@ -1079,6 +1080,10 @@ function FS22_EnhancedVehicle:onDraw()
       end -- <- end of draw tracks
     end -- <- end of snap enabled and lines enabled
 
+    -- unfortunately, have to call the draw HUD this method
+    FS22_EnhancedVehicle.ui_hud:setVehicle(self)
+    FS22_EnhancedVehicle.ui_hud:drawHUD()
+
     -- reset text stuff to "defaults"
     setTextColor(1,1,1,1)
     setTextAlignment(RenderText.ALIGN_LEFT)
@@ -1097,23 +1102,12 @@ function FS22_EnhancedVehicle:onEnterVehicle()
     FS22_EnhancedVehicle:enumerateImplements(self)
   end
 
-  -- set vehicle for UI & HUD
-  if self.isClient then
-    g_currentMission.EnhancedVehicle.ui:setVehicle(self)
-    g_currentMission.EnhancedVehicle.hud:setVehicle(self)
-  end
 end
 
 -- #############################################################################
 
 function FS22_EnhancedVehicle:onLeaveVehicle()
   if debug > 1 then print("-> " .. myName .. ": onLeaveVehicle" .. mySelf(self)) end
-
-  -- set vehicle for UI & HUD
-  if self.isClient then
-    g_currentMission.EnhancedVehicle.ui:setVehicle(nil)
-    g_currentMission.EnhancedVehicle.hud:setVehicle(nil)
-  end
 
   -- disable snap if you leave a vehicle
   if self.vData.is[5] then
@@ -1652,6 +1646,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
     if self == g_currentMission.controlledVehicle and not g_currentMission.isSynchronizingWithPlayers then
       if not g_gui:getIsGuiVisible() then
+        FS22_EnhancedVehicle.ui_menu:setVehicle(self)
         g_gui:showDialog("FS22_EnhancedVehicle_UI")
       end
     end
