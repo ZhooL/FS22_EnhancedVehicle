@@ -92,7 +92,7 @@
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled" text="L'assistente di corsia non è attivato."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement" text="Nessun dispositivo trovato con una larghezza di lavoro."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nessun dispositivo trovato con una larghezza di lavoro. Premi di nuovo "Riallinea corsie" per creare corsie standard."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nessun dispositivo trovato con una larghezza di lavoro. Premi di nuovo 'Riallinea corsie' per creare corsie standard."/>
 
   </texts>
 </l10n>
