@@ -8,11 +8,13 @@
   <title>
     <de>EnhancedVehicle</de>
     <en>EnhancedVehicle</en>
+    <it>EnhancedVehicle</it>
   </title>
 
   <description>
     <de><![CDATA[Einfacher Fahrspurassistent. Differentialsperren und Antriebsmodi für dein Fahrzeug. Mehr Fahrzeugsdetails im HUD.]]></de>
     <en><![CDATA[Simple track assistant. Differential locks and wheel drive modes for your vehicle. Shows more vehicle details on HUD.]]></en>
+    <it><![CDATA[Assistente di corsia semplice. Bloccaggi differenziali e modalità di guida per il tuo veicolo. Maggiori dettagli sul veicolo nell'HUD.]]></it>
   </description>
 
   <iconFilename>FS22_EnhancedVehicle.dds</iconFilename>
