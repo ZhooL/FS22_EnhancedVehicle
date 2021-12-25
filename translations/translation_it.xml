@@ -6,22 +6,22 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Fissa la direzione di marcia/corsia corrente"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Inverti direzione marcia/corsia (180°)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Attivazione/disattivazione delle linee di assistenza"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Incrementa la direzione marcia/corsia di 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Decrementa la direzione marcia/corsia di 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Incrementa la direzione marcia/corsia di 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Decrementa la direzione marcia/corsia di 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Incrementa la direzione marcia/corsia di 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Decrementa la direzione di marcia/corsia di 90 °"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Incrementa la direzione marcia/corsia di 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Decrementa la direzione marcia/corsia di 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Incrementa la direzione marcia/corsia di 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Decrementa la direzione marcia/corsia di 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Incrementa la direzione marcia/corsia di 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Decrementa la direzione di marcia/corsia di 90 °"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Traccia inserita/disinserita"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Riallineare le corsie"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Aumenta il numero di corsie di svolta"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Riduci il numero di corsie di svolta"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Sposta corsia a destra"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Sposta la corsia a sinistra"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Incrementa la larghezza della corsia"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrementa la larghezza della corsia"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Sposta la linea di offset a destra"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Sposta la linea di offset a sinistra"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Aumenta il numero di corsie di svolta"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Riduci il numero di corsie di svolta"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Sposta corsia a destra"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Sposta la corsia a sinistra"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Incrementa la larghezza della corsia"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrementa la larghezza della corsia"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Sposta la linea di offset a destra"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Sposta la linea di offset a sinistra"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Cambia modalità capezzagna"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloccaggio differenziale assale anteriore on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloccaggio differenziale assale posteriore on/off"/>
@@ -33,9 +33,11 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Idraulica anteriore on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Visualizzazione del menù di configurazione"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"    text="Nessuna corsia"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="Nessuna larghezza"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland" text="Nessun promontorio"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="Nessuna corsia"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="Nessuna larghezza"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="Nessun promontorio"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
@@ -78,6 +80,11 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Visualizzazione dei valori dei danni in '% non danneggiati' invece di '% danneggiati'"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% non danneggiato"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% danneggiato"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Angolo di bloccaggio"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Specifica di quali gradi viene bloccato il senso di marcia (1°-90°)"/>

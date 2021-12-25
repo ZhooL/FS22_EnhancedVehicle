@@ -3,39 +3,41 @@
   <translationContributors>Ty4kaKou</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Snap current direction/track"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Reverse snap/track direction (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Helplines on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Increase snap/track direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Decrease snap/track direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Increase snap/track direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Decrease snap/track direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Increase snap/track direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Decrease snap/track direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Grid on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Increase amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Move tracks to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Move tracks to the left"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Increase width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Move offset line to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Move offset line to the left"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differential lock front axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differential lock rear axle on/off"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Both differential locks on/off"/>
-    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Change wheel drive mode"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: rear hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: rear hydraulic on/off"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
-    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Привязать текущее направление"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Обратное направление привязки (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Вспомогательные линии вкл/выкл"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Увеличить направление привязки на 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Уменьшить направление привязки на 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Увеличить направление привязки на 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Уменьшить направление привязки на 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Увеличить направление привязки на 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Уменьшить направление привязки на 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Вкл/выкл сетку"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Сбросить сетку"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Увеличить количество поворотных полос"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Уменьшить количество поворотных полос"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Сдвинуть полосу вправо"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Сдвинуть полосу влево"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Увеличить ширину полосы"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Уменьшить ширину полосы"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Сдвинуть полосу смещения вправо"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Сдвинуть полосу смещения влево"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Изменить режим поворотной полосы"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Вкл/выкл блокировку переднего дифференциала"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Вкл/выкл блокировку заднего дифференциала"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Вкл/выкл блокировку переднего и заднего дифференциала"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Изменить режим привода на колесах"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Задняя гидравлика поднять/опустить"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Задняя гидравлика вкл/выкл"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Передняя гидравлика поднять/опустить"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Передняя гидравлика вкл/выкл"/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Открыть меню конфигурации"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"    text="no track"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="no width"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland" text="no headland"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="нет полосы"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="шир. неизвестна"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="нет пов. полосы"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="Вкл"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Выкл"/>
@@ -43,7 +45,7 @@
     <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Глобальные настройки"/>
     <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="HUD настройки"/>
     <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Настройки помощника"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Headland Settings for"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Настройки поворотной полосы для"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Сбросить настройки мода"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Сбросить конфигурацию файла"/>
@@ -75,24 +77,29 @@
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Вкл/выкл отображение на дисплее разные значения (вес)"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Режим значений урона"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Показывать значения повреждений в '% осталось' а не в '% повреждения'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Показывать значения повреждений '% осталось' или '% повреждения'"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% осталось"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% повреждения"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Привязка к углу"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Определяет с каким шагом включается направление движения(1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Turn around automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Disable cruise control"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Режим поворотной полосы"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Что должно произойти при выходе на поворотную полосу"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Ничего"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Возвращаться автоматически"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Отключить круиз-контроль"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Headland distance"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Turn around how many meters before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Working width"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Расстояние до конца поворотной полосы"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Сколько метров до края поля должнобыть чтобы повернуться"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Рабочая ширина"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="до края поля"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="за краем поля"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Помощник направления не включен."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Не нашел устройства с шириной захвата."/>

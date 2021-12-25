@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 20.12.2021
+-- @Date: 25.12.2021
 -- @Version: 1.0.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
@@ -41,6 +41,10 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "HUDdmgAmountLeftSetting",
   "HUDdmgAmountLeftTitle",
   "HUDdmgAmountLeftTT",
+
+  "HUDdmgfuelSetting",
+  "HUDdmgfuelTitle",
+  "HUDdmgfuelTT",
 
   "headlandModeSetting",
   "headlandModeTitle",
@@ -177,6 +181,14 @@ function FS22_EnhancedVehicle_UI:onOpen()
     })
   end
 
+  -- HUD dmgfuel position
+  self.HUDdmgfuelTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"))
+  self.HUDdmgfuelTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgfuelTT"))
+  self.HUDdmgfuelSetting:setTexts({
+      g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgfuelOption1"),
+      g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgfuelOption2"),
+    })
+
   -- HUD dmg display mode
   self.HUDdmgAmountLeftTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle"))
   self.HUDdmgAmountLeftTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"))
@@ -206,6 +218,9 @@ function FS22_EnhancedVehicle_UI:updateValues()
   -- snap to angle
   self.snapSettingsAngleValue:setText(tostring(lC:getConfigValue("snap", "snapToAngle")))
 
+  -- dmgfuel position
+  self.HUDdmgfuelSetting:setState(lC:getConfigValue("hud", "dmgfuelPosition"))
+
   -- headland mode
   self.headlandModeSetting:setState(self.vehicle.vData.track.headlandMode)
 
@@ -221,7 +236,6 @@ function FS22_EnhancedVehicle_UI:updateValues()
     end
     _i = _i + 1
   end
-
   self.headlandDistanceSetting:setState(_state)
 
   -- HUD dmg display mode
@@ -255,6 +269,10 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   -- HUD dmg display modEnvironments
   state = self.HUDdmgAmountLeftSetting:getState() == 1
   lC:setConfigValue("hud.dmg", "showAmountLeft", state)
+
+  -- HUD dmgfuel Position
+  state = self.HUDdmgfuelSetting:getState()
+  lC:setConfigValue("hud", "dmgfuelPosition", state)
 
   -- snapto angle
   local n = tonumber(self.snapSettingsAngleValue:getText())

@@ -3,11 +3,16 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 23.12.2021
+-- @Date: 25.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-25 - V1.0.0.0-rc2
++ added option to show dmg/fuel above the speedmeter (classic) or on the top-right below the gameinfo panel
+* disable follow track when resetting track
+* minor modifications on key bindings and actionEvent code
 
 2021-12-23 - V1.0.0.0-rc1
 * another bugfix for multiplayer
@@ -134,23 +139,16 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
   FS22_EnhancedVehicle.actions.snap =      { 'FS22_EnhancedVehicle_SNAP_ONOFF',
                                              'FS22_EnhancedVehicle_SNAP_REVERSE',
                                              'FS22_EnhancedVehicle_SNAP_LINES',
-                                             'FS22_EnhancedVehicle_SNAP_INC1',
-                                             'FS22_EnhancedVehicle_SNAP_DEC1',
-                                             'FS22_EnhancedVehicle_SNAP_INC2',
-                                             'FS22_EnhancedVehicle_SNAP_DEC2',
-                                             'FS22_EnhancedVehicle_SNAP_INC3',
-                                             'FS22_EnhancedVehicle_SNAP_DEC3',
                                              'FS22_EnhancedVehicle_SNAP_GRID_ONOFF',
                                              'FS22_EnhancedVehicle_SNAP_GRID_RESET',
-                                             'FS22_EnhancedVehicle_SNAP_INC_TRACK',
-                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACK',
-                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKP',
-                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKP',
-                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKW',
-                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKW',
-                                             'FS22_EnhancedVehicle_SNAP_INC_TRACKO',
-                                             'FS22_EnhancedVehicle_SNAP_DEC_TRACKO',
+                                             'FS22_EnhancedVehicle_SNAP_TRACK',
+                                             'FS22_EnhancedVehicle_SNAP_TRACKP',
+                                             'FS22_EnhancedVehicle_SNAP_TRACKW',
+                                             'FS22_EnhancedVehicle_SNAP_TRACKO',
                                              'FS22_EnhancedVehicle_SNAP_HL_MODE',
+                                             'FS22_EnhancedVehicle_SNAP_ANGLE1',
+                                             'FS22_EnhancedVehicle_SNAP_ANGLE2',
+                                             'FS22_EnhancedVehicle_SNAP_ANGLE3',
                                              'AXIS_MOVE_SIDE_VEHICLE' }
   FS22_EnhancedVehicle.actions.diff  =     { 'FS22_EnhancedVehicle_FD',
                                              'FS22_EnhancedVehicle_RD',
@@ -170,6 +168,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
     blue     = {   0/255,   0/255, 255/255, 1 },
     yellow   = { 255/255, 255/255,   0/255, 1 },
     gray     = { 128/255, 128/255, 128/255, 1 },
+    lgray    = { 178/255, 178/255, 178/255, 1 },
     dmg      = { 255/255, 174/255,   0/255, 1 },
     fuel     = { 178/255, 214/255,  22/255, 1 },
     adblue   = {  48/255,  78/255, 249/255, 1 },
@@ -213,7 +212,7 @@ function FS22_EnhancedVehicle:onMissionLoaded(mission)
   FS22_EnhancedVehicle.ui_menu = FS22_EnhancedVehicle_UI.new()
   g_gui:loadGui(self.modDirectory.."ui/FS22_EnhancedVehicle_UI.xml", "FS22_EnhancedVehicle_UI", FS22_EnhancedVehicle.ui_menu)
 
-  FS22_EnhancedVehicle.ui_hud = FS22_EnhancedVehicle_HUD:new(mission.hud.speedMeter, self.modDirectory)
+  FS22_EnhancedVehicle.ui_hud = FS22_EnhancedVehicle_HUD:new(mission.hud.speedMeter, mission.hud.gameInfoDisplay, self.modDirectory)
 
   FS22_EnhancedVehicle.ui_hud:load()
 end
@@ -357,8 +356,10 @@ function FS22_EnhancedVehicle:activateConfig()
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
     FS22_EnhancedVehicle.hud[section] = {}
     FS22_EnhancedVehicle.hud[section].enabled = lC:getConfigValue("hud."..section, "enabled")
+    FS22_EnhancedVehicle.hud[section].fontSize = lC:getConfigValue("hud."..section, "fontSize")
   end
   FS22_EnhancedVehicle.hud.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
+  FS22_EnhancedVehicle.hud.dmgfuelPosition = lC:getConfigValue("hud", "dmgfuelPosition")
 end
 
 -- #############################################################################
@@ -397,16 +398,18 @@ function FS22_EnhancedVehicle:resetConfig(disable)
 
   -- track
   lC:addConfigValue("track",       "distanceAboveGround", "float", 0.15)
-  lC:addConfigValue("track",       "numberOfTracks",      "int", 5)
+  lC:addConfigValue("track",       "numberOfTracks",      "int",   5)
   lC:addConfigValue("track.color", "red",                 "float", 255/255)
   lC:addConfigValue("track.color", "green",               "float", 150/255)
   lC:addConfigValue("track.color", "blue",                "float", 0/255)
 
   -- fuel
-  lC:addConfigValue("hud.fuel", "enabled", "bool", true)
+  lC:addConfigValue("hud.fuel", "enabled",  "bool", true)
+  lC:addConfigValue("hud.fuel", "fontSize", "int",  12)
 
   -- dmg
-  lC:addConfigValue("hud.dmg", "enabled", "bool", true)
+  lC:addConfigValue("hud.dmg", "enabled",        "bool", true)
+  lC:addConfigValue("hud.dmg", "fontSize",       "int",  12)
   lC:addConfigValue("hud.dmg", "showAmountLeft", "bool", false)
 
   -- track
@@ -423,6 +426,9 @@ function FS22_EnhancedVehicle:resetConfig(disable)
 
   -- diff
   lC:addConfigValue("hud.diff", "enabled", "bool", true)
+
+  -- HUD position for dmg/fuel
+  lC:addConfigValue("hud", "dmgfuelPosition", "int", 2)
 end
 
 -- #############################################################################
@@ -1101,7 +1107,6 @@ function FS22_EnhancedVehicle:onEnterVehicle()
   if self.vData ~= nil and self.vData.snaplines then
     FS22_EnhancedVehicle:enumerateImplements(self)
   end
-
 end
 
 -- #############################################################################
@@ -1124,6 +1129,9 @@ function FS22_EnhancedVehicle:onLeaveVehicle()
   if self.vData.snaplines then
     FS22_EnhancedVehicle:enumerateImplements(self)
   end
+
+  -- hide some HUD elements
+  FS22_EnhancedVehicle.ui_hud:hideSomething()
 end
 
 -- #############################################################################
@@ -1180,19 +1188,30 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
 
     -- attach our actions
     for _ ,actionName in pairs(actionList) do
---      local _, eventName = self:addActionEvent(FS22_EnhancedVehicle.actionEvents, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, false, true, nil)
-      local _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, false, true)
+--      if actionName == "FS22_EnhancedVehicle_SNAP_TRACKP" or actionName == "FS22_EnhancedVehicle_SNAP_TRACKW" or actionName == "FS22_EnhancedVehicle_SNAP_TRACKO" then
+--        _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, true, true)
+--      else
+        _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, false, true)
+--      end
       -- help menu priorization
       if g_inputBinding ~= nil and g_inputBinding.events ~= nil and g_inputBinding.events[eventName] ~= nil then
-        g_inputBinding.events[eventName].displayPriority = 98
-        if actionName == "FS22_EnhancedVehicle_DM" then g_inputBinding.events[eventName].displayPriority = 99 end
-        -- don't show certain/all keys in help menu
-        if utf8Substr(actionName, 0, 29) == "FS22_EnhancedVehicle_SNAP_INC" or utf8Substr(actionName, 0, 29) == "FS22_EnhancedVehicle_SNAP_DEC" or not FS22_EnhancedVehicle.showKeysInHelpMenu then
+        if actionName == "FS22_EnhancedVehicle_MENU" or
+           actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" or
+           actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" or
+           actionName == "FS22_EnhancedVehicle_SNAP_LINES" then
+          g_inputBinding.events[eventName].displayPriority = GS_PRIO_VERY_LOW
+        else
           g_inputBinding.events[eventName].displayIsVisible = false
         end
       end
     end
   end
+
+--GS_PRIO_VERY_HIGH = 1
+--GS_PRIO_HIGH = 2
+--GS_PRIO_NORMAL = 3
+--GS_PRIO_LOW = 4
+--GS_PRIO_VERY_LOW = 5
 end
 
 -- #############################################################################
@@ -1444,53 +1463,14 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     end
 
     -- 1°
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC1" then
+    if actionName == "FS22_EnhancedVehicle_SNAP_ANGLE1" then
       if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 1, 0)
+        self.vData.want[4] = Round(self.vData.is[4] + 1 * keyStatus, 0)
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        -- if track is enabled -> also rotate track
-        if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1), true, 0, true, 0, 0)
-        end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
-      end
-    end
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC1" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] - 1, 0)
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
         if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -1), true, 0, true, 0, 0)
-        end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
-      end
-    end
-    -- 90°
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC3" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 90.0, 0)
-        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        -- if track is enabled -> also rotate track
-        if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90), true, 0, true, 0, 0)
-        end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
-      end
-    end
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC3" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] - 90.0, 0)
-        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
-        -- if track is enabled -> also rotate track
-        if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -90), true, 0, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1 * keyStatus), true, 0, true, 0, 0)
         end
         _snap = true
       else
@@ -1498,26 +1478,29 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       end
     end
     -- 45°
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC2" then
+    if actionName == "FS22_EnhancedVehicle_SNAP_ANGLE2" then
       if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 45.0, 0)
+        self.vData.want[4] = Round(self.vData.is[4] + 45 * keyStatus, 0)
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
-        -- if track is enabled -> also rotate track
-        if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45), true, 0, true, 0, 0)
-        end
-        _snap = true
-      else
-        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
-      end
-    end
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC2" then
-      if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] - 45.0, 0)
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
         if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], -45), true, 0, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45 * keyStatus), true, 0, true, 0, 0)
+        end
+        _snap = true
+      else
+        g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
+      end
+    end
+    -- 90°
+    if actionName == "FS22_EnhancedVehicle_SNAP_ANGLE3" then
+      if self.vData.is[5] then
+        self.vData.want[4] = Round(self.vData.is[4] + 90 * keyStatus, 0)
+        if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
+        if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
+        -- if track is enabled -> also rotate track
+        if self.vData.track.isVisible and self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90 * keyStatus), true, 0, true, 0, 0)
         end
         _snap = true
       else
@@ -1525,55 +1508,31 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       end
     end
 
-    -- delta track--
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACK" then
+    -- delta track
+    if actionName == "FS22_EnhancedVehicle_SNAP_TRACK" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack - 1, -5, 5)
-      end
-    end
-    -- delta track++
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACK" then
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
-        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + 1, -5, 5)
+        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + keyStatus, -5, 5)
       end
     end
 
-    -- track position--
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKP" then
+    -- track position
+    if actionName == "FS22_EnhancedVehicle_SNAP_TRACKP" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, -0.1, true, 0, 0)
-      end
-    end
-    -- track position++
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKP" then
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1, true, 0, 0)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1 * keyStatus, true, 0, 0)
       end
     end
 
-    -- track width--
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKW" then
+    -- track width
+    if actionName == "FS22_EnhancedVehicle_SNAP_TRACKW" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, -0.05)
-      end
-    end
-    -- track width++
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKW" then
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, 0.05)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, 0.1 * keyStatus)
       end
     end
 
-    -- track offset--
-    if actionName == "FS22_EnhancedVehicle_SNAP_DEC_TRACKO" then
+    -- track offset
+    if actionName == "FS22_EnhancedVehicle_SNAP_TRACKO" then
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, -0.05)
-      end
-    end
-    -- track offset++
-    if actionName == "FS22_EnhancedVehicle_SNAP_INC_TRACKO" then
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
-        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05)
+        FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05 * keyStatus)
       end
     end
 
@@ -1595,7 +1554,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
 
     -- recalculate track
     if actionName == "FS22_EnhancedVehicle_SNAP_GRID_RESET" then
-      FS22_EnhancedVehicle:calculateTrack(self)
+      if not FS22_EnhancedVehicle:calculateTrack(self) then
+        _snap = true
+      end
 
       -- turn on track visibility
       if not self.vData.track.isVisible then
@@ -1873,6 +1834,7 @@ function FS22_EnhancedVehicle:calculateTrack(self)
       g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement2"), 4000)
       self.vData.track.forceFake = true
       self.vData.track.isCalculated = false
+      self.vData.want[6] = false
     else
       g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNoImplement"), 4000)
     end

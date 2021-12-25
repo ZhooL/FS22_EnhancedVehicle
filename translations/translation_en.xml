@@ -6,22 +6,22 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Snap current direction/track"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Reverse snap/track direction (180°)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Helplines on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC1"       text="EV: Increase snap/track direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC1"       text="EV: Decrease snap/track direction by 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC2"       text="EV: Increase snap/track direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC2"       text="EV: Decrease snap/track direction by 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC3"       text="EV: Increase snap/track direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC3"       text="EV: Decrease snap/track direction by 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Grid on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Reset grid"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACK"  text="EV: Increase amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACK"  text="EV: Decrease amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKP" text="EV: Move tracks to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKP" text="EV: Move tracks to the left"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKW" text="EV: Increase width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKW" text="EV: Decrease width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_INC_TRACKO" text="EV: Move offset line to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_DEC_TRACKO" text="EV: Move offset line to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Increase snap/track direction by 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Decrease snap/track direction by 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Increase snap/track direction by 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Decrease snap/track direction by 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Increase snap/track direction by 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Decrease snap/track direction by 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Track display on/off"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Re)calculate track display"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Increase amount of turnover tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Decrease amount of turnover tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Move tracks to the right"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Move tracks to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Increase width of tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrease width of tracks"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Move offset line to the right"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Move offset line to the left"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differential lock front axle on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differential lock rear axle on/off"/>
@@ -33,9 +33,11 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"    text="no track"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"    text="no width"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland" text="no headland"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="no track"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="no width"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="no headland"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
@@ -78,6 +80,11 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Display damage values in '% left' rather than '% damaged'"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% left"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% damaged"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>

@@ -41,7 +41,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="snapTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="snapTT"/>
-      </GuiElement> 
+      </GuiElement>
       <!-- differential -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="diffSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -50,7 +50,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="diffTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="diffTT"/>
-      </GuiElement> 
+      </GuiElement>
       <!-- hydraulic -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="hydraulicSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -59,7 +59,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hydraulicTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hydraulicTT"/>
-      </GuiElement> 
+      </GuiElement>
 
       <!-- headland settings -->
       <GuiElement type="text" profile="dialogHeaderText"/>
@@ -120,7 +120,16 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDdiffTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDdiffTT"/>
-      </GuiElement> 
+      </GuiElement>
+      <!-- HUD: dmgfuelposition -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDdmgfuelSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDdmgfuelTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDdmgfuelTT"/>
+      </GuiElement>
       <!-- HUD: dmg -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDdmgSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -129,7 +138,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDdmgTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDdmgTT"/>
-      </GuiElement> 
+      </GuiElement>
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDdmgAmountLeftSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
         <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
@@ -146,7 +155,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDfuelTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDfuelTT"/>
-      </GuiElement> 
+      </GuiElement>
       <!-- HUD: rpm -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDrpmSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -155,7 +164,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDrpmTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDrpmTT"/>
-      </GuiElement> 
+      </GuiElement>
       <!-- HUD: temp -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDtempSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -164,7 +173,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDtempTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDtempTT"/>
-      </GuiElement> 
+      </GuiElement>
       <!-- HUD: misc -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDmiscSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
@@ -173,7 +182,7 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDmiscTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDmiscTT"/>
-      </GuiElement> 
+      </GuiElement>
     </GuiElement>
 
     <!-- footer -->
