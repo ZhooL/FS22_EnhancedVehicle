@@ -23,6 +23,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Sposta la linea di offset a destra"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Sposta la linea di offset a sinistra"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Cambia modalità capezzagna"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloccaggio differenziale assale anteriore on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloccaggio differenziale assale posteriore on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Entrambi i blocchi differenziali on/off"/>
@@ -36,8 +38,8 @@
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="Nessuna corsia"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="Nessuna larghezza"/>
     <text name="hud_FS22_EnhancedVehicle_noheadland"  text="Nessun promontorio"/>
-    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
-    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Danni | Verniciatura"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Carburante"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
@@ -81,13 +83,16 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% non danneggiato"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% danneggiato"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: posizione del danno e display del carburante"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classico tachimetro sopra; FS22: in alto a destra sotto il pannello gameinfo"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="Classico (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="In alto a destra (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Angolo di bloccaggio"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Specifica di quali gradi viene bloccato il senso di marcia (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Modalità capezzagna"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Determina cosa dovrebbe succedere quando si raggiunge il promontorio"/>

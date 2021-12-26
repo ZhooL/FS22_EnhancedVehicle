@@ -23,6 +23,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Сдвинуть полосу смещения вправо"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Сдвинуть полосу смещения влево"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Изменить режим поворотной полосы"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Вкл/выкл блокировку переднего дифференциала"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Вкл/выкл блокировку заднего дифференциала"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Вкл/выкл блокировку переднего и заднего дифференциала"/>
@@ -88,6 +90,9 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Привязка к углу"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Определяет с каким шагом включается направление движения(1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Режим поворотной полосы"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Что должно произойти при выходе на поворотную полосу"/>

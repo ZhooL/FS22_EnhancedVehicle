@@ -23,6 +23,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Move offset line to the right"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Move offset line to the left"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloqueio do diferencial dianteiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloqueio do diferencial traseiro on/off"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Bloqueio de ambos os diferenciais on/off"/>
@@ -88,6 +90,9 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Snap To Angle"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Determines in which degree steps the driving direction is engaged (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>

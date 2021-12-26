@@ -23,6 +23,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Offsetlinie nach rechts verschieben"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Offsetlinie nach linksverschieben"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Vorgewendemodus wechseln"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Vorgewendedistanz zum Feldrand erhöhen"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Vorgewendedistanz zum Feldrand verringern"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Differentialsperre Vorderachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Differentialsperre Hinterachse an/aus"/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Beide Differentialsperren an/aus"/>
@@ -88,6 +90,9 @@
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Einrastwinkel"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Legt fest, in welchen Gradschritten die Fahrtrichtung eingerastet wird (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Anzahl sichtbare Fahrspuren"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Soviele Fahrspuren werden insgesamt (links + rechts vom Fahrzeug) angezeigt"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Vorgewende Modus"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Legt fest, was beim Erreichen des Vorgewendes passieren soll"/>

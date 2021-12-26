@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 25.12.2021
+-- @Date: 26.12.2021
 -- @Version: 1.0.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
@@ -35,8 +35,10 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "snapSettingsAngleTitle",
   "snapSettingsAngleTT",
   "snapSettingsAngleValue",
-  "snapSettingsAngleButtonLeft",
-  "snapSettingsAngleButtonRight",
+
+  "visibleTracksSetting",
+  "visibleTracksTitle",
+  "visibleTracksTT",
 
   "HUDdmgAmountLeftSetting",
   "HUDdmgAmountLeftTitle",
@@ -67,8 +69,6 @@ local EV_elements_HUD = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track' 
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."Title")
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."TT")
 end
-
-local EV_elements_distances = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -12, -14, -16, -18, -20 }
 
 -- #############################################################################
 
@@ -141,6 +141,11 @@ function FS22_EnhancedVehicle_UI:onOpen()
   self.snapSettingsAngleTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_snapSettingsAngleTitle"))
   self.snapSettingsAngleTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_snapSettingsAngleTT"))
 
+  -- visible tracks
+  self.visibleTracksTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_visibleTracksTitle"))
+  self.visibleTracksTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_visibleTracksTT"))
+  self.visibleTracksSetting:setTexts({ "1", "3", "5", "7", "9" })
+
   -- headland mode
   self.headlandModeTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandModeTitle"))
   self.headlandModeTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandModeTT"))
@@ -159,7 +164,7 @@ function FS22_EnhancedVehicle_UI:onOpen()
     _addtxt = " ("..tostring(Round(self.vehicle.vData.track.workWidth, 1)).."m)"
   end
   table.insert(_dists, g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandDistanceOption1").._addtxt)
-  for _, d in pairs(EV_elements_distances) do
+  for _, d in pairs(FS22_EnhancedVehicle.hl_distances) do
     if d >= 0 then
       table.insert(_dists, tostring(d).."m "..g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore"))
     else
@@ -218,6 +223,10 @@ function FS22_EnhancedVehicle_UI:updateValues()
   -- snap to angle
   self.snapSettingsAngleValue:setText(tostring(lC:getConfigValue("snap", "snapToAngle")))
 
+  -- visible tracks
+  local _state = (lC:getConfigValue("track", "numberOfTracks") + 1) / 2
+  self.visibleTracksSetting:setState(_state)
+
   -- dmgfuel position
   self.HUDdmgfuelSetting:setState(lC:getConfigValue("hud", "dmgfuelPosition"))
 
@@ -230,7 +239,7 @@ function FS22_EnhancedVehicle_UI:updateValues()
     _state = 1
   end
   local _i = 2
-  for _, d in pairs(EV_elements_distances) do
+  for _, d in pairs(FS22_EnhancedVehicle.hl_distances) do
     if self.vehicle.vData.track.headlandDistance == d then
       _state = _i
     end
@@ -284,6 +293,10 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   end
   lC:setConfigValue("snap", "snapToAngle", n)
 
+  -- visible tracks
+  local _state = self.visibleTracksSetting:getState() * 2 - 1
+  lC:setConfigValue("track", "numberOfTracks", _state)
+
   -- headland mode
   self.vehicle.vData.track.headlandMode = self.headlandModeSetting:getState()
 
@@ -294,7 +307,7 @@ function FS22_EnhancedVehicle_UI:onClickOk()
     self.vehicle.vData.track.headlandDistance = 9999
   end
   local _i = 2
-  for _, d in pairs(EV_elements_distances) do
+  for _, d in pairs(FS22_EnhancedVehicle.hl_distances) do
     if _state == _i then
       self.vehicle.vData.track.headlandDistance = d
     end

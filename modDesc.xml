@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.0.0.0-rc2</version>
+  <version>1.0.0.0-rc3</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -24,28 +24,29 @@
   <l10n filenamePrefix="translations/translation"/>
 
   <actions>
-    <action name="FS22_EnhancedVehicle_MENU"            category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_REVERSE"    category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_LINES"      category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_GRID_ONOFF" category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_TRACK"      category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_TRACKP"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_TRACKW"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_TRACKO"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_HL_MODE"    category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_SNAP_ANGLE1"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_ANGLE2"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_SNAP_ANGLE3"     category="VEHICLE" axisType="FULL"/>
-    <action name="FS22_EnhancedVehicle_FD"              category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_RD"              category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_BD"              category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_DM"              category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_AJ_REAR_ONOFF"   category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" category="VEHICLE"/>
-    <action name="FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  category="VEHICLE"/>
+    <action name="FS22_EnhancedVehicle_MENU"            />
+    <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      />
+    <action name="FS22_EnhancedVehicle_SNAP_REVERSE"    />
+    <action name="FS22_EnhancedVehicle_SNAP_LINES"      />
+    <action name="FS22_EnhancedVehicle_SNAP_GRID_ONOFF" />
+    <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" />
+    <action name="FS22_EnhancedVehicle_SNAP_TRACK"      axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_TRACKP"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_TRACKW"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_TRACKO"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_HL_MODE"    />
+    <action name="FS22_EnhancedVehicle_SNAP_HL_DIST"    axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_ANGLE1"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_ANGLE2"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_ANGLE3"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_FD"              />
+    <action name="FS22_EnhancedVehicle_RD"              />
+    <action name="FS22_EnhancedVehicle_BD"              />
+    <action name="FS22_EnhancedVehicle_DM"              />
+    <action name="FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  />
+    <action name="FS22_EnhancedVehicle_AJ_REAR_ONOFF"   />
+    <action name="FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" />
+    <action name="FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  />
   </actions>
 
   <inputBinding>
@@ -86,6 +87,10 @@
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_HL_MODE">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_multiply" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_HL_DIST">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_KP_divide"   axisComponent="-"/>
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_KP_multiply" axisComponent="+"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_ANGLE1">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_pagedown" axisComponent="-"/>

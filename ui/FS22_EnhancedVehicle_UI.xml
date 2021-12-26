@@ -98,6 +98,16 @@
         <GuiElement type="text"      profile="multiTextOptionSettingsTooltip"  id="snapSettingsAngleTT"/>
       </GuiElement>
 
+      <!-- number of visible tracks -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="visibleTracksSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="visibleTracksTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="visibleTracksTT"/>
+      </GuiElement>
+
       <!-- hud -->
       <GuiElement type="text" profile="dialogHeaderText"/>
       <GuiElement type="text" profile="dialogHeaderText" id="sectionHUD"/>

@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 25.12.2021
+-- @Date: 26.12.2021
 -- @Version: 1.0.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
@@ -110,8 +110,8 @@ function FS22_EnhancedVehicle_HUD:new(speedMeterDisplay, gameInfoDisplay, modDir
   self.tempText             = {}
 
   self.default_track_txt     = g_i18n:getText("hud_FS22_EnhancedVehicle_notrack")
-  self.default_headland_txt  = g_i18n:getText("hud_FS22_EnhancedVehicle_nowidth")
-  self.default_workwidth_txt = g_i18n:getText("hud_FS22_EnhancedVehicle_noheadland")
+  self.default_headland_txt  = g_i18n:getText("hud_FS22_EnhancedVehicle_noheadland")
+  self.default_workwidth_txt = g_i18n:getText("hud_FS22_EnhancedVehicle_nowidth")
   self.default_dmg_txt       = g_i18n:getText("hud_FS22_EnhancedVehicle_header_dmg")
   self.default_fuel_txt      = g_i18n:getText("hud_FS22_EnhancedVehicle_header_fuel")
 
@@ -591,6 +591,10 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       local _tmp = self.vehicle.vData.track.headlandDistance
       if _tmp == 9999 then _tmp = Round(self.vehicle.vData.track.workWidth, 1) end
       headland_txt = string.format("%.1fm", math.abs(_tmp))
+    elseif self.vehicle.vData.impl ~= nil then
+      if self.vehicle.vData.impl.workWidth > 0 then
+        workwidth_txt = string.format("|← %.1fm →|", Round(self.vehicle.vData.impl.workWidth, 1))
+      end
     end
 
     -- render text
