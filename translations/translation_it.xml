@@ -91,8 +91,8 @@
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Angolo di bloccaggio"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Specifica di quali gradi viene bloccato il senso di marcia (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Numero di corsie visibili"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Questo è il numero di corsie visualizzate in totale (sinistra + destra del veicolo)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Modalità capezzagna"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Determina cosa dovrebbe succedere quando si raggiunge il promontorio"/>
