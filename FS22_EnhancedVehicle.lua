@@ -9,8 +9,11 @@
 --[[
 CHANGELOG
 
+2021-12-27 - V1.0.0.0-rc5
+* bugfix for the HUD being shown in vehicles where it should not be visible
+
 2021-12-27 - V1.0.0.0-rc4
-* fixed a rare bug for snap feature not working as expected on dedicated servers (thx to "a Bit Brutal")
+* fixed a rare bug for snap feature not working as expected on dedicated servers (thx "a Bit Brutal")
 
 2021-12-26 - V1.0.0.0-rc3
 + added configuration menu option for "number of visible tracks"

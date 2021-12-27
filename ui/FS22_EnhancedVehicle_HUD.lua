@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 26.12.2021
+-- @Date: 27.12.2021
 -- @Version: 1.0.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
@@ -133,6 +133,18 @@ function FS22_EnhancedVehicle_HUD:delete()
 
   if self.diffBox ~= nil then
     self.diffBox:delete()
+  end
+
+  if self.miscBox ~= nil then
+    self.miscBox:delete()
+  end
+
+  if self.dmgBox ~= nil then
+    self.dmgBox:delete()
+  end
+
+  if self.fuelBox ~= nil then
+    self.fuelBox:delete()
   end
 end
 
@@ -466,6 +478,9 @@ end
 function FS22_EnhancedVehicle_HUD:hideSomething()
   if debug > 2 then print("-> " .. myName .. ": hideSomething ") end
 
+  self.trackBox:setVisible(false)
+  self.diffBox:setVisible(false)
+  self.miscBox:setVisible(false)
   self.dmgBox:setVisible(false)
   self.fuelBox:setVisible(false)
 end

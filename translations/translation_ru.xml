@@ -23,11 +23,11 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Сдвинуть полосу смещения вправо"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Сдвинуть полосу смещения влево"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Изменить режим поворотной полосы"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Увел. расст. разворотной полосы до конца поля"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Умен. расст. разворотной полосы до конца поля"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Вкл/выкл блокировку переднего дифференциала"/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Вкл/выкл блокировку заднего дифференциала"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Вкл/выкл блокировку переднего и заднего дифференциала"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Вкл/выкл блок. переднего и заднего дифференциала"/>
     <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Изменить режим привода на колесах"/>
     <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Задняя гидравлика поднять/опустить"/>
     <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Задняя гидравлика вкл/выкл"/>
@@ -38,8 +38,8 @@
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="нет полосы"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="шир. неизвестна"/>
     <text name="hud_FS22_EnhancedVehicle_noheadland"  text="нет пов. полосы"/>
-    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
-    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Повреждения | Покраска"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Топливо"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="Вкл"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Выкл"/>
@@ -83,16 +83,16 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% осталось"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% повреждения"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Положение на экране повреждений и топлива"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: классический над спидометром; FS22: вверху справа под панелью информации об игре"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="классический (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="вверху справа (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Привязка к углу"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Определяет с каким шагом включается направление движения(1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Количество видимых полос"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Сколько всего показано полос(слева + справа от транспорта)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Режим поворотной полосы"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Что должно произойти при выходе на поворотную полосу"/>
