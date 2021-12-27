@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 26.12.2021
+-- @Date: 27.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-27 - V1.0.0.0-rc4
+* fixed a rare bug for snap feature not working as expected on dedicated servers (thx to "a Bit Brutal")
 
 2021-12-26 - V1.0.0.0-rc3
 + added configuration menu option for "number of visible tracks"
@@ -1586,7 +1589,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           _i = _i + 1
         end
       end
-      _state = Between(_state + keyStatus, 0, #FS22_EnhancedVehicle.hl_distances)
+      _state = _state + keyStatus
+      if _state > #FS22_EnhancedVehicle.hl_distances then _state = 0 end
+      if _state < 0 then _state = #FS22_EnhancedVehicle.hl_distances end
       self.vData.track.headlandDistance = FS22_EnhancedVehicle.hl_distances[_state]
       if _state == 0 then self.vData.track.headlandDistance = 9999 end
     end
@@ -2080,103 +2085,101 @@ end
 function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForward, axisSide, doHandbrake, dt)
   if debug > 2 then print("function Drivable.updateVehiclePhysics() "..tostring(dt)..", "..tostring(axisForward)..", "..tostring(axisSide)..", "..tostring(doHandbrake)) end
 
-  if FS22_EnhancedVehicle.functionSnapIsEnabled then
-    if self.vData ~= nil and self.vData.is[5] then
-      if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
-        -- get current position and rotation of vehicle
-        local px, _, pz = localToWorld(self.rootNode, 0, 0, 0)
-        local lx, _, lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
-        local rot = 180 - math.deg(math.atan2(lx, lz))
+  if self.vData ~= nil and self.vData.is[5] then
+    if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
+      -- get current position and rotation of vehicle
+      local px, _, pz = localToWorld(self.rootNode, 0, 0, 0)
+      local lx, _, lz = localDirectionToWorld(self.rootNode, 0, 0, 1)
+      local rot = 180 - math.deg(math.atan2(lx, lz))
 
-        -- if cabin is rotated -> direction should rotate also
-        if self.spec_drivable.reverserDirection < 0 then
-          rot = rot + 180
-          if rot >= 360 then rot = rot - 360 end
+      -- if cabin is rotated -> direction should rotate also
+      if self.spec_drivable.reverserDirection < 0 then
+        rot = rot + 180
+        if rot >= 360 then rot = rot - 360 end
+      end
+      rot = Round(rot, 1)
+      if rot >= 360.0 then rot = 0 end
+      self.vData.rot = rot
+
+      -- when snap to track mode -> get dot
+      dotLR = 0
+      if self.vData.is[6] then
+        local dx, dz = px - self.vData.is[11], pz - self.vData.is[12]
+        dotLR = -(dx * -self.vData.is[10] + dz * self.vData.is[9])
+        if math.abs(dotLR) < 0.05 then dotLR = 0 end -- smooth it
+      end
+
+      -- if wanted direction is different than current direction OR we're not on track
+      if self.vData.rot ~= self.vData.is[4] or dotLR ~= 0 then
+
+        -- get movingDirection (1=forward, 0=nothing, -1=reverse) but if nothing we choose forward
+        local movingDirection = 0
+        if g_currentMission.missionInfo.stopAndGoBraking then
+          movingDirection = self.movingDirection * self.spec_drivable.reverserDirection
+          if math.abs( self.lastSpeed ) < 0.000278 then
+            movingDirection = 0
+          end
+        else
+          movingDirection = Utils.getNoNil(self.nextMovingDirection * self.spec_drivable.reverserDirection)
         end
-        rot = Round(rot, 1)
-        if rot >= 360.0 then rot = 0 end
-        self.vData.rot = rot
+        if movingDirection == 0 then movingDirection = 1 end
 
-        -- when snap to track mode -> get dot
-        dotLR = 0
+        -- "steering force"
+        local delta = dt/500 * movingDirection -- higher number means smaller changes results in slower steering
+
+        -- calculate degree difference between "is" and "wanted" (from -180 to 180)
+        local _w1 = self.vData.is[4]
+        if _w1 > 180 then _w1 = _w1 - 360 end
+        local _w2 = self.vData.rot
+
+        -- when snap to track -> gently push the driving direction towards destination position depending on current speed
         if self.vData.is[6] then
-          local dx, dz = px - self.vData.is[11], pz - self.vData.is[12]
-          dotLR = -(dx * -self.vData.is[10] + dz * self.vData.is[9])
-          if math.abs(dotLR) < 0.05 then dotLR = 0 end -- smooth it
-        end
-
-        -- if wanted direction is different than current direction OR we're not on track
-        if self.vData.rot ~= self.vData.is[4] or dotLR ~= 0 then
-
-          -- get movingDirection (1=forward, 0=nothing, -1=reverse) but if nothing we choose forward
-          local movingDirection = 0
-          if g_currentMission.missionInfo.stopAndGoBraking then
-            movingDirection = self.movingDirection * self.spec_drivable.reverserDirection
-            if math.abs( self.lastSpeed ) < 0.000278 then
-              movingDirection = 0
-            end
-          else
-            movingDirection = Utils.getNoNil(self.nextMovingDirection * self.spec_drivable.reverserDirection)
-          end
-          if movingDirection == 0 then movingDirection = 1 end
-
-          -- "steering force"
-          local delta = dt/500 * movingDirection -- higher number means smaller changes results in slower steering
-
-          -- calculate degree difference between "is" and "wanted" (from -180 to 180)
-          local _w1 = self.vData.is[4]
-          if _w1 > 180 then _w1 = _w1 - 360 end
-          local _w2 = self.vData.rot
-
-          -- when snap to track -> gently push the driving direction towards destination position depending on current speed
-          if self.vData.is[6] then
 --            _old = _w2
-            _w2 = _w2 - Between(dotLR * Between(10 - self:getLastSpeed() / 8, 4, 8) * movingDirection, -90, 90) -- higher means stronger movement force to destination
+          _w2 = _w2 - Between(dotLR * Between(10 - self:getLastSpeed() / 8, 4, 8) * movingDirection, -90, 90) -- higher means stronger movement force to destination
 --            print("old: ".._old..", new: ".._w2..", dot: "..dotLR..", md: "..movingDirection.." / "..Between(10 - self:getLastSpeed() / 8, 4, 8))
-          end
-          if _w2 > 180 then _w2 = _w2 - 360 end
-          if _w2 < -180 then _w2 = _w2 + 360 end
+        end
+        if _w2 > 180 then _w2 = _w2 - 360 end
+        if _w2 < -180 then _w2 = _w2 + 360 end
 
-          -- calculate difference between angles
-          local diffdeg = _w1 - _w2
-          if diffdeg > 180 then diffdeg = diffdeg - 360 end
-          if diffdeg < -180 then diffdeg = diffdeg + 360 end
+        -- calculate difference between angles
+        local diffdeg = _w1 - _w2
+        if diffdeg > 180 then diffdeg = diffdeg - 360 end
+        if diffdeg < -180 then diffdeg = diffdeg + 360 end
 --          print("delta: "..delta..", d: "..dotLR..", w1: ".._w1..", w2: ".._w2..", rot: "..self.vData.rot..", diffdeg: "..diffdeg)
 
-          -- calculate new steering wheel "direction"
-          -- if we have still more than 20° to steer -> increase steering wheel constantly until maximum
-          -- if in between -20 to 20 -> adjust steering wheel according to remaining degrees
-          -- if in between -2 to 2 -> set steering wheel directly
-          local a = self.vData.axisSidePrev
-          if (diffdeg < -20) then
-            a = a - delta * 0.5
-          end
-          if (diffdeg > 20) then
-            a = a + delta * 0.5
-          end
-          if (diffdeg >= -20) and (diffdeg <= 20) then
-            local newa = diffdeg / 20 * movingDirection -- linear from 1 to 0.1
-            if a < newa then
+        -- calculate new steering wheel "direction"
+        -- if we have still more than 20° to steer -> increase steering wheel constantly until maximum
+        -- if in between -20 to 20 -> adjust steering wheel according to remaining degrees
+        -- if in between -2 to 2 -> set steering wheel directly
+        local a = self.vData.axisSidePrev
+        if (diffdeg < -20) then
+          a = a - delta * 0.5
+        end
+        if (diffdeg > 20) then
+          a = a + delta * 0.5
+        end
+        if (diffdeg >= -20) and (diffdeg <= 20) then
+          local newa = diffdeg / 20 * movingDirection -- linear from 1 to 0.1
+          if a < newa then
 --              print("1 dd: "..diffdeg.." a: "..a.." newa: "..newa..", md: "..movingDirection..", dot: "..dotLR)
-              a = a + delta * 1.2 * movingDirection
-            end
-            if a > newa then
+            a = a + delta * 1.2 * movingDirection
+          end
+          if a > newa then
 --              print("2 dd: "..diffdeg.." a: "..a.." newa: "..newa..", md: "..movingDirection..", dot: "..dotLR)
-              a = a - delta * 1.2 * movingDirection
-            end
+            a = a - delta * 1.2 * movingDirection
           end
-          if (diffdeg >= -2) and (diffdeg <= 2) then
-            a = diffdeg / 20 * movingDirection --* delta
-          end
-          a = Between(a, -1, 1)
+        end
+        if (diffdeg >= -2) and (diffdeg <= 2) then
+          a = diffdeg / 20 * movingDirection --* delta
+        end
+        a = Between(a, -1, 1)
 
-          axisSide = a
+        axisSide = a
 --          print("dt: "..dt.." aS: "..axisSide.." aSp: "..self.vData.axisSidePrev.." delta: "..delta.." diffdeg: "..diffdeg)
 
-          -- save for next calculation cycle
-          self.vData.axisSidePrev = a
+        -- save for next calculation cycle
+        self.vData.axisSidePrev = a
 --          print(" is: "..self.vData.rot.." want: "..self.vData.is[4].." diff: "..diffdeg.. " steerangle: " .. axisSide)
-        end
       end
     end
   end
