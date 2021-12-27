@@ -23,8 +23,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Posunout ofset doprava"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Posunout ofset doleva"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Změnit režim souvratí"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Zvýšit vzdálenost souvratě od hranice pole"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Snížit vzdálenost souvratě od hranice pole"/>
     <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
@@ -38,8 +38,8 @@
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="žádná stopa"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="žádná šířka"/>
     <text name="hud_FS22_EnhancedVehicle_noheadland"  text="žádná souvrať"/>
-    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
-    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Poškození | Barva"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Palivo"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="Zap."/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Vyp."/>
@@ -83,16 +83,16 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% kondice"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% poškození"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Umístění poškození a paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: nad tachometrem; FS22: vpravo nahoře pod panelem s informacemi o hře"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="nad tachometrem (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="vpravo nahoře (FS22)"/>
 
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Přichytit k úhlu"/>
     <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Počet viditelných řádků"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Kolik řádků se celkem zobrazí (vlevo + vpravo od vozidla)"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Souvraťový režim"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Co by se mělo stát při dosažení souvrati"/>
@@ -104,11 +104,11 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Vzdálenost otáčení před koncem pole"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Pracovní šířka"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="před koncem pole"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="zakoncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="za koncem pole"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Did not find a device with a working width. Press again to create a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nenalezeno zařízení s pracovní šířkou. Dalším stisknutím vytvoříte výchozí rozvržení řádku."/>
 
   </texts>
 </l10n>
