@@ -3,11 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 27.12.2021
+-- @Date: 30.12.2021
 -- @Version: 1.0.0.0
 
 --[[
 CHANGELOG
+
+2021-12-30 - V1.0.0.0
++ re-added option to move track and diff HUD elements via config XML
+* bugfix for flickering HUD on dedi server when someone switches through vehicles
 
 2021-12-27 - V1.0.0.0-rc5
 * bugfix for the HUD being shown in vehicles where it should not be visible
@@ -371,8 +375,10 @@ function FS22_EnhancedVehicle:activateConfig()
   -- HUD stuff
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
     FS22_EnhancedVehicle.hud[section] = {}
-    FS22_EnhancedVehicle.hud[section].enabled = lC:getConfigValue("hud."..section, "enabled")
+    FS22_EnhancedVehicle.hud[section].enabled  = lC:getConfigValue("hud."..section, "enabled")
     FS22_EnhancedVehicle.hud[section].fontSize = lC:getConfigValue("hud."..section, "fontSize")
+    FS22_EnhancedVehicle.hud[section].offsetX  = lC:getConfigValue("hud."..section, "offsetX")
+    FS22_EnhancedVehicle.hud[section].offsetY  = lC:getConfigValue("hud."..section, "offsetY")
   end
   FS22_EnhancedVehicle.hud.dmg.showAmountLeft = lC:getConfigValue("hud.dmg", "showAmountLeft")
   FS22_EnhancedVehicle.hud.dmgfuelPosition = lC:getConfigValue("hud", "dmgfuelPosition")
@@ -430,6 +436,8 @@ function FS22_EnhancedVehicle:resetConfig(disable)
 
   -- track
   lC:addConfigValue("hud.track", "enabled", "bool", true)
+  lC:addConfigValue("hud.track", "offsetX", "int", 0)
+  lC:addConfigValue("hud.track", "offsetY", "int", 0)
 
   -- misc
   lC:addConfigValue("hud.misc", "enabled", "bool", true)
@@ -442,6 +450,8 @@ function FS22_EnhancedVehicle:resetConfig(disable)
 
   -- diff
   lC:addConfigValue("hud.diff", "enabled", "bool", true)
+  lC:addConfigValue("hud.diff", "offsetX", "int", 0)
+  lC:addConfigValue("hud.diff", "offsetY", "int", 0)
 
   -- HUD position for dmg/fuel
   lC:addConfigValue("hud", "dmgfuelPosition", "int", 2)
@@ -1147,7 +1157,7 @@ function FS22_EnhancedVehicle:onLeaveVehicle()
   end
 
   -- hide some HUD elements
-  FS22_EnhancedVehicle.ui_hud:hideSomething()
+  FS22_EnhancedVehicle.ui_hud:hideSomething(self)
 end
 
 -- #############################################################################

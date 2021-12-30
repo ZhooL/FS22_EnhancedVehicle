@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 27.12.2021
+-- @Date: 29.12.2021
 -- @Version: 1.0.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
@@ -183,7 +183,7 @@ function FS22_EnhancedVehicle_HUD:createElements()
   -- create our damage box
   self:createDamageBox(1, baseY - self.marginHeight)
 
-  -- create our damage box
+  -- create our fuel box
   self:createFuelBox(1, baseY - self.marginHeight)
 
   -- update some positions
@@ -199,6 +199,11 @@ function FS22_EnhancedVehicle_HUD:createTrackBox(x, y)
   local iconWidth, iconHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.ICONTRACK)
   local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.TRACKBOX)
   x = x - boxWidth / 2
+
+  -- global move
+  local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.track.offsetX, FS22_EnhancedVehicle.hud.track.offsetY })
+  x = x + offX
+  y = y + offY
 
   -- add background overlay box
   local boxOverlay = Overlay.new(self.uiFilename, x, y, boxWidth, boxHeight)
@@ -259,6 +264,11 @@ function FS22_EnhancedVehicle_HUD:createDiffBox(x, y)
   local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.DIFFBOX)
   y = y - boxHeight - marginHeight
 
+  -- global move
+  local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.diff.offsetX, FS22_EnhancedVehicle.hud.diff.offsetY })
+  x = x + offX
+  y = y + offY
+
   -- add background overlay box
   local boxOverlay = Overlay.new(self.uiFilename, x, y, boxWidth, boxHeight)
   local boxElement = HUDElement.new(boxOverlay)
@@ -317,7 +327,7 @@ function FS22_EnhancedVehicle_HUD:createDamageBox(x, y)
   self.dmgBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGDMG))
   self.dmgBox:setColor(unpack(SpeedMeterDisplay.COLOR.GEARS_BG))
   self.dmgBox:setVisible(false)
-  self.gameInfoDisplay:addChild(boxElement)
+  self.speedMeterDisplay:addChild(boxElement)
 end
 
 -- #############################################################################
@@ -332,7 +342,7 @@ function FS22_EnhancedVehicle_HUD:createFuelBox(x, y)
   self.fuelBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGDMG))
   self.fuelBox:setColor(unpack(SpeedMeterDisplay.COLOR.GEARS_BG))
   self.fuelBox:setVisible(false)
-  self.gameInfoDisplay:addChild(boxElement)
+  self.speedMeterDisplay:addChild(boxElement)
 end
 
 -- #############################################################################
@@ -351,7 +361,7 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_HUD:storeScaledValues()
+function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
   if debug > 2 then print("-> " .. myName .. ": storeScaledValues ") end
 
   -- overwrite from config file
@@ -369,6 +379,14 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues()
     local boxWidth, boxHeight = self.trackBox:getWidth(), self.trackBox:getHeight()
     local boxPosX = baseX - boxWidth / 2
     local boxPosY = baseY + height / 2
+
+    -- global move of box
+    local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.track.offsetX, FS22_EnhancedVehicle.hud.track.offsetY })
+    boxPosX = boxPosX + offX
+    boxPosY = boxPosY + offY
+    if _move then
+      self.trackBox:setPosition(boxPosX, boxPosY)
+    end
 
     -- snap text
     local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.SNAP1)
@@ -418,6 +436,26 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues()
     self.fuelText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.FUEL)
   end
 
+  if self.diffBox ~= nil then
+    x = baseX
+    y = baseY + height / 2
+
+    local marginWidth, marginHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGIN)
+    local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.TRACKBOX)
+    x = x - boxWidth / 2
+    local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.DIFFBOX)
+    y = y - boxHeight - marginHeight
+
+    -- global move
+    local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.diff.offsetX, FS22_EnhancedVehicle.hud.diff.offsetY })
+    x = x + offX
+    y = y + offY
+
+    if _move then
+      self.diffBox:setPosition(x, y)
+    end
+  end
+
   if self.dmgBox ~= nil and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2 then
     local baseX, baseY = self.gameInfoDisplay:getPosition()
     self.dmgText.posX = 1
@@ -465,24 +503,36 @@ function FS22_EnhancedVehicle_HUD:setVehicle(vehicle)
   if debug > 2 then print("-> " .. myName .. ": setVehicle ") end
 
   self.vehicle = vehicle
+
   if self.trackBox ~= nil then
     self.trackBox:setVisible(vehicle ~= nil)
   end
   if self.diffBox ~= nil then
     self.diffBox:setVisible(vehicle ~= nil)
   end
+  if self.miscBox ~= nil then
+    self.miscBox:setVisible(vehicle ~= nil)
+  end
+  if self.dmgBox ~= nil then
+    self.dmgBox:setVisible(vehicle ~= nil)
+  end
+  if self.fuelBox ~= nil then
+    self.fuelBox:setVisible(vehicle ~= nil)
+  end
 end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_HUD:hideSomething()
+function FS22_EnhancedVehicle_HUD:hideSomething(vehicle)
   if debug > 2 then print("-> " .. myName .. ": hideSomething ") end
 
-  self.trackBox:setVisible(false)
-  self.diffBox:setVisible(false)
-  self.miscBox:setVisible(false)
-  self.dmgBox:setVisible(false)
-  self.fuelBox:setVisible(false)
+  if vehicle.isClient then
+    self.trackBox:setVisible(false)
+    self.diffBox:setVisible(false)
+    self.miscBox:setVisible(false)
+    self.dmgBox:setVisible(false)
+    self.fuelBox:setVisible(false)
+  end
 end
 
 -- #############################################################################
@@ -491,7 +541,7 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
   if debug > 2 then print("-> " .. myName .. ": drawHUD ") end
 
   -- jump out if we're not ready
-  if self.vehicle == nil or not self.speedMeterDisplay.isVehicleDrawSafe or g_dedicatedServerInfo ~= nil or not self.vehicle:getIsControlled() then return end
+  if self.vehicle == nil or not self.speedMeterDisplay.isVehicleDrawSafe or g_dedicatedServerInfo ~= nil then return end
 
   if not FS22_EnhancedVehicle.functionSnapIsEnabled then
     self.trackBox:setVisible(false)

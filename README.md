@@ -1,9 +1,8 @@
 # FS22_EnhancedVehicle
-This is a Mod for Farming Simulator 22. It adds a track assistant ("GPS light") and a "snap driving direction" feature, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
-**ATTENTION: Key bindings changed during development. If you can't access a mod function: check your key bindings and rebind the function.**
+**Direct download: [FS22_EnhancedVehicle.zip](https://github.com/ZhooL/FS22_EnhancedVehicle/raw/main/FS22_EnhancedVehicle.zip)**
 
-**WARNING: Work-in-progress. This is a dev version - it might contain bugs. Please report unusual issues.**
+This is a modification for Farming Simulator 22. It adds a track assistant ("GPS light") and a "snap driving direction" feature, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: https://www.modhoster.de/mods/enhancedvehicle-9a59d5c5-c65c-49ce-a1a9-5681a023381b. All other download locations are not validated by me - so handle with care.**
 
@@ -11,7 +10,10 @@ This is a Mod for Farming Simulator 22. It adds a track assistant ("GPS light") 
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Known bugs
-* Probably a lot...
+* Probably a lot... please report them via Github issues
+
+## The HUD explained
+![HUD overview](/misc/hud_overview.png)
 
 ## Default Keybindings
 | Key | Action |
@@ -19,7 +21,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | opens the config dialog to adjust various settings |
 | <kbd>R Ctrl</kbd>+<kbd>End</kbd> | snap to current driving direction or current track |
 | <kbd>R Ctrl</kbd>+<kbd>Home</kbd> | reverse snap/track direction (180°) (= turnover) |
-| <kbd>R Shift</kbd>+<kbd>Home</kbd> | turn on/off visualization of driving direction (Helplines/Hilfslinien) |
+| <kbd>R Shift</kbd>+<kbd>Home</kbd> | turn on/off visualization of guide lines and/or (re)calculate working width |
 | <kbd>R Ctrl</kbd>+<kbd>Num 1</kbd> | turn on/off visualization of track layout |
 | <kbd>R Ctrl</kbd>+<kbd>Num 2</kbd> | re-calculate track layout (e.g. direction changed or work width changed) |
 | <kbd>R Ctrl</kbd>+<kbd>Num *</kbd> | cycle through the different headland modes |
@@ -31,10 +33,10 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Ctrl</kbd>+<kbd>Num +</kbd> | move track offset line to the right |
 | <kbd>R Alt</kbd>+<kbd>Num -</kbd> | decrease track width |
 | <kbd>R Alt</kbd>+<kbd>Num +</kbd> | increase track width |
-| <kbd>R Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 90° |
-| <kbd>R Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 90° |
-| <kbd>R Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 1° |
-| <kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 1° |
+| <kbd>R Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 1° |
+| <kbd>R Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 1° |
+| <kbd>R Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 90° |
+| <kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 90° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 45° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 45° |
 | <kbd>R Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
@@ -50,7 +52,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 * Press <kbd>Ctrl</kbd>+<kbd>Numpad /</kbd> to open the config dialog.
 * Press <kbd>R Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
   * Press <kbd>R Ctrl</kbd>+<kbd>Home</kbd> to reverse snap direction (useful after turn around at end of field)
-* Press <kbd>R Ctrl</kbd>+<kbd>Numpad 1</kbd> to enable the track assistant
+* Press <kbd>R Ctrl</kbd>+<kbd>Numpad 2</kbd> to enable the track assistant
   * If you now enable snap mode the vehicle will drive on the current marked track
   * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 4/6</kbd> to adjust the turnover track number (from -5 to 5)
   * Configure headland behavior in configuration menu

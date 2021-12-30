@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 26.12.2021
+-- @Date: 29.12.2021
 -- @Version: 1.0.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
@@ -319,7 +319,7 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   FS22_EnhancedVehicle:activateConfig()
 
   -- update HUD
-  FS22_EnhancedVehicle.ui_hud:storeScaledValues()
+  FS22_EnhancedVehicle.ui_hud:storeScaledValues(true)
 
   -- close screen
   g_gui:closeDialogByName("FS22_EnhancedVehicle_UI")
