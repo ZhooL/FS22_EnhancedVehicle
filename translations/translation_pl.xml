@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>dexus</translationContributors>
+
+  <texts>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Przyciągnij bieżący kierunek/ścieżkę"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Odwróć kierunek przyciągania/ściezki (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Linie pomocnicze wł/wył"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Zwiększ kierunek przyciągania/ścieżki o 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Zmniejsz kierunek przyciągania/ścieżki o 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Zwiększ kierunek przyciągania/ścieżki o 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Zmniejsz kierunek przyciągania/ścieżki o 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Zwiększ kierunek przyciągania/ścieżki o 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Zmniejsz kierunek przyciągania/ścieżki o 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Wyświetlanie ścieżki wł/wył"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Ponownie) oblicz wyświetlanie ścieżki"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Zwiększ ilość ścieżek obrotu"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Zmniejsz ilość ścieżek obrotu"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Przesuń ścieżki w prawo"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Przesuń ścieżki w lewo"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Zwiększ szerokość ścieżek"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Zmniejsz szerokość ścieżek"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Przesuń linię odsunięcia w prawo"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Przesuń linię odsunięcia w lewo"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Zmień tryb na uwrociach"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Zwiększ odległość uwroci do końca pola"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Zmniejsz odległość uwroci do końca pola"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Blokada mechanizmu różnicowego przednia oś wł/wył "/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Blokada mechanizmu różnicowego tylnia oś wł/wył "/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Obie blokady mechanizmu różnicowego wł/wył"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Zmień tryb napędu na koła"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: tylny hydrauliczny góra/dół"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: tylny hydrauliczny wł/wył"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: przedni hydrauliczny góra/dół"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: przedni hydrauliczny wł/wył"/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: otwórz menu konfiguracyjne"/>
+
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="brak ścieżki"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="brak szerokości"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="brak uwroci"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Uszkodzenia | Lakier"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Paliwo"/>
+
+    <text name="ui_FS22_EnhancedVehicle_on"  text="Wł"/>
+    <text name="ui_FS22_EnhancedVehicle_off" text="Wył"/>
+
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Ustawienia globalne"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="Ustawienia HUD"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Ustawienia asystenta ścieżek"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Ustawienia uwroci dla"/>
+
+    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Zresetuj konfigurację modu"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Zresetuj plik konfiguracyjny"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="UWAGA: Spowoduje to przywrócenie wszystkich ustawień tego moda do wartości domyślnych!"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="Przeładuj konfigurację modu (XML)"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Przeładuj plik konfiguracyjny"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Przeładuj plik konfiguracyjny z dysku. Niezbędne po ręcznych zmianach w pliku XML."/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Asystent ścieżek"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Wł/wył globalną funkcjonalność asystenta ścieżek"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Blokada mechanizmu różnicowego"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Wł/wył globalną funkcjonalność blakady mechanizmu różnicowego"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Ulepszone sterowanie hydrauliczne"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Wł/wył globalną funkcjonalność ulepszone sterowanie hydrauliczne"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Differential lock"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Turn on/off the HUD display for differential lock"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD: Damage values"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Turn on/off the HUD display for damage values"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Fuel values"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Turn on/off the HUD display for fuel values"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD: Track assistant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Turn on/off the HUD display for the track assistant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: RPM"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Turn on/off the HUD display for the RPM number"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Engine temperature"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Turn on/off the HUD display for the engine temperature"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Misc values (Weight)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Turn on/off the HUD display for misc values (e.g. weight)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: tryb wartości uszkodzeń"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Wyświetlaj wartości uszkodzeń w '% pozostałych' zamiast '% uszkodzonych'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% pozostałych"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% uszkodzonych"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Pozycja uszkodzeń i wyświetlanie paliwa"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: klasyczny nad prędkościomierzem; FS22: w prawym górnym rogu pod panelem informacyjnym gry"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="klasyczny (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="prawy górny róg (FS22)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Przyciągaj do kąta"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Określa, w jakim stopniu jest włączony kierunek jazdy (1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Liczba widocznych ścieżek"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Ile ścieżek jest pokazanych łącznie (lewa + prawa strona pojazdu)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Tryb uwroci"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Co powinno się stać po osiągnięciu uwrocia?"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nic"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Odwróć się automatycznie"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Wyłącz tempomat"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Dystans uwroci"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Odwróć się, ile metrów przed końcem pola"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Szerokość robocza"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="przed końcem pola"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="za końcem pola"/>
+
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="TAsystent ścieżek nie jest włączony."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nie znalazłem urządzenia o szerokości roboczej."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nie znalazłem urządzenia o szerokości roboczej. Naciśnij ponownie, aby utworzyć domyślny układ ścieżek."/>
+
+  </texts>
+</l10n>
