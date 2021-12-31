@@ -22,6 +22,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrease width of tracks"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Move offset line to the right"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Move offset line to the left"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>

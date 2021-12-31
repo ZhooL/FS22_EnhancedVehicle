@@ -22,6 +22,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrementa la larghezza della corsia"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Sposta la linea di offset a destra"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Sposta la linea di offset a sinistra"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Cambia modalità capezzagna"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Incrementa la distanza della capezzagna dal bordo del campo"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrementa la distanza della capezzagna dal bordo del campo"/>

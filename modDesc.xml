@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.0.0.0</version>
+  <version>1.0.1.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -34,6 +34,7 @@
     <action name="FS22_EnhancedVehicle_SNAP_TRACKP"     axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_TRACKW"     axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_TRACKO"     axisType="FULL"/>
+    <action name="FS22_EnhancedVehicle_SNAP_TRACKJ"     axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_HL_MODE"    />
     <action name="FS22_EnhancedVehicle_SNAP_HL_DIST"    axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_ANGLE1"     axisType="FULL"/>
@@ -84,6 +85,10 @@
     <actionBinding action="FS22_EnhancedVehicle_SNAP_TRACKO">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_ralt KEY_KP_minus" axisComponent="-"/>
       <binding device="KB_MOUSE_DEFAULT" input="KEY_ralt KEY_KP_plus"  axisComponent="+"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_TRACKJ">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_delete" axisComponent="-"/>
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_insert" axisComponent="+"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_HL_MODE">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_multiply" axisComponent="+" inputComponent="+" index="1"/>

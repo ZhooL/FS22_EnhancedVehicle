@@ -22,6 +22,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Fahrspurbreite verkleinern"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Offsetlinie nach rechts verschieben"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Offsetlinie nach linksverschieben"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Fahrzeug eine Spur nach rechts versetzen (kein Wenden)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Fahrzeug eine Spur nach links versetzen (kein Wenden)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Vorgewendemodus wechseln"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Vorgewendedistanz zum Feldrand erhöhen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Vorgewendedistanz zum Feldrand verringern"/>

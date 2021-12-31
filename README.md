@@ -33,6 +33,8 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Ctrl</kbd>+<kbd>Num +</kbd> | move track offset line to the right |
 | <kbd>R Alt</kbd>+<kbd>Num -</kbd> | decrease track width |
 | <kbd>R Alt</kbd>+<kbd>Num +</kbd> | increase track width |
+| <kbd>R Ctrl</kbd>+<kbd>Insert</kbd> | move vehicle one track to the right without turning around |
+| <kbd>R Ctrl</kbd>+<kbd>Delete</kbd> | move vehicle one track to the left without turning around |
 | <kbd>R Ctrl</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 1° |
 | <kbd>R Ctrl</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 1° |
 | <kbd>R Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 90° |
