@@ -60,6 +60,15 @@
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hydraulicTT"/>
       </GuiElement>
+      <!-- parking brake -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="parkingBrakeSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="parkingBrakeTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="parkingBrakeTT"/>
+      </GuiElement>
 
       <!-- headland settings -->
       <GuiElement type="text" profile="dialogHeaderText"/>
@@ -150,6 +159,15 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDdiffTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDdiffTT"/>
+      </GuiElement>
+      <!-- HUD: park -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDparkSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="HUDparkTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDparkTT"/>
       </GuiElement>
       <!-- HUD: dmgfuelposition -->
       <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="HUDdmgfuelSetting">

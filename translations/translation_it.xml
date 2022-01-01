@@ -36,6 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Idraulica anteriore su/giù"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Idraulica anteriore on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Visualizzazione del menù di configurazione"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="Nessuna corsia"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="Nessuna larghezza"/>
@@ -58,12 +60,14 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Ricarica il file di configurazione"/>
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Ricarica il file di configurazione. Necessario dopo modifiche manuali nell'XML"/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Assistente di corsia"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Attiva/disattiva la funzionalità globale dell'assistente di corsia"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Blocco Differenziale"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Attiva/disattiva la funzionalità globale dei bloccaggi differenziali"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Controllo idraulico migliorato"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Attiva/disattiva la funzionalità globale del controllo idraulico migliorato"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Assistente di corsia"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Attiva/disattiva la funzionalità globale dell'assistente di corsia"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Blocco Differenziale"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Attiva/disattiva la funzionalità globale dei bloccaggi differenziali"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Controllo idraulico migliorato"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Attiva/disattiva la funzionalità globale del controllo idraulico migliorato"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Blocco differenziale"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Attiva/disattiva il display HUD per i differenziali"/>
@@ -79,6 +83,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Accende/spegne il display HUD per la temperatura del motore"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: altri valori (peso)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Attiva/disattiva il display HUD per gli altri valori (ad es. peso)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: modalità di visualizzazione dei danni"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Visualizzazione dei valori dei danni in '% non danneggiati' invece di '% danneggiati'"/>

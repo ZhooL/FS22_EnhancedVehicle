@@ -25,6 +25,8 @@
 
   <actions>
     <action name="FS22_EnhancedVehicle_MENU"            />
+    <action name="FS22_EnhancedVehicle_PARK"            />
+    <action name="FS22_EnhancedVehicle_PARK_ONOFF"      />
     <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      />
     <action name="FS22_EnhancedVehicle_SNAP_REVERSE"    />
     <action name="FS22_EnhancedVehicle_SNAP_LINES"      />
@@ -54,6 +56,12 @@
     <actionBinding action="FS22_EnhancedVehicle_MENU">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_divide" axisComponent="+" inputComponent="+" index="1"/>
       <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_KP_divide" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_PARK">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_KP_enter" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_PARK_ONOFF">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_enter" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_ONOFF">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_end" axisComponent="+" inputComponent="+" index="1"/>

@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 29.12.2021
--- @Version: 1.0.0.0
+-- @Date: 01.01.2022
+-- @Version: 1.1.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -17,10 +17,12 @@ local FS22_EnhancedVehicle_HUD_mt = Class(FS22_EnhancedVehicle_HUD)
 FS22_EnhancedVehicle_HUD.SIZE = {
   TRACKBOX   = { 300, 50 },
   DIFFBOX    = {  32, 64 },
+  PARKBOX    = {  24, 24 },
   MISCBOX    = { 200, 20 },
   DMGBOX     = { 200, 40 },
   ICONTRACK  = {  18, 18 },
   ICONDIFF   = {  32, 64 },
+  ICONPARK   = {  24, 24 },
   MARGIN     = {   8,  8 },
   MARGINDMG  = {  15,  5 },
   MARGINFUEL = {  15,  5 },
@@ -31,6 +33,7 @@ FS22_EnhancedVehicle_HUD.UV = {
   BGDIFF      = { 384,  0,  32, 64 },
   BGMISC      = { 544,  0, 200, 20 },
   BGDMG       = { 544, 20, 200, 44 },
+  BGPARK      = { 352,  0,  32, 32 },
   ICON_SNAP   = {   0, 64,  64, 64 },
   ICON_TRACK  = {  64, 64,  64, 64 },
   ICON_HL1    = { 128, 64,  64, 64 },
@@ -42,6 +45,7 @@ FS22_EnhancedVehicle_HUD.UV = {
   ICON_DDM    = { 448,  0,  32, 64 },
   ICON_DFRONT = { 480,  0,  32, 64 },
   ICON_DBACK  = { 512,  0,  32, 64 },
+  ICON_PARK   = { 352, 32,  32, 32 },
 }
 
 FS22_EnhancedVehicle_HUD.POSITION = {
@@ -55,6 +59,7 @@ FS22_EnhancedVehicle_HUD.POSITION = {
   ICON_HLMODE = { 245-24-18, 29 },
   ICON_HLDIR  = { 245+24, 29 },
   ICON_DIFF   = {   0, 0 },
+  ICON_PARK   = {   0, 0 },
   DMG         = { -15, 5 },
   FUEL        = {  15, 5 },
   MISC        = { 100, 5 },
@@ -146,6 +151,10 @@ function FS22_EnhancedVehicle_HUD:delete()
   if self.fuelBox ~= nil then
     self.fuelBox:delete()
   end
+
+  if self.parkBox ~= nil then
+    self.parkBox:delete()
+  end
 end
 
 -- #############################################################################
@@ -172,6 +181,9 @@ function FS22_EnhancedVehicle_HUD:createElements()
 
   -- create our diff box
   self:createDiffBox(baseX + width / 2, baseY + height)
+
+  -- create our park box
+  self:createParkBox(baseX + width / 2, baseY + height)
 
   -- create our misc box
   self:createMiscBox(baseX + width / 2, baseY)
@@ -218,12 +230,14 @@ function FS22_EnhancedVehicle_HUD:createTrackBox(x, y)
   local iconPosX, iconPosY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.ICON_SNAP)
   self.icons.snap = self:createIcon(x + iconPosX, y + iconPosY, iconWidth, iconHeight, FS22_EnhancedVehicle_HUD.UV.ICON_SNAP)
   self.icons.snap:setVisible(true)
+  self.icons.snap:setColor(unpack(FS22_EnhancedVehicle_HUD.COLOR.INACTIVE))
   self.trackBox:addChild(self.icons.snap)
 
   -- add track icon
   local iconPosX, iconPosY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.ICON_TRACK)
   self.icons.track = self:createIcon(x + iconPosX, y + iconPosY, iconWidth, iconHeight, FS22_EnhancedVehicle_HUD.UV.ICON_TRACK)
   self.icons.track:setVisible(true)
+  self.icons.track:setColor(unpack(FS22_EnhancedVehicle_HUD.COLOR.INACTIVE))
   self.trackBox:addChild(self.icons.track)
 
   -- add headland mode icons
@@ -293,6 +307,42 @@ function FS22_EnhancedVehicle_HUD:createDiffBox(x, y)
   self.icons.diff_back = self:createIcon(x + iconPosX, y + iconPosY, iconWidth, iconHeight, FS22_EnhancedVehicle_HUD.UV.ICON_DBACK)
   self.icons.diff_back:setVisible(true)
   self.diffBox:addChild(self.icons.diff_back)
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle_HUD:createParkBox(x, y)
+  if debug > 1 then print("-> " .. myName .. ": createParkBox ") end
+
+  -- prepare
+  local marginWidth, marginHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGIN)
+  local iconWidth, iconHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.ICONPARK)
+  local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.TRACKBOX)
+  x = x - boxWidth / 2
+  local boxWidth, _ = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.DIFFBOX)
+  x = x + boxWidth + marginWidth
+  local boxWidth, boxHeight = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.PARKBOX)
+  y = y - boxHeight - marginHeight
+
+  -- global move
+  local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.park.offsetX, FS22_EnhancedVehicle.hud.park.offsetY })
+  x = x + offX
+  y = y + offY
+
+  -- add background overlay box
+  local boxOverlay = Overlay.new(self.uiFilename, x, y, boxWidth, boxHeight)
+  local boxElement = HUDElement.new(boxOverlay)
+  self.parkBox = boxElement
+  self.parkBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGPARK))
+  self.parkBox:setColor(unpack(SpeedMeterDisplay.COLOR.GEARS_BG))
+  self.parkBox:setVisible(false)
+  self.speedMeterDisplay:addChild(boxElement)
+
+  -- add park icon
+  local iconPosX, iconPosY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.ICON_PARK)
+  self.icons.park = self:createIcon(x + iconPosX, y + iconPosY, iconWidth, iconHeight, FS22_EnhancedVehicle_HUD.UV.ICON_PARK)
+  self.icons.park:setVisible(true)
+  self.parkBox:addChild(self.icons.park)
 end
 
 -- #############################################################################
@@ -519,6 +569,9 @@ function FS22_EnhancedVehicle_HUD:setVehicle(vehicle)
   if self.fuelBox ~= nil then
     self.fuelBox:setVisible(vehicle ~= nil)
   end
+  if self.parkBox ~= nil then
+    self.parkBox:setVisible(vehicle ~= nil)
+  end
 end
 
 -- #############################################################################
@@ -532,6 +585,7 @@ function FS22_EnhancedVehicle_HUD:hideSomething(vehicle)
     self.miscBox:setVisible(false)
     self.dmgBox:setVisible(false)
     self.fuelBox:setVisible(false)
+    self.parkBox:setVisible(false)
   end
 end
 
@@ -553,6 +607,12 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
     self.diffBox:setVisible(false)
   else
     self.diffBox:setVisible(FS22_EnhancedVehicle.hud.diff.enabled == true)
+  end
+
+  if not FS22_EnhancedVehicle.functionParkingBrakeIsEnabled then
+    self.parkBox:setVisible(false)
+  else
+    self.parkBox:setVisible(FS22_EnhancedVehicle.hud.park.enabled == true)
   end
 
   self.dmgBox:setVisible(FS22_EnhancedVehicle.hud.dmg.enabled == true and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2)
@@ -712,6 +772,21 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       self.icons.diff_back:setColor(unpack(FS22_EnhancedVehicle.color[_txt.color[2]]))
       self.icons.diff_dm:setColor(unpack(FS22_EnhancedVehicle.color[_txt.color[3]]))
     end
+  end
+
+  -- draw our park HUD
+  if self.parkBox:getVisible() then
+    -- park icon
+    local color = {}
+    if self.vehicle.vData.is[13] then
+      color = { unpack(FS22_EnhancedVehicle.color.red) }
+    else
+      color = { unpack(FS22_EnhancedVehicle_HUD.COLOR.ACTIVE) }
+    end
+    if not self.vehicle.vData.is[14] then
+      color[4] = 0.2
+    end
+    self.icons.park:setColor(unpack(color))
   end
 
   -- move our elements down if game displays side notifications

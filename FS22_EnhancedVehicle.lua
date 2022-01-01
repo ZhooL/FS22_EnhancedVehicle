@@ -10,6 +10,7 @@
 CHANGELOG
 
 2022-01-01 - V1.1.0.0
++ (re)added the parking brake due to high community demand ;-)
 + added option to auto-hide guide lines after x seconds after vehicle follows track
 * bugfixes for analog controler input devices (thx "Kotlett")
 
@@ -161,9 +162,11 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
   -- some global stuff - DONT touch
   FS22_EnhancedVehicle.hud = {}
   FS22_EnhancedVehicle.fS = g_currentMission.hud.speedMeter:scalePixelToScreenHeight(12)
-  FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track' }
+  FS22_EnhancedVehicle.sections = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track', 'park' }
   FS22_EnhancedVehicle.actions = {}
   FS22_EnhancedVehicle.actions.global =    { 'FS22_EnhancedVehicle_MENU' }
+  FS22_EnhancedVehicle.actions.park =      { 'FS22_EnhancedVehicle_PARK',
+                                             'FS22_EnhancedVehicle_PARK_ONOFF' }
   FS22_EnhancedVehicle.actions.snap =      { 'FS22_EnhancedVehicle_SNAP_ONOFF',
                                              'FS22_EnhancedVehicle_SNAP_REVERSE',
                                              'FS22_EnhancedVehicle_SNAP_LINES',
@@ -199,6 +202,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
     black    = {       0,       0,       0, 1 },
     white    = {       1,       1,       1, 1 },
     red      = { 255/255,   0/255,   0/255, 1 },
+    darkred  = { 128/255,   0/255,   0/255, 1 },
     green    = {   0/255, 255/255,   0/255, 1 },
     blue     = {   0/255,   0/255, 255/255, 1 },
     yellow   = { 255/255, 255/255,   0/255, 1 },
@@ -218,7 +222,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
   if g_dedicatedServerInfo == nil then
     local file, id
     FS22_EnhancedVehicle.sounds = {}
-    for _, id in ipairs({"diff_lock", "snap_on", "snap_off"}) do
+    for _, id in ipairs({"diff_lock", "brake", "brakeOn", "brakeOff", "snap_on", "snap_off"}) do
       FS22_EnhancedVehicle.sounds[id] = createSample(id)
       file = self.modDirectory.."resources/"..id..".ogg"
       loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
@@ -336,6 +340,10 @@ function FS22_EnhancedVehicle:functionEnable(name, state)
     lC:setConfigValue("global.functions", "snapIsEnabled", state)
     FS22_EnhancedVehicle.functionSnapIsEnabled = state
   end
+  if name == "park" then
+    lC:setConfigValue("global.functions", "parkingBrakeIsEnabled", state)
+    FS22_EnhancedVehicle.functionParkingBrakeIsEnabled = state
+  end
 end
 
 -- #############################################################################
@@ -353,6 +361,9 @@ function FS22_EnhancedVehicle:functionStatus(name)
   if name == "snap" then
     return(lC:getConfigValue("global.functions", "snapIsEnabled"))
   end
+  if name == "park" then
+    return(lC:getConfigValue("global.functions", "parkingBrakeIsEnabled"))
+  end
 
   return(nil)
 end
@@ -363,9 +374,10 @@ function FS22_EnhancedVehicle:activateConfig()
   -- here we will "move" our config from the libConfig internal storage to the variables we actually use
 
   -- functions
-  FS22_EnhancedVehicle.functionDiffIsEnabled      = lC:getConfigValue("global.functions", "diffIsEnabled")
-  FS22_EnhancedVehicle.functionHydraulicIsEnabled = lC:getConfigValue("global.functions", "hydraulicIsEnabled")
-  FS22_EnhancedVehicle.functionSnapIsEnabled      = lC:getConfigValue("global.functions", "snapIsEnabled")
+  FS22_EnhancedVehicle.functionDiffIsEnabled         = lC:getConfigValue("global.functions", "diffIsEnabled")
+  FS22_EnhancedVehicle.functionHydraulicIsEnabled    = lC:getConfigValue("global.functions", "hydraulicIsEnabled")
+  FS22_EnhancedVehicle.functionSnapIsEnabled         = lC:getConfigValue("global.functions", "snapIsEnabled")
+  FS22_EnhancedVehicle.functionParkingBrakeIsEnabled = lC:getConfigValue("global.functions", "parkingBrakeIsEnabled")
 
   -- globals
   FS22_EnhancedVehicle.showKeysInHelpMenu  = lC:getConfigValue("global.misc", "showKeysInHelpMenu")
@@ -415,9 +427,10 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:clearConfig()
 
   -- functions
-  lC:addConfigValue("global.functions", "diffIsEnabled",      "bool", true)
-  lC:addConfigValue("global.functions", "hydraulicIsEnabled", "bool", true)
-  lC:addConfigValue("global.functions", "snapIsEnabled",      "bool", true)
+  lC:addConfigValue("global.functions", "diffIsEnabled",         "bool", true)
+  lC:addConfigValue("global.functions", "hydraulicIsEnabled",    "bool", true)
+  lC:addConfigValue("global.functions", "snapIsEnabled",         "bool", true)
+  lC:addConfigValue("global.functions", "parkingBrakeIsEnabled", "bool", true)
 
   -- globals
   lC:addConfigValue("global.misc", "showKeysInHelpMenu", "bool",   true)
@@ -477,6 +490,11 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.diff", "offsetX", "int", 0)
   lC:addConfigValue("hud.diff", "offsetY", "int", 0)
 
+  -- park
+  lC:addConfigValue("hud.park", "enabled", "bool", true)
+  lC:addConfigValue("hud.park", "offsetX", "int", 0)
+  lC:addConfigValue("hud.park", "offsetY", "int", 0)
+
   -- HUD position for dmg/fuel
   lC:addConfigValue("hud", "dmgfuelPosition", "int", 2)
 end
@@ -510,11 +528,13 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
   --  10 - track dZ
   --  11 - track snapx
   --  12 - track snapz
+  --  13 - parking brake on
+  --  14 - parking brake function enabled
   if self.isServer then
     if self.vData == nil then
       self.vData = {}
-      self.vData.is   = {  true,  true, -1, 1.0,  true,  true, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }
-      self.vData.want = { false, false,  1, 0.0, false, false, 0,   0,   0,   0,   0,   0 }
+      self.vData.is   = {  true,  true, -1, 1.0,  true,  true, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, true, true }
+      self.vData.want = { false, false,  1, 0.0, false, false, 0,   0,   0,   0,   0,   0,   false, false }
       self.vData.torqueRatio   = { 0.5, 0.5, 0.5 }
       self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
       self.vData.rot = 0.0
@@ -545,7 +565,7 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
       local key     = savegame.key ..".FS22_EnhancedVehicle.EnhancedVehicle"
 
       local _data
-      for _, _data in pairs( { {1, 'frontDiffIsOn'}, {2, 'backDiffIsOn'}, {3, 'driveMode'} }) do
+      for _, _data in pairs( { {1, 'frontDiffIsOn'}, {2, 'backDiffIsOn'}, {3, 'driveMode'}, {13, 'parkingBrakeIsOn'}, {14, 'parkingBrakeIsEnabled'} }) do
         local idx = _data[1]
         local _v
         if idx == 3 then
@@ -580,9 +600,11 @@ end
 function FS22_EnhancedVehicle:saveToXMLFile(xmlFile, key)
   if debug > 1 then print("-> " .. myName .. ": saveToXMLFile" .. mySelf(self)) end
 
-  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn", self.vData.is[1])
-  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",  self.vData.is[2])
-  setXMLInt(xmlFile.handle, key.."#driveMode",      self.vData.is[3])
+  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])
+  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])
+  setXMLInt(xmlFile.handle,  key.."#driveMode",        self.vData.is[3])
+  setXMLBool(xmlFile.handle, key.."#parkingBrakeIsOn",      self.vData.is[13])
+  setXMLBool(xmlFile.handle, key.."#parkingBrakeIsEnabled", self.vData.is[14])
 end
 
 -- #############################################################################
@@ -614,6 +636,8 @@ function FS22_EnhancedVehicle:onReadStream(streamId, connection)
   self.vData.is[10] = streamReadFloat32(streamId) -- snap track dZ
   self.vData.is[11] = streamReadFloat32(streamId) -- snap track snap x
   self.vData.is[12] = streamReadFloat32(streamId) -- snap track snap z
+  self.vData.is[13] = streamReadBool(streamId)    -- parking brake on
+  self.vData.is[14] = streamReadBool(streamId)    -- parking brake enabled
 
   if self.isClient then
     self.vData.want = { unpack(self.vData.is) }
@@ -642,6 +666,8 @@ function FS22_EnhancedVehicle:onWriteStream(streamId, connection)
     streamWriteFloat32(streamId, self.vData.want[10])
     streamWriteFloat32(streamId, self.vData.want[11])
     streamWriteFloat32(streamId, self.vData.want[12])
+    streamWriteBool(streamId,    self.vData.want[13])
+    streamWriteBool(streamId,    self.vData.want[14])
   else
     streamWriteBool(streamId,    self.vData.is[1])
     streamWriteBool(streamId,    self.vData.is[2])
@@ -655,6 +681,8 @@ function FS22_EnhancedVehicle:onWriteStream(streamId, connection)
     streamWriteFloat32(streamId, self.vData.is[10])
     streamWriteFloat32(streamId, self.vData.is[11])
     streamWriteFloat32(streamId, self.vData.is[12])
+    streamWriteBool(streamId,    self.vData.is[13])
+    streamWriteBool(streamId,    self.vData.is[14])
   end
 end
 
@@ -873,6 +901,30 @@ function FS22_EnhancedVehicle:onUpdate(dt)
         end
       end
       self.vData.is[3] = self.vData.want[3]
+    end
+
+    -- park brake on
+    if self.vData.is[13] ~= self.vData.want[13] then
+      if FS22_EnhancedVehicle.functionParkingBrakeIsEnabled then
+        if self.vData.want[13] then
+          if debug > 0 then print("--> ("..self.rootNode..") changed park on to: ON") end
+        else
+          if debug > 0 then print("--> ("..self.rootNode..") changed park on to: OFF") end
+        end
+      end
+      self.vData.is[13] = self.vData.want[13]
+    end
+
+    -- park brake enabled
+    if self.vData.is[14] ~= self.vData.want[14] then
+      if FS22_EnhancedVehicle.functionParkingBrakeIsEnabled then
+        if self.vData.want[14] then
+          if debug > 0 then print("--> ("..self.rootNode..") changed park enable to: ON") end
+        else
+          if debug > 0 then print("--> ("..self.rootNode..") changed park enable to: OFF") end
+        end
+      end
+      self.vData.is[14] = self.vData.want[14]
     end
 
   end
@@ -1257,6 +1309,9 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
     for _, v in ipairs(FS22_EnhancedVehicle.actions.hydraulic) do
       table.insert(actionList, v)
     end
+    for _, v in ipairs(FS22_EnhancedVehicle.actions.park) do
+      table.insert(actionList, v)
+    end
 
     -- attach our actions
     for _ ,actionName in pairs(actionList) do
@@ -1269,12 +1324,14 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
       -- help menu priorization
       if g_inputBinding ~= nil and g_inputBinding.events ~= nil and g_inputBinding.events[eventName] ~= nil then
         if actionName == "FS22_EnhancedVehicle_MENU" or
+           actionName == "FS22_EnhancedVehicle_PARK" or
            actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" or
            actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" or
            actionName == "FS22_EnhancedVehicle_SNAP_LINES" then
           g_inputBinding.events[eventName].displayPriority = GS_PRIO_VERY_LOW
         else
           g_inputBinding.events[eventName].displayIsVisible = false
+          g_inputBinding.events[eventName].displayPriority = GS_PRIO_VERY_LOW
         end
       end
     end
@@ -1474,6 +1531,29 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         FS22_EnhancedVehicle.track.hideLinesAfterValue = g_currentMission.time + 1000 * FS22_EnhancedVehicle.track.hideLinesAfter
       end
     end
+  elseif FS22_EnhancedVehicle.functionParkingBrakeIsEnabled and actionName == "FS22_EnhancedVehicle_PARK_ONOFF" then
+    if FS22_EnhancedVehicle.sounds["brake"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+      playSample(FS22_EnhancedVehicle.sounds["brake"], 1, 0.5, 0, 0, 0)
+    end
+    -- parking brake enable/disable
+    self.vData.want[14] = not self.vData.want[14]
+    if self.isClient and not self.isServer then
+      self.vData.is[14] = self.vData.want[14]
+    end
+    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
+  elseif FS22_EnhancedVehicle.functionParkingBrakeIsEnabled and actionName == "FS22_EnhancedVehicle_PARK" and self.vData.is[14] then
+    -- parking brake on/off
+    if self.vData.is[13] and FS22_EnhancedVehicle.sounds["brakeOff"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+      playSample(FS22_EnhancedVehicle.sounds["brakeOff"], 1, 0.1, 0, 0, 0)
+    end
+    if not self.vData.is[13] and FS22_EnhancedVehicle.sounds["brakeOn"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
+      playSample(FS22_EnhancedVehicle.sounds["brakeOn"], 1, 0.1, 0, 0, 0)
+    end
+    self.vData.want[13] = not self.vData.want[13]
+    if self.isClient and not self.isServer then
+      self.vData.is[13] = self.vData.want[13]
+    end
+    FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
   -- snap/track assisstant
@@ -2320,3 +2400,39 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
   return result
 end
 Drivable.updateVehiclePhysics = Utils.overwrittenFunction( Drivable.updateVehiclePhysics, FS22_EnhancedVehicle.updateVehiclePhysics )
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:updateWheelsPhysics( originalFunction, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking )
+  if debug > 2 then print("function WheelsUtil.updateWheelsPhysics("..self.typeDesc..", "..tostring(dt)..", "..tostring(currentSpeed)..", "..tostring(acceleration)..", "..tostring(doHandbrake)..", "..tostring(stopAndGoBraking)) end
+
+  local brakeLights = false
+  if self.vData ~= nil and self.vData.is[14] then
+    if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
+      -- parkBreakIsOn
+      if self.vData.is[13] then
+        brakeLights = true
+        if currentSpeed >= -0.0003 and currentSpeed <= 0.0003 then
+          brakeLights = false
+        end
+        acceleration = 0
+        currentSpeed = 0
+      end
+    end
+  end
+
+  -- call the original function to do the actual physics stuff
+  local state, result = pcall( originalFunction, self, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking )
+  if not ( state ) then
+    print("Ooops in updateWheelsPhysics :" .. tostring(result))
+  end
+
+  if self:getIsVehicleControlledByPlayer() and self:getIsMotorStarted() then
+    if brakeLights and type(self.setBrakeLightsVisibility) == "function" then
+      self:setBrakeLightsVisibility(true)
+    end
+  end
+
+  return result
+end
+WheelsUtil.updateWheelsPhysics = Utils.overwrittenFunction( WheelsUtil.updateWheelsPhysics, FS22_EnhancedVehicle.updateWheelsPhysics )

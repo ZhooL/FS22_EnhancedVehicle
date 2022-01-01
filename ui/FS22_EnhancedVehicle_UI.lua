@@ -64,14 +64,14 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "headlandDistanceTT",
 }
 
-local EV_elements_global = { 'snap', 'diff', 'hydraulic' }
+local EV_elements_global = { 'snap', 'diff', 'hydraulic', 'parkingBrake' }
 for _, v in pairs( EV_elements_global ) do
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, v.."Setting")
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, v.."Title")
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, v.."TT")
 end
 
-local EV_elements_HUD = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track' }
+local EV_elements_HUD = { 'fuel', 'dmg', 'misc', 'rpm', 'temp', 'diff', 'track', 'park' }
   for _, v in pairs( EV_elements_HUD ) do
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."Setting")
   table.insert(FS22_EnhancedVehicle_UI.CONTROLS, "HUD"..v.."Title")

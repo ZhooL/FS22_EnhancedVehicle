@@ -36,6 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="no track"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="no width"/>
@@ -58,12 +60,14 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Reload configuration file"/>
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Reload the configuration file from disk. Necessary after manual changes in the XML file."/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Track Assistent"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Turn on/off global track assistent functionality"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Differential lock"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Turn on/off global differential lock functionality"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Improved hydraulic control"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Turn on/off global improved hydraulic control functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Track Assistent"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Turn on/off global track assistent functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Differential lock"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Turn on/off global differential lock functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Improved hydraulic control"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Turn on/off global improved hydraulic control functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Differential lock"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Turn on/off the HUD display for differential lock"/>
@@ -79,6 +83,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Turn on/off the HUD display for the engine temperature"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Misc values (Weight)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Turn on/off the HUD display for misc values (e.g. weight)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Damage values mode"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Display damage values in '% left' rather than '% damaged'"/>

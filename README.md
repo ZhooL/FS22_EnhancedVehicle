@@ -2,7 +2,7 @@
 
 **Direct download: [FS22_EnhancedVehicle.zip](https://github.com/ZhooL/FS22_EnhancedVehicle/raw/main/FS22_EnhancedVehicle.zip)**
 
-This is a modification for Farming Simulator 22. It adds a track assistant ("GPS light") and a "snap driving direction" feature, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
+This is a modification for Farming Simulator 22. It adds a track assistant ("GPS light") and a "snap driving direction" feature, a parking brake, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: https://www.modhoster.de/mods/enhancedvehicle-9a59d5c5-c65c-49ce-a1a9-5681a023381b. All other download locations are not validated by me - so handle with care.**
 
@@ -41,6 +41,8 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 90° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 45° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 45° |
+| <kbd>Num Enter</kbd> | turn on/off parking brake |
+| <kbd>R Ctrl</kbd>+<kbd>Num Enter</kbd> | enable/disable parking brake functionality |
 | <kbd>R Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
 | <kbd>R Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
 | <kbd>R Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
@@ -58,6 +60,8 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
   * If you now enable snap mode the vehicle will drive on the current marked track
   * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 4/6</kbd> to adjust the turnover track number (from -5 to 5)
   * Configure headland behavior in configuration menu
+* Press <kbd>R Ctrl</kbd>+<kbd>Numpad Enter</kbd> to enable the parking brake functionality
+  * Now you can press <kbd>Numpad Enter</kbd> to put your vehicle in parking mode. It won't move an inch in this mode.
 * On HUD it displays:
   * (When snap/track is enabled) The current snap to angle and current track and turnover number(
   * Damage values in % for controlled vehicle and all its attachments.

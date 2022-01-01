@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 07.12.2021
--- @Version: 1.0.0.0
+-- @Date: 01.01.2022
+-- @Version: 1.1.0.0
 
 local myName = "FS22_EnhancedVehicle_Event"
 
@@ -27,8 +27,8 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_Event.new(vehicle, b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7)
-  local args = { b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7 }
+function FS22_EnhancedVehicle_Event.new(vehicle, b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7, b5, b6)
+  local args = { b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7, b5, b6 }
   if debug > 2 then print("-> " .. myName .. ": new(): " .. lU:args_to_txt(unpack(args))) end
 
   local self = FS22_EnhancedVehicle_Event.emptyNew()
@@ -56,6 +56,8 @@ function FS22_EnhancedVehicle_Event:readStream(streamId, connection)
   self.vehicle.vData.want[10] = streamReadFloat32(streamId);
   self.vehicle.vData.want[11] = streamReadFloat32(streamId);
   self.vehicle.vData.want[12] = streamReadFloat32(streamId);
+  self.vehicle.vData.want[13] = streamReadBool(streamId);
+  self.vehicle.vData.want[14] = streamReadBool(streamId);
 
   self:run(connection)
 end
@@ -78,6 +80,8 @@ function FS22_EnhancedVehicle_Event:writeStream(streamId, connection)
   streamWriteFloat32(streamId, self.vehicle.vData.want[10])
   streamWriteFloat32(streamId, self.vehicle.vData.want[11])
   streamWriteFloat32(streamId, self.vehicle.vData.want[12])
+  streamWriteBool(streamId,    self.vehicle.vData.want[13])
+  streamWriteBool(streamId,    self.vehicle.vData.want[14])
 end
 
 -- #############################################################################
@@ -98,8 +102,8 @@ end
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle_Event.sendEvent(vehicle, b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7)
-  local args = { b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7 }
+function FS22_EnhancedVehicle_Event.sendEvent(vehicle, b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7, b5, b6)
+  local args = { b1, b2, i1, f1, b3, b4, f2, f3, f4, f5, f6, f7, b5, b6 }
   if debug > 1 then print("-> " .. myName .. ": sendEvent(): " .. lU:args_to_txt(unpack(args))) end
   
   if g_server ~= nil then

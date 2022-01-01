@@ -36,6 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Přední hydraulika Nahoru/Dolu"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="žádná stopa"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="žádná šířka"/>
@@ -58,12 +60,14 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Znovu načíst konfigurační soubor"/>
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Znovu načtěte konfigurační soubor z disku. Nezbytné po ručních změnách v souboru XML."/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"      text="Asistent pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"         text="Zapněte/vypněte funkci asistenta udržování jízdního pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTitle"      text="Zámek diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"         text="Zapnutí/vypnutí funkce uzávěrky diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle" text="Vylepšené hydraulické ovládání"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"    text="Zapnutí/vypnutí vylepšené funkce hydraulického ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Zapněte/vypněte funkci asistenta udržování jízdního pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Zámek diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Zapnutí/vypnutí funkce uzávěrky diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Vylepšené hydraulické ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Zapnutí/vypnutí vylepšené funkce hydraulického ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Zámek diferenciálu"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Zap./Vyp. displeje HUD pro uzávěrku diferenciálu"/>
@@ -79,6 +83,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Zap./Vyp. displeje HUD pro teplotu motoru"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Různé hodnoty (hmotnost)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Zap./Vyp. displeje HUD pro různé hodnoty (např. hmotnost)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Režim hodnot poškození"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Zobrazit hodnoty poškození '% kondice' nebo '% poškození'"/>
