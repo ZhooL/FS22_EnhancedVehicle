@@ -96,6 +96,11 @@
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Anzahl sichtbare Fahrspuren"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Soviele Fahrspuren werden insgesamt (links + rechts vom Fahrzeug) angezeigt"/>
 
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Linien automatisch ausblenden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Legt fest, ob die Hilfs- und Fahrspurlinien automatisch ausgeblendet werden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Zeit bis zum Linien ausblenden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="Nach wieviel Sekunden werden die Hilfs- und Fahrspurlinien automatisch ausgeblendet"/>
+
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Vorgewende Modus"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Legt fest, was beim Erreichen des Vorgewendes passieren soll"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nichts"/>

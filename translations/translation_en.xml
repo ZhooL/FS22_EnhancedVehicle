@@ -96,6 +96,11 @@
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
 
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Hide lines automatically"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifies whether to automatically hide auxiliary and track lines"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Time until lines are hidden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="After how many seconds the auxiliary and track lines will be automatically hidden"/>
+
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>

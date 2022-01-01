@@ -3,14 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 31.12.2021
+-- @Date: 01.01.2022
 -- @Version: 1.1.0.0
 
 --[[
 CHANGELOG
 
 2022-01-01 - V1.1.0.0
-* bugfixes for analog controler input devices
++ added option to auto-hide guide lines after x seconds after vehicle follows track
+* bugfixes for analog controler input devices (thx "Kotlett")
 
 2021-12-31 - V1.0.1.0
 + added key binding to move vehicle one track to the left/right (in direction of travel; no turning) (rctrl + insert/delete)
@@ -387,6 +388,9 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.track = {}
   FS22_EnhancedVehicle.track.distanceAboveGround = lC:getConfigValue("track", "distanceAboveGround")
   FS22_EnhancedVehicle.track.numberOfTracks      = lC:getConfigValue("track", "numberOfTracks")
+  FS22_EnhancedVehicle.track.hideLines           = lC:getConfigValue("track", "hideLines")
+  FS22_EnhancedVehicle.track.hideLinesAfter      = lC:getConfigValue("track", "hideLinesAfter")
+  FS22_EnhancedVehicle.track.hideLinesAfterValue = 0
   FS22_EnhancedVehicle.track.color = { lC:getConfigValue("track.color", "red"), lC:getConfigValue("track.color", "green"), lC:getConfigValue("track.color", "blue") }
 
   -- HUD stuff
@@ -439,6 +443,8 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   -- track
   lC:addConfigValue("track",       "distanceAboveGround", "float", 0.15)
   lC:addConfigValue("track",       "numberOfTracks",      "int",   5)
+  lC:addConfigValue("track",       "hideLines",           "bool",  false)
+  lC:addConfigValue("track",       "hideLinesAfter",      "int",   5)
   lC:addConfigValue("track.color", "red",                 "float", 255/255)
   lC:addConfigValue("track.color", "green",               "float", 150/255)
   lC:addConfigValue("track.color", "blue",                "float", 0/255)
@@ -912,22 +918,32 @@ function FS22_EnhancedVehicle:onDraw()
     -- guide lines
     if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.snaplines then
 
+      -- should we hide lines?
+      local _showLines = true
+      if FS22_EnhancedVehicle.track.hideLines then
+        if self.vData.is[5] and g_currentMission.time >= FS22_EnhancedVehicle.track.hideLinesAfterValue then
+          _showLines = false
+        end
+      end
+
       -- draw helper line in front of vehicle
-      local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
-      p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine
-      FS22_EnhancedVehicle:drawVisualizationLines(1,
-        8,
-        p1.x,
-        p1.y,
-        p1.z,
-        self.vData.dirX,
-        self.vData.dirZ,
-        4,
-        FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[1], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[2], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[3],
-        FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine)
+      if _showLines then
+        local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
+        p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine
+        FS22_EnhancedVehicle:drawVisualizationLines(1,
+          8,
+          p1.x,
+          p1.y,
+          p1.z,
+          self.vData.dirX,
+          self.vData.dirZ,
+          4,
+          FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[1], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[2], FS22_EnhancedVehicle.snap.colorVehicleMiddleLine[3],
+          FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine)
+      end
 
       -- draw attachment helper lines
-      if self.vData.impl ~= nil and self.vData.impl.workWidth > 0 then
+      if self.vData.impl ~= nil and self.vData.impl.workWidth > 0 and _showLines then
 
         -- left line beside vehicle
         local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
@@ -999,7 +1015,7 @@ function FS22_EnhancedVehicle:onDraw()
       end
 
       -- draw our tracks
-      if self.vData.track.isVisible and self.vData.track.isCalculated then
+      if self.vData.track.isVisible and self.vData.track.isCalculated and _showLines then
         -- calculate track number in direction left-right and forward-backward
         -- with current track orientation
         local dotLR = dx * -self.vData.track.origin.dZ + dz * self.vData.track.origin.dX
@@ -1449,9 +1465,14 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     -- toggle snaplines on/off
     self.vData.snaplines = not self.vData.snaplines
 
-    -- calculate work width
     if self.vData.snaplines then
+      -- calculate work width
       FS22_EnhancedVehicle:enumerateImplements(self)
+
+      -- auto-hide lines
+      if FS22_EnhancedVehicle.track.hideLines then
+        FS22_EnhancedVehicle.track.hideLinesAfterValue = g_currentMission.time + 1000 * FS22_EnhancedVehicle.track.hideLinesAfter
+      end
     end
   end
 
@@ -1465,6 +1486,11 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
         end
         self.vData.want[5] = true
+
+        -- auto-hide lines
+        if FS22_EnhancedVehicle.track.hideLines then
+          FS22_EnhancedVehicle.track.hideLinesAfterValue = g_currentMission.time + 1000 * FS22_EnhancedVehicle.track.hideLinesAfter
+        end
 
         -- calculate snap angle
         local snapToAngle = FS22_EnhancedVehicle.snap.snapToAngle
@@ -1510,6 +1536,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
         end
         self.vData.want[5] = false
+        self.vData.want[6] = false
       end
       _snap = true
     elseif actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then

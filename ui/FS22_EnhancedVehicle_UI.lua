@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 29.12.2021
--- @Version: 1.0.0.0
+-- @Date: 01.01.2022
+-- @Version: 1.1.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
 
@@ -39,6 +39,14 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "visibleTracksSetting",
   "visibleTracksTitle",
   "visibleTracksTT",
+
+  "hideLinesSetting",
+  "hideLinesTitle",
+  "hideLinesTT",
+
+  "hideLinesAfterSetting",
+  "hideLinesAfterTitle",
+  "hideLinesAfterTT",
 
   "HUDdmgAmountLeftSetting",
   "HUDdmgAmountLeftTitle",
@@ -146,6 +154,19 @@ function FS22_EnhancedVehicle_UI:onOpen()
   self.visibleTracksTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_visibleTracksTT"))
   self.visibleTracksSetting:setTexts({ "1", "3", "5", "7", "9" })
 
+  -- hide lines
+  self.hideLinesTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesTitle"))
+  self.hideLinesTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesTT"))
+  self.hideLinesSetting:setTexts({
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_on"),
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_off")
+  })
+
+  -- hide lines after
+  self.hideLinesAfterTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesAfterTitle"))
+  self.hideLinesAfterTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesAfterTT"))
+  self.hideLinesAfterSetting:setTexts({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" })
+
   -- headland mode
   self.headlandModeTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandModeTitle"))
   self.headlandModeTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandModeTT"))
@@ -227,6 +248,12 @@ function FS22_EnhancedVehicle_UI:updateValues()
   local _state = (lC:getConfigValue("track", "numberOfTracks") + 1) / 2
   self.visibleTracksSetting:setState(_state)
 
+  -- hide lines
+  self.hideLinesSetting:setState(lC:getConfigValue("track", "hideLines") and 1 or 2)
+
+  -- hide lines after
+  self.hideLinesAfterSetting:setState(lC:getConfigValue("track", "hideLinesAfter"))
+
   -- dmgfuel position
   self.HUDdmgfuelSetting:setState(lC:getConfigValue("hud", "dmgfuelPosition"))
 
@@ -296,6 +323,14 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   -- visible tracks
   local _state = self.visibleTracksSetting:getState() * 2 - 1
   lC:setConfigValue("track", "numberOfTracks", _state)
+
+  -- hide lines
+  state = self.hideLinesSetting:getState() == 1
+  lC:setConfigValue("track", "hideLines", state)
+
+  -- hide lines after
+  state = self.hideLinesAfterSetting:getState()
+  lC:setConfigValue("track", "hideLinesAfter", state)
 
   -- headland mode
   self.vehicle.vData.track.headlandMode = self.headlandModeSetting:getState()

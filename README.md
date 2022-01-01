@@ -6,7 +6,7 @@ This is a modification for Farming Simulator 22. It adds a track assistant ("GPS
 
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: https://www.modhoster.de/mods/enhancedvehicle-9a59d5c5-c65c-49ce-a1a9-5681a023381b. All other download locations are not validated by me - so handle with care.**
 
-*(c) 2018-2021 by Majo76 (formerly ZhooL). Be so kind to credit me when using this mod or the source code (or parts of it) somewhere.*  
+*(c) 2018-2022 by Majo76 (formerly ZhooL). Be so kind to credit me when using this mod or the source code (or parts of it) somewhere.*  
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Known bugs

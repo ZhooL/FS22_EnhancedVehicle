@@ -108,6 +108,26 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="visibleTracksTT"/>
       </GuiElement>
 
+      <!-- auto-hide lines -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="hideLinesSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hideLinesTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hideLinesTT"/>
+      </GuiElement>
+
+      <!-- auto-hide lines seconds -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="hideLinesAfterSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hideLinesAfterTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hideLinesAfterTT"/>
+      </GuiElement>
+
       <!-- hud -->
       <GuiElement type="text" profile="dialogHeaderText"/>
       <GuiElement type="text" profile="dialogHeaderText" id="sectionHUD"/>

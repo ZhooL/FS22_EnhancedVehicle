@@ -96,6 +96,11 @@
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Liczba widocznych ścieżek"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Ile ścieżek jest pokazanych łącznie (lewa + prawa strona pojazdu)"/>
 
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Hide lines automatically"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifies whether to automatically hide auxiliary and track lines"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Time until lines are hidden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="After how many seconds the auxiliary and track lines will be automatically hidden"/>
+
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Tryb uwroci"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Co powinno się stać po osiągnięciu uwrocia?"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nic"/>
