@@ -22,8 +22,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Zmniejsz szerokość ścieżek"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Przesuń linię odsunięcia w prawo"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Przesuń linię odsunięcia w lewo"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Przesuń pojazd o jeden tor w prawo (bez skrętu)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Przesuń pojazd o jeden tor w lewo (bez skrętu)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Zmień tryb na uwrociach"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Zwiększ odległość uwroci do końca pola"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Zmniejsz odległość uwroci do końca pola"/>

@@ -4,10 +4,13 @@
 -- Author: Majo76
 -- email: ls22@dark-world.de
 -- @Date: 31.12.2021
--- @Version: 1.0.1.0
+-- @Version: 1.1.0.0
 
 --[[
 CHANGELOG
+
+2022-01-01 - V1.1.0.0
+* bugfixes for analog controler input devices
 
 2021-12-31 - V1.0.1.0
 + added key binding to move vehicle one track to the left/right (in direction of travel; no turning) (rctrl + insert/delete)
@@ -1116,7 +1119,7 @@ function FS22_EnhancedVehicle:onDraw()
             if Round(self.vData.track.originalTrackLR, 0) + self.vData.track.deltaTrack == _curTrack then
               setTextBold(true)
               if self.vData.is[5] then
-                setTextColor(0, 0.8, 0, 1)
+                setTextColor(0, 0.7, 0, 1)
               else
                 setTextColor(1, 1, 1, 1)
               end
@@ -1532,12 +1535,12 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     elseif actionName == "FS22_EnhancedVehicle_SNAP_ANGLE1" then
       -- 1°
       if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 1 * keyStatus, 0)
+        self.vData.want[4] = Round(self.vData.is[4] + 1 * (keyStatus >= 0 and 1 or -1), 0)
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
         if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1 * keyStatus), true, 0, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 1 * (keyStatus >= 0 and 1 or -1)), true, 0, true, 0, 0)
         end
         _snap = true
       else
@@ -1546,12 +1549,12 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     elseif actionName == "FS22_EnhancedVehicle_SNAP_ANGLE2" then
     -- 45°
       if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 45 * keyStatus, 0)
+        self.vData.want[4] = Round(self.vData.is[4] + 45 * (keyStatus >= 0 and 1 or -1), 0)
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
         if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45 * keyStatus), true, 0, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 45 * (keyStatus >= 0 and 1 or -1)), true, 0, true, 0, 0)
         end
         _snap = true
       else
@@ -1560,12 +1563,12 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     elseif actionName == "FS22_EnhancedVehicle_SNAP_ANGLE3" then
       -- 90°
       if self.vData.is[5] then
-        self.vData.want[4] = Round(self.vData.is[4] + 90 * keyStatus, 0)
+        self.vData.want[4] = Round(self.vData.is[4] + 90 * (keyStatus >= 0 and 1 or -1), 0)
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
         if self.vData.track.isVisible and self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90 * keyStatus), true, 0, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, true, Angle2ModAngle(self.vData.is[9], self.vData.is[10], 90 * (keyStatus >= 0 and 1 or -1)), true, 0, true, 0, 0)
         end
         _snap = true
       else
@@ -1574,7 +1577,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     elseif actionName == "FS22_EnhancedVehicle_SNAP_TRACK" then
       -- delta track
       if self.vData.track.isVisible and self.vData.track.isCalculated then
-        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + keyStatus, -5, 5)
+        self.vData.track.deltaTrack = Between(self.vData.track.deltaTrack + (keyStatus >= 0 and 1 or -1), -5, 5)
       end
     elseif actionName == "FS22_EnhancedVehicle_SNAP_TRACKP" then
     -- track position
@@ -1582,7 +1585,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         if g_currentMission.time > FS22_EnhancedVehicle.nextActionTime then
           FS22_EnhancedVehicle.nextActionTime = g_currentMission.time + FS22_EnhancedVehicle.deltaActionTime
           if FS22_EnhancedVehicle.deltaActionTime >= FS22_EnhancedVehicle.minActionTime then FS22_EnhancedVehicle.deltaActionTime = FS22_EnhancedVehicle.deltaActionTime * 0.5 end
-          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1 * keyStatus, true, 0, 0)
+          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0.1 * (keyStatus >= 0 and 1 or -1), true, 0, 0)
         end
       end
     elseif actionName == "FS22_EnhancedVehicle_SNAP_TRACKW" then
@@ -1591,7 +1594,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         if g_currentMission.time > FS22_EnhancedVehicle.nextActionTime then
           FS22_EnhancedVehicle.nextActionTime = g_currentMission.time + FS22_EnhancedVehicle.deltaActionTime
           if FS22_EnhancedVehicle.deltaActionTime >= FS22_EnhancedVehicle.minActionTime then FS22_EnhancedVehicle.deltaActionTime = FS22_EnhancedVehicle.deltaActionTime * 0.5 end
-          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, 0.1 * keyStatus)
+          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0, 0.1 * (keyStatus >= 0 and 1 or -1))
         end
       end
     elseif actionName == "FS22_EnhancedVehicle_SNAP_TRACKO" then
@@ -1600,14 +1603,14 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         if g_currentMission.time > FS22_EnhancedVehicle.nextActionTime then
           FS22_EnhancedVehicle.nextActionTime = g_currentMission.time + FS22_EnhancedVehicle.deltaActionTime
           if FS22_EnhancedVehicle.deltaActionTime >= FS22_EnhancedVehicle.minActionTime then FS22_EnhancedVehicle.deltaActionTime = FS22_EnhancedVehicle.deltaActionTime * 0.5 end
-          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05 * keyStatus)
+          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, false, 0, 0.05 * (keyStatus >= 0 and 1 or -1))
         end
       end
     elseif actionName == "FS22_EnhancedVehicle_SNAP_TRACKJ" then
     -- track jump
       if self.vData.is[5] and self.vData.is[6] then
         if self.vData.track.isVisible and self.vData.track.isCalculated and self.vData.is[5] and self.vData.track.drivingDir ~= nil then
-          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, true, 1 * keyStatus * self.vData.track.drivingDir, 0)
+          FS22_EnhancedVehicle:updateTrack(self, false, -1, false, 0, true, 1 * (keyStatus >= 0 and 1 or -1) * self.vData.track.drivingDir, 0)
         end
       else
         g_currentMission:showBlinkingWarning(g_i18n:getText("global_FS22_EnhancedVehicle_snapNotEnabled"), 4000)
@@ -1653,7 +1656,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           _i = _i + 1
         end
       end
-      _state = _state + keyStatus
+      _state = _state + (keyStatus >= 0 and 1 or -1)
       if _state > #FS22_EnhancedVehicle.hl_distances then _state = 0 end
       if _state < 0 then _state = #FS22_EnhancedVehicle.hl_distances end
       self.vData.track.headlandDistance = FS22_EnhancedVehicle.hl_distances[_state]
