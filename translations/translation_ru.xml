@@ -22,8 +22,8 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Уменьшить ширину полосы"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Сдвинуть полосу смещения вправо"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Сдвинуть полосу смещения влево"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Переместиться на одну полосу вправо (без разворота)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Переместиться на одну полосу влево (без разворота)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Изменить режим поворотной полосы"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Увел. расст. разворотной полосы до конца поля"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Умен. расст. разворотной полосы до конца поля"/>
