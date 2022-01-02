@@ -12,6 +12,7 @@ CHANGELOG
 2022-01-02 - V1.1.1.0
 + support for Fahrenheit in HUD temperature display
 * fixed headland/end of field detection (thx Stephan-S from FS22_AutoDrive)
+* small adjustment to steering force (during snap to track)
 
 2022-01-01 - V1.1.0.0
 + (re)added the parking brake due to high community demand ;-)
@@ -2362,7 +2363,7 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
         -- when snap to track -> gently push the driving direction towards destination position depending on current speed
         if self.vData.is[6] then
 --            _old = _w2
-          _w2 = _w2 - Between(dotLR * Between(10 - self:getLastSpeed() / 8, 4, 8) * movingDirection, -90, 90) -- higher means stronger movement force to destination
+          _w2 = _w2 - Between(dotLR * Between(10 - self:getLastSpeed() / 8, 4, 8) * movingDirection * 1.3, -90, 90) -- higher means stronger movement force to destination
 --            print("old: ".._old..", new: ".._w2..", dot: "..dotLR..", md: "..movingDirection.." / "..Between(10 - self:getLastSpeed() / 8, 4, 8))
         end
         if _w2 > 180 then _w2 = _w2 - 360 end
@@ -2375,18 +2376,19 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
 --          print("delta: "..delta..", d: "..dotLR..", w1: ".._w1..", w2: ".._w2..", rot: "..self.vData.rot..", diffdeg: "..diffdeg)
 
         -- calculate new steering wheel "direction"
+        local _d = 18
         -- if we have still more than 20° to steer -> increase steering wheel constantly until maximum
         -- if in between -20 to 20 -> adjust steering wheel according to remaining degrees
         -- if in between -2 to 2 -> set steering wheel directly
         local a = self.vData.axisSidePrev
-        if (diffdeg < -20) then
+        if (diffdeg < -_d) then
           a = a - delta * 0.5
         end
-        if (diffdeg > 20) then
+        if (diffdeg > _d) then
           a = a + delta * 0.5
         end
-        if (diffdeg >= -20) and (diffdeg <= 20) then
-          local newa = diffdeg / 20 * movingDirection -- linear from 1 to 0.1
+        if (diffdeg >= -_d) and (diffdeg <= _d) then
+          local newa = diffdeg / _d * movingDirection -- linear from 1 to 0.1
           if a < newa then
 --              print("1 dd: "..diffdeg.." a: "..a.." newa: "..newa..", md: "..movingDirection..", dot: "..dotLR)
             a = a + delta * 1.2 * movingDirection
@@ -2397,7 +2399,7 @@ function FS22_EnhancedVehicle:updateVehiclePhysics( originalFunction, axisForwar
           end
         end
         if (diffdeg >= -2) and (diffdeg <= 2) then
-          a = diffdeg / 20 * movingDirection --* delta
+          a = diffdeg / _d * movingDirection
         end
         a = Between(a, -1, 1)
 
