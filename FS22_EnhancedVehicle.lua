@@ -4,10 +4,13 @@
 -- Author: Majo76
 -- email: ls22@dark-world.de
 -- @Date: 02.01.2022
--- @Version: 1.1.1.0
+-- @Version: 1.1.1.1
 
 --[[
 CHANGELOG
+
+2022-01-02 - V1.1.1.1
+* bugfix working width calculation (again and again...)
 
 2022-01-02 - V1.1.1.0
 + support for Fahrenheit in HUD temperature display
@@ -2068,31 +2071,6 @@ function FS22_EnhancedVehicle:enumerateImplements(self)
   local _min2, _max2 = -99999999, 99999999
   for _, obj in pairs(listOfObjects) do
 
-    -- for objects without AIMarkers
-    local _found = false
-    for _, workArea in pairs(obj.spec_workArea.workAreas) do
-      if workArea.functionName ~= nil then
-        if workArea.functionName == "processRidgeMarkerArea" or workArea.functionName == "processCombineSwathArea" or workArea.functionName == "processCombineChopperArea" then
-          if debug > 1 then print("skip") end
-          goto continue
-        end
-      end
-      local _x1 = localToLocal(workArea.start, obj.rootNode, 0, 0, 0)
-      local _x2 = localToLocal(workArea.width, obj.rootNode, 0, 0, 0)
-
-      if debug > 1 then print(obj.typeName..", "..workArea.type..", x1: ".._x1..", x2: ".._x2) end
-      _min1 = math.max(_min1, _x1)
-      _min1 = math.max(_min1, _x2)
-      _max1 = math.min(_max1, _x1)
-      _max1 = math.min(_max1, _x2)
-      _found = true
-      ::continue::
-    end
-    if _found then
-      _width1 = _min1 + math.abs(_max1)
-      if debug > 1 then print("width 1: ".._width1) end
-    end
-
     -- for objects with AImarkers
     local leftMarker, rightMarker = obj:getAIMarkers()
     if leftMarker ~= nil and rightMarker ~= nil then
@@ -2116,6 +2094,31 @@ function FS22_EnhancedVehicle:enumerateImplements(self)
       if obj.typeName == "plow" or obj.typeName == "plowPacker" then
         self.vData.impl.plow = obj.spec_plow
         self.vData.track.plow = self.vData.impl.plow.rotationMax
+      end
+    else
+      -- for objects without AIMarkers
+      local _found = false
+      for _, workArea in pairs(obj.spec_workArea.workAreas) do
+        if workArea.functionName ~= nil then
+          if workArea.functionName == "processRidgeMarkerArea" or workArea.functionName == "processCombineSwathArea" or workArea.functionName == "processCombineChopperArea" then
+            if debug > 1 then print("skip") end
+            goto continue
+          end
+        end
+        local _x1 = localToLocal(workArea.start, obj.rootNode, 0, 0, 0)
+        local _x2 = localToLocal(workArea.width, obj.rootNode, 0, 0, 0)
+
+        if debug > 1 then print(obj.typeName..", "..workArea.type..", x1: ".._x1..", x2: ".._x2) end
+        _min1 = math.max(_min1, _x1)
+        _min1 = math.max(_min1, _x2)
+        _max1 = math.min(_max1, _x1)
+        _max1 = math.min(_max1, _x2)
+        _found = true
+        ::continue::
+      end
+      if _found then
+        _width1 = _min1 + math.abs(_max1)
+        if debug > 1 then print("width 1: ".._width1) end
       end
     end
 
