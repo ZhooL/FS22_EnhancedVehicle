@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 01.01.2022
--- @Version: 1.1.0.0
+-- @Date: 02.01.2022
+-- @Version: 1.1.1.0
 
 --[[
 CHANGELOG
+
+2022-01-02 - V1.1.1.0
+* fixed headland/end of field detection (thx Stephan-S from FS22_AutoDrive)
 
 2022-01-01 - V1.1.0.0
 + (re)added the parking brake due to high community demand ;-)
@@ -970,6 +973,11 @@ function FS22_EnhancedVehicle:onDraw()
     -- guide lines
     if FS22_EnhancedVehicle.functionSnapIsEnabled and self.vData.snaplines then
 
+      -- for debuging headland detection trigger
+--      if self.vData.hlx ~= nil and self.vData.hlz ~= nil then
+--        FS22_EnhancedVehicle:drawVisualizationLines(1, 2, self.vData.hlx, self.vData.py, self.vData.hlz, 0, 0, 1, (self.vData.isOnField and 1 or 0), (self.vData.isOnField and 1 or 0), 1, 0, true, 5)
+--      end
+
       -- should we hide lines?
       local _showLines = true
       if FS22_EnhancedVehicle.track.hideLines then
@@ -1794,10 +1802,21 @@ function FS22_EnhancedVehicle:getHeadlandInfo(self)
     distance = self.vData.track.workWidth
   end
 
-  x = self.vData.px + (self.vData.dirX * distance)
-  z = self.vData.pz + (self.vData.dirZ * distance)
-  local _density = getDensityAtWorldPos(g_currentMission.terrainDetailId, x, 0, z)
-  local isOnField = _density ~= 0
+  local isOnField = true
+  -- look ahead/behind
+  local x = self.vData.px + (self.vData.dirX * distance)
+  local z = self.vData.pz + (self.vData.dirZ * distance)
+  local y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, x, 1, z)
+
+  local groundTypeMapId, groundTypeFirstChannel, groundTypeNumChannels = g_currentMission.fieldGroundSystem:getDensityMapData(FieldDensityMap.GROUND_TYPE)
+  local _density = getDensityAtWorldPos(groundTypeMapId, x, y, z)
+  local _densityType = bitAND(bitShiftRight(_density, groundTypeFirstChannel), 2^groundTypeNumChannels - 1)
+  isOnField = isOnField and (_densityType ~= g_currentMission.grassValue and _densityType ~= 0)
+
+  -- for debugging
+--  self.vData.hlx = x
+--  self.vData.hlz = z
+--  self.vData.isOnField = isOnField
 
   return(isOnField)
 end
