@@ -10,6 +10,7 @@
 CHANGELOG
 
 2022-01-02 - V1.1.1.0
++ support for Fahrenheit in HUD temperature display
 * fixed headland/end of field detection (thx Stephan-S from FS22_AutoDrive)
 
 2022-01-01 - V1.1.0.0

@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 01.01.2022
--- @Version: 1.1.0.0
+-- @Date: 02.01.2022
+-- @Version: 1.1.1.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -1016,9 +1016,16 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
   -- temperature display
   if self.vehicle.spec_motorized ~= nil and FS22_EnhancedVehicle.hud.temp.enabled and self.vehicle.isServer then
     -- prepare text
-    local temp_txt = "--\n°C"
+    local _useF = g_gameSettings:getValue(GameSettings.SETTING.USE_FAHRENHEIT)
+
+    local _s = "C"
+    if _useF then _s = "F" end
+
+    local temp_txt = "--\n°" .. _s
     if self.vehicle.spec_motorized.isMotorStarted == true then
-      temp_txt = string.format("%i\n°C", self.vehicle.spec_motorized.motorTemperature.value)
+      local _value = self.vehicle.spec_motorized.motorTemperature.value
+      if _useF then _value = _value * 1.8 + 32 end
+      temp_txt = string.format("%i\n°%s", _value, _s)
     end
 
     -- render text
