@@ -22,22 +22,22 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrementa la larghezza della corsia"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Sposta la linea di offset a destra"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Sposta la linea di offset a sinistra"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Sposta il veicolo di una corsia a destra (senza svoltare)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Sposta il veicolo di una corsia a sinistra (senza svoltare)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Cambia modalità capezzagna"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Incrementa la distanza della capezzagna dal bordo del campo"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrementa la distanza della capezzagna dal bordo del campo"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloccaggio differenziale assale anteriore on/off"/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloccaggio differenziale assale posteriore on/off"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Entrambi i blocchi differenziali on/off"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Bloccaggio differenziale assale anteriore ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Bloccaggio differenziale assale posteriore ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Entrambi i blocchi differenziali ON/OFF"/>
     <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Cambia la modalità di trazione integrale"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Idraulica posteriore su/giù"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Idraulica posteriore on/off"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Idraulica anteriore su/giù"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Idraulica anteriore on/off"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Idraulica posteriore Su/Giù"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Idraulica posteriore ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Idraulica anteriore Su/Giù"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Idraulica anteriore ON/OFF"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Visualizzazione del menù di configurazione"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Freno di stazionamento ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Attiva/Disattiva la disponibilità del freno di stazionamento"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="Nessuna corsia"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="Nessuna larghezza"/>
@@ -45,8 +45,8 @@
     <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Danni | Verniciatura"/>
     <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Carburante"/>
 
-    <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
-    <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
+    <text name="ui_FS22_EnhancedVehicle_on"  text="ON"/>
+    <text name="ui_FS22_EnhancedVehicle_off" text="OFF"/>
 
     <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Impostazioni globali"/>
     <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="Impostazioni HUD"/>
@@ -66,8 +66,8 @@
     <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Attiva/disattiva la funzionalità globale dei bloccaggi differenziali"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Controllo idraulico migliorato"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Attiva/disattiva la funzionalità globale del controllo idraulico migliorato"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Freno di stazionamento"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Attiva/Disattiva la funzionalità globale del freno di stazionamento"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Blocco differenziale"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Attiva/disattiva il display HUD per i differenziali"/>
@@ -83,8 +83,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Accende/spegne il display HUD per la temperatura del motore"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: altri valori (peso)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Attiva/disattiva il display HUD per gli altri valori (ad es. peso)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Freno di stazionamento"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="On/Off Display HUD per freno di stazionamento"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: modalità di visualizzazione dei danni"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Visualizzazione dei valori dei danni in '% non danneggiati' invece di '% danneggiati'"/>
@@ -102,10 +102,10 @@
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Numero di corsie visibili"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Questo è il numero di corsie visualizzate in totale (sinistra + destra del veicolo)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Hide lines automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifies whether to automatically hide auxiliary and track lines"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Time until lines are hidden"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="After how many seconds the auxiliary and track lines will be automatically hidden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Nascondi automaticamente le linee"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifica se nascondere automaticamente le linee ausiliarie e guida"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Tempo di visualizzazione delle linee"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="Imposta dopo quanti secondi, le linee ausiliarie e guida vengono automaticamente nascoste"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Modalità capezzagna"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Determina cosa dovrebbe succedere quando si raggiunge il promontorio"/>
