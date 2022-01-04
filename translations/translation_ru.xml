@@ -36,8 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Передняя гидравлика поднять/опустить"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Передняя гидравлика вкл/выкл"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Открыть меню конфигурации"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Вкл/выкл ручной тормоз"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Вкл/выкл функции ручного тормоза"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="нет полосы"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="шир. неизвестна"/>
@@ -61,13 +61,13 @@
     <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Перезагрузить файл конфигурации с диска. Необходимо после внесения изменений в XML-файл вручную."/>
 
     <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Помощник"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Вкл/выкл глобальные функции помошника"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Вкл/выкл глобальные функции помощника"/>
     <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Блокировка дифференциала"/>
     <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Вкл/выкл глобальные функции блокировки дифференциала"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Улучшенное гидравлическое управление"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Вкл/выкл глобальные функции управления гидравликой"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Ручной тормоз"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Вкл/выкл глобально функции ручного тормоза"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Блокировка дифференциала"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Вкл/выкл отображение на дисплее блокировки дифференциала"/>
@@ -76,15 +76,15 @@
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Уровень топлива"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Вкл/выкл отображение на дисплее уровень топлива"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD: Помощник"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Вкл/выкл отображение на дисплее помощник"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Вкл/выкл отображение на дисплее помощника"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Об/мин"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Вкл/выкл отображение на дисплее Об/мин"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Температура двигателя"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Вкл/выкл отображение на дисплее температура двигателя"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Разные значения (вес)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Вкл/выкл отображение на дисплее разные значения (вес)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Ручной тормоз"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Вкл/выкл отображение на дисплее функции ручного тормоза"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Режим значений урона"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Показывать значения повреждений '% осталось' или '% повреждения'"/>
@@ -102,10 +102,10 @@
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Количество видимых полос"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Сколько всего показано полос(слева + справа от транспорта)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Hide lines automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifies whether to automatically hide auxiliary and track lines"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Time until lines are hidden"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="After how many seconds the auxiliary and track lines will be automatically hidden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Автоматически скрывать направляющие линии"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Будут ли скрываться автоматически вспомогательные и направляющие линии"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Через сколько секунд направляющие линии пропадут"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="Через сколько секунд вспомогательные и направляющие линии будут скрыты автоматически"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Режим поворотной полосы"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Что должно произойти при выходе на поворотную полосу"/>
@@ -114,7 +114,7 @@
     <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Отключить круиз-контроль"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Расстояние до конца поворотной полосы"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Сколько метров до края поля должнобыть чтобы повернуться"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Сколько метров до края поля должно быть чтобы развернуться"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Рабочая ширина"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="до края поля"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="за краем поля"/>

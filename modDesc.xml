@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.1.1.1</version>
+  <version>1.1.2.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -12,8 +12,8 @@
   </title>
 
   <description>
-    <de><![CDATA[Einfacher Fahrspurassistent. Differentialsperren und Antriebsmodi für dein Fahrzeug. Mehr Fahrzeugsdetails im HUD.]]></de>
-    <en><![CDATA[Simple track assistant. Differential locks and wheel drive modes for your vehicle. Shows more vehicle details on HUD.]]></en>
+    <de><![CDATA[Fahrspurassistent ("GPS light"). Feststellbremse. Differentialsperren und Antriebsmodi für dein Fahrzeug. Mehr Fahrzeugsdetails im HUD.]]></de>
+    <en><![CDATA[Track assistant ("GPS light"). Parking brake. Differential locks and wheel drive modes for your vehicle. Shows more vehicle details on HUD.]]></en>
     <it><![CDATA[Assistente di corsia semplice. Bloccaggi differenziali e modalità di guida per il tuo veicolo. Maggiori dettagli sul veicolo nell'HUD.]]></it>
   </description>
 

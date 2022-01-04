@@ -36,8 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hydraulik vorne hoch/runter"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Hydraulik vorne an/aus"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Konfigurationsmenü öffnen"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Handbremse an/aus"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Funktion Handbremse aktivieren/deaktivieren"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Feststellbremse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Funktion Feststellremse aktivieren/deaktivieren"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="keine Fahrspur"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="keine Breite"/>
@@ -66,8 +66,8 @@
     <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Schaltet die globale Funktionalität der Differentialsperren an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Verbesserte Hydrauliksteuerung"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Schaltet die globale Funktionalität der verbesserten Hydrauliksteuerung an/aus"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Handbremse"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Schaltet die globale Funktionalität der Handbremse an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Feststellbremse"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Schaltet die globale Funktionalität der Feststellbremse an/aus"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Differentialsperren"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Schaltet die HUD Anzeige für die Differentiale an/aus"/>
@@ -83,8 +83,8 @@
     <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Schaltet die HUD Anzeige für die Motortemperatur an/aus"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Sonstige Werte (Gewicht)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Schaltet die HUD Anzeige für die sonstigen Werte (z.B. Gewicht) an/aus"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Handbremse"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Schaltet die HUD Anzeige für die Handbremse an/aus"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Feststellbremse"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Schaltet die HUD Anzeige für die Feststellbremse an/aus"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Modus der Schadensanzeige"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Anzeige der Schadenswerte in '% unbeschädigt' anstatt '% beschädigt'"/>

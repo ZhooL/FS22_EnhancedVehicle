@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 02.01.2022
--- @Version: 1.1.1.1
+-- @Date: 04.01.2022
+-- @Version: 1.1.2.0
 
 --[[
 CHANGELOG
+
+2022-01-04 - V1.1.2.0
+* renamed "Handbremse" to "Feststellbremse"
 
 2022-01-02 - V1.1.1.1
 * bugfix working width calculation (again and again...)
