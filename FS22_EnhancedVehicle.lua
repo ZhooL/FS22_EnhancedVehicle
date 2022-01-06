@@ -3,14 +3,17 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 04.01.2022
+-- @Date: 06.01.2022
 -- @Version: 1.1.2.0
 
 --[[
 CHANGELOG
 
 2022-01-04 - V1.1.2.0
++ re-added the background for dmg/fuel display in classic FS19 configuration
+* parking brake should now work in manual transmission(+clutch) mode
 * renamed "Handbremse" to "Feststellbremse"
+* moved the global settings in configuration menu to the bottom
 
 2022-01-02 - V1.1.1.1
 * bugfix working width calculation (again and again...)
@@ -2432,7 +2435,7 @@ Drivable.updateVehiclePhysics = Utils.overwrittenFunction( Drivable.updateVehicl
 
 -- #############################################################################
 
-function FS22_EnhancedVehicle:updateWheelsPhysics( originalFunction, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking )
+function FS22_EnhancedVehicle:updateWheelsPhysics(originalFunction, dt, currentSpeed, acceleration, doHandbrake, stopAndGoBraking)
   if debug > 2 then print("function WheelsUtil.updateWheelsPhysics("..self.typeDesc..", "..tostring(dt)..", "..tostring(currentSpeed)..", "..tostring(acceleration)..", "..tostring(doHandbrake)..", "..tostring(stopAndGoBraking)) end
 
   local brakeLights = false
@@ -2446,6 +2449,7 @@ function FS22_EnhancedVehicle:updateWheelsPhysics( originalFunction, dt, current
         end
         acceleration = 0
         currentSpeed = 0
+        doHandbrake = true
       end
     end
   end
@@ -2464,4 +2468,18 @@ function FS22_EnhancedVehicle:updateWheelsPhysics( originalFunction, dt, current
 
   return result
 end
-WheelsUtil.updateWheelsPhysics = Utils.overwrittenFunction( WheelsUtil.updateWheelsPhysics, FS22_EnhancedVehicle.updateWheelsPhysics )
+WheelsUtil.updateWheelsPhysics = Utils.overwrittenFunction(WheelsUtil.updateWheelsPhysics, FS22_EnhancedVehicle.updateWheelsPhysics)
+
+-- #############################################################################
+-- unfortunately we've to hook into this function to make the parking brake work in manual transmission mode
+function FS22_EnhancedVehicle:getSmoothedAcceleratorAndBrakePedals(originalFunction, acceleratorPedal, brakePedal, dt)
+  if debug > 2 then print("function WheelsUtil.getSmoothedAcceleratorAndBrakePedals("..self.typeDesc..", "..tostring(dt)..", "..tostring(acceleratorPedal)..", "..tostring(brakePedal)) end
+
+  if self ~= nil and self.vData ~= nil and self.vData.is[13] and self.vData.is[14] then
+    if self:getIsVehicleControlledByPlayer() then
+      return originalFunction(self, 0, 1, dt)
+    end
+  end
+  return originalFunction(self, acceleratorPedal, brakePedal, dt)
+end
+WheelsUtil.getSmoothedAcceleratorAndBrakePedals = Utils.overwrittenFunction(WheelsUtil.getSmoothedAcceleratorAndBrakePedals, FS22_EnhancedVehicle.getSmoothedAcceleratorAndBrakePedals)

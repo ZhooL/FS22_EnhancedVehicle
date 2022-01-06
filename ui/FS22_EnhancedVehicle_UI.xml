@@ -16,60 +16,6 @@
 
     <GuiElement type="scrollingLayout" profile="ingameMenuSettingsLayout">
 
-      <!-- global functions -->
-      <GuiElement type="text" profile="dialogHeaderText"/>
-      <GuiElement type="text" profile="dialogHeaderText" id="sectionGlobalFunctions"/>
-      <GuiElement type="text" profile="dialogHeaderText"/>
-
-      <!-- reset/reload config -->
-      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
-        <GuiElement type="button" profile="ingameMenuSettingsPauseButton" onClick="onClickResetConfig" id="resetConfigButton" iconSize="0px 0px" margin="10px 5px 10px 5px" />
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="resetConfigTitle"/>
-        <GuiElement type="text"   profile="EV_ToolTipTextRed"            id="resetConfigTT"/>
-      </GuiElement>
-      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
-        <GuiElement type="button" profile="ingameMenuSettingsPauseButton" onClick="onClickReloadConfig" id="reloadConfigButton" iconSize="0px 0px" margin="10px 5px 10px 5px" />
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="reloadConfigTitle"/>
-        <GuiElement type="text"   profile="EV_ToolTipTextRed"            id="reloadConfigTT"/>
-      </GuiElement>
-
-      <!-- snap -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="snapSetting">
-        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
-        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="snapTitle"/>
-        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="snapTT"/>
-      </GuiElement>
-      <!-- differential -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="diffSetting">
-        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
-        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="diffTitle"/>
-        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="diffTT"/>
-      </GuiElement>
-      <!-- hydraulic -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="hydraulicSetting">
-        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
-        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hydraulicTitle"/>
-        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hydraulicTT"/>
-      </GuiElement>
-      <!-- parking brake -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="parkingBrakeSetting">
-        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
-        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="parkingBrakeTitle"/>
-        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="parkingBrakeTT"/>
-      </GuiElement>
-
       <!-- headland settings -->
       <GuiElement type="text" profile="dialogHeaderText"/>
       <GuiElement type="text" profile="dialogHeaderText" id="sectionHeadlandSettings"/>
@@ -231,6 +177,61 @@
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="HUDmiscTT"/>
       </GuiElement>
+
+      <!-- global functions -->
+      <GuiElement type="text" profile="dialogHeaderText"/>
+      <GuiElement type="text" profile="dialogHeaderText" id="sectionGlobalFunctions"/>
+      <GuiElement type="text" profile="dialogHeaderText"/>
+
+      <!-- snap -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="snapSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="snapTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="snapTT"/>
+      </GuiElement>
+      <!-- differential -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="diffSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="diffTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="diffTT"/>
+      </GuiElement>
+      <!-- hydraulic -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="hydraulicSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hydraulicTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hydraulicTT"/>
+      </GuiElement>
+      <!-- parking brake -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="parkingBrakeSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="parkingBrakeTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="parkingBrakeTT"/>
+      </GuiElement>
+
+      <!-- reset/reload config -->
+      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
+        <GuiElement type="button" profile="ingameMenuSettingsPauseButton" onClick="onClickResetConfig" id="resetConfigButton" iconSize="0px 0px" margin="10px 5px 10px 5px" />
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="resetConfigTitle"/>
+        <GuiElement type="text"   profile="EV_ToolTipTextRed"            id="resetConfigTT"/>
+      </GuiElement>
+      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
+        <GuiElement type="button" profile="ingameMenuSettingsPauseButton" onClick="onClickReloadConfig" id="reloadConfigButton" iconSize="0px 0px" margin="10px 5px 10px 5px" />
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="reloadConfigTitle"/>
+        <GuiElement type="text"   profile="EV_ToolTipTextRed"            id="reloadConfigTT"/>
+      </GuiElement>
+
     </GuiElement>
 
     <!-- footer -->

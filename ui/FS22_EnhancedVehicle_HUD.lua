@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 02.01.2022
--- @Version: 1.1.1.0
+-- @Date: 06.01.2022
+-- @Version: 1.1.2.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -479,11 +479,13 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
     self.dmgText.posX = addPosX + textX
     self.dmgText.posY = addPosY + textY
     self.dmgText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.DMG)
+    self.dmgBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGMISC))
 
     local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.FUEL)
     self.fuelText.posX = addPosX + textX
     self.fuelText.posY = addPosY + textY
     self.fuelText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.FUEL)
+    self.fuelBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGMISC))
   end
 
   if self.diffBox ~= nil then
@@ -506,20 +508,22 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
     end
   end
 
+  self.dmgText.marginWidth, self.dmgText.marginHeight = self.gameInfoDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGINDMG)
   if self.dmgBox ~= nil and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2 then
     local baseX, baseY = self.gameInfoDisplay:getPosition()
     self.dmgText.posX = 1
     self.dmgText.posY = baseY - self.marginHeight
-    self.dmgText.marginWidth, self.dmgText.marginHeight = self.gameInfoDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGINDMG)
     self.dmgText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.DMG)
+    self.dmgBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGDMG))
   end
 
+  self.fuelText.marginWidth, self.fuelText.marginHeight = self.gameInfoDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGINFUEL)
   if self.fuelBox ~= nil and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2 then
     local baseX, baseY = self.gameInfoDisplay:getPosition()
     self.fuelText.posX = 1
     self.fuelText.posY = baseY - self.marginHeight
-    self.fuelText.marginWidth, self.fuelText.marginHeight = self.gameInfoDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.SIZE.MARGINFUEL)
     self.fuelText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.FUEL)
+    self.fuelBox:setUVs(GuiUtils.getUVs(FS22_EnhancedVehicle_HUD.UV.BGDMG))
   end
 
   if self.miscBox ~= nil then
@@ -615,8 +619,8 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
     self.parkBox:setVisible(FS22_EnhancedVehicle.hud.park.enabled == true)
   end
 
-  self.dmgBox:setVisible(FS22_EnhancedVehicle.hud.dmg.enabled == true and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2)
-  self.fuelBox:setVisible(FS22_EnhancedVehicle.hud.fuel.enabled == true and FS22_EnhancedVehicle.hud.dmgfuelPosition == 2)
+  self.dmgBox:setVisible(FS22_EnhancedVehicle.hud.dmg.enabled == true)
+  self.fuelBox:setVisible(FS22_EnhancedVehicle.hud.fuel.enabled == true)
   self.miscBox:setVisible(FS22_EnhancedVehicle.hud.misc.enabled == true)
 
   -- draw our track HUD
@@ -790,10 +794,10 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
   end
 
   -- move our elements down if game displays side notifications
-  local deltaY = 0
+  local deltaY = self.marginHeight
   if g_currentMission.hud.sideNotifications ~= nil then
     if #g_currentMission.hud.sideNotifications.notificationQueue > 0 then
-      deltaY = g_currentMission.hud.sideNotifications:getHeight()
+      deltaY = deltaY + g_currentMission.hud.sideNotifications:getHeight()
     end
   end
 
@@ -817,55 +821,57 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
 
     -- prepare rendering
     setTextAlignment(RenderText.ALIGN_RIGHT)
+    setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
     setTextBold(false)
 
+    -- calculate width & height of text
+    local _w, _h = 0, self.dmgText.marginHeight * 2
+    table.insert(dmg_txt, 1, { self.default_dmg_txt, 0 })
+    for _, txt in pairs(dmg_txt) do
+      setTextBold(false)
+      if txt[2] == 0 then
+        _h = _h + self.dmgText.marginHeight
+        setTextBold(true)
+      end
+      _h = _h + self.dmgText.size
+      local tmp = getTextWidth(self.dmgText.size, txt[1])
+      if tmp > _w then _w = tmp end
+    end
+
+    -- calculate position of text
+    local x, y = 0, 0
     if FS22_EnhancedVehicle.hud.dmgfuelPosition <= 1 then
-      -- classic display
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
+      -- FS19
+      x = self.dmgText.posX
+      y = self.dmgText.posY + _h
 
-      local y = self.dmgText.posY
-      for _, txt in pairs(dmg_txt) do
-        if txt[2] == 2 then
-          setTextColor(1,1,1,1)
-        else
-          setTextColor(unpack(FS22_EnhancedVehicle.color.dmg))
-        end
-        renderText(self.dmgText.posX, y, self.dmgText.size, txt[1])
-        y = y + self.dmgText.size
-      end
-    elseif FS22_EnhancedVehicle.hud.dmgfuelPosition == 2 then
-      -- top-right display
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
-
-      local x = self.dmgText.posX - self.dmgText.marginHeight
-      local y = self.dmgText.posY - self.dmgText.marginHeight - deltaY
-      local _w, _h = 0, self.dmgText.marginHeight * 2
-      table.insert(dmg_txt, 1, { self.default_dmg_txt, 0 })
-      for _, txt in pairs(dmg_txt) do
-        if txt[2] == 0 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.lgray))
-          setTextBold(true)
-        elseif txt[2] == 2 then
-          setTextColor(1,1,1,1)
-        else
-          setTextColor(unpack(FS22_EnhancedVehicle.color.dmg))
-        end
-        renderText(x, y, self.dmgText.size, txt[1])
-        if txt[2] == 0 then
-          setTextBold(false)
-          y = y - self.dmgText.marginHeight
-          _h = _h + self.dmgText.marginHeight
-        end
-        y = y - self.dmgText.size
-        _h = _h + self.dmgText.size
-        local tmp = getTextWidth(self.dmgText.size, txt[1])
-        if tmp > _w then _w = tmp end
-      end
-
-      -- update overlay background
-      self.dmgBox.overlay:setPosition(x - _w - self.dmgText.marginWidth, y - self.dmgText.marginHeight)
-      self.dmgBox.overlay:setDimension(_w + self.dmgText.marginHeight + self.dmgText.marginWidth, _h)
+      self.dmgBox:setPosition(x - _w - self.dmgText.marginHeight, y - _h + self.dmgText.marginHeight)
+      self.dmgBox:setDimension(_w + self.dmgText.marginHeight * 2, _h)
+    else
+      -- FS22
+      x = self.dmgText.posX - self.dmgText.marginHeight
+      y = self.dmgText.posY - deltaY
       deltaY = deltaY + _h + self.marginHeight
+
+      self.dmgBox:setPosition(x - _w - self.dmgText.marginWidth, y - _h + self.dmgText.marginHeight)
+      self.dmgBox:setDimension(_w + self.dmgText.marginWidth + self.dmgText.marginHeight, _h)
+    end
+
+    for _, txt in pairs(dmg_txt) do
+      if txt[2] == 0 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.lgray))
+        setTextBold(true)
+      elseif txt[2] == 2 then
+        setTextColor(1,1,1,1)
+      else
+        setTextColor(unpack(FS22_EnhancedVehicle.color.dmg))
+      end
+      renderText(x, y, self.dmgText.size, txt[1])
+      if txt[2] == 0 then
+        setTextBold(false)
+        y = y - self.dmgText.marginHeight
+      end
+      y = y - self.dmgText.size
     end
   end -- <- end of render damage
 
@@ -919,68 +925,65 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
     end
 
     -- prepare rendering
+    setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
     setTextBold(false)
 
+    -- calculate width & height of text
+    local _w, _h = 0, self.fuelText.marginHeight * 2
+    table.insert(fuel_txt, 1, { self.default_fuel_txt, 0 })
+    for _, txt in pairs(fuel_txt) do
+      setTextBold(false)
+      if txt[2] == 0 then
+        setTextBold(true)
+        _h = _h + self.fuelText.marginHeight
+      end
+      _h = _h + self.fuelText.size
+      local tmp = getTextWidth(self.fuelText.size, txt[1])
+      if tmp > _w then _w = tmp end
+    end
+
+    -- calculate position of text
+    local x, y = 0, 0
     if FS22_EnhancedVehicle.hud.dmgfuelPosition <= 1 then
-      -- classic
+      -- FS19
       setTextAlignment(RenderText.ALIGN_LEFT)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_BOTTOM)
+      x = self.fuelText.posX
+      y = self.fuelText.posY + _h
 
-      local y = self.fuelText.posY
-      for _, txt in pairs(fuel_txt) do
-        if txt[2] == 1 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.fuel))
-        elseif txt[2] == 2 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.adblue))
-        elseif txt[2] == 3 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.electric))
-        elseif txt[2] == 4 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.methane))
-        else
-          setTextColor(1,1,1,1)
-        end
-        renderText(self.fuelText.posX, y, self.fuelText.size, txt[1])
-        y = y + self.fuelText.size
-      end
-    elseif FS22_EnhancedVehicle.hud.dmgfuelPosition == 2 then
-      -- top-right display
+      self.fuelBox:setPosition(x - self.fuelText.marginHeight, y - _h + self.fuelText.marginHeight)
+      self.fuelBox:setDimension(_w + self.fuelText.marginHeight * 2, _h)
+    else
+      -- FS22
       setTextAlignment(RenderText.ALIGN_RIGHT)
-      setTextVerticalAlignment(RenderText.VERTICAL_ALIGN_TOP)
+      x = self.fuelText.posX - self.fuelText.marginHeight
+      y = self.fuelText.posY - deltaY
+      deltaY = deltaY + _h + self.marginHeight
 
-      local x = self.fuelText.posX - self.fuelText.marginHeight
-      local y = self.fuelText.posY - self.fuelText.marginHeight - deltaY
-      local _w, _h = 0, self.fuelText.marginHeight * 2
-      table.insert(fuel_txt, 1, { self.default_fuel_txt, 0 })
-      for _, txt in pairs(fuel_txt) do
-        if txt[2] == 0 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.lgray))
-          setTextBold(true)
-        elseif txt[2] == 1 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.fuel))
-        elseif txt[2] == 2 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.adblue))
-        elseif txt[2] == 3 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.electric))
-        elseif txt[2] == 4 then
-          setTextColor(unpack(FS22_EnhancedVehicle.color.methane))
-        else
-          setTextColor(1,1,1,1)
-        end
-        renderText(x, y, self.fuelText.size, txt[1])
-        if txt[2] == 0 then
-          setTextBold(false)
-          y = y - self.fuelText.marginHeight
-          _h = _h + self.fuelText.marginHeight
-        end
-        y = y - self.fuelText.size
-        _h = _h + self.fuelText.size
-        local tmp = getTextWidth(self.fuelText.size, txt[1])
-        if tmp > _w then _w = tmp end
+      self.fuelBox:setPosition(x - _w - self.fuelText.marginWidth, y - _h + self.fuelText.marginHeight)
+      self.fuelBox:setDimension(_w + self.fuelText.marginWidth + self.fuelText.marginHeight, _h)
+    end
+
+    for _, txt in pairs(fuel_txt) do
+      if txt[2] == 0 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.lgray))
+        setTextBold(true)
+      elseif txt[2] == 1 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.fuel))
+      elseif txt[2] == 2 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.adblue))
+      elseif txt[2] == 3 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.electric))
+      elseif txt[2] == 4 then
+        setTextColor(unpack(FS22_EnhancedVehicle.color.methane))
+      else
+        setTextColor(1,1,1,1)
       end
-
-      -- update overlay background
-      self.fuelBox.overlay:setPosition(x - _w - self.fuelText.marginWidth, y - self.fuelText.marginHeight)
-      self.fuelBox.overlay:setDimension(_w + self.fuelText.marginHeight + self.fuelText.marginWidth, _h)
+      renderText(x, y, self.fuelText.size, txt[1])
+      if txt[2] == 0 then
+        setTextBold(false)
+        y = y - self.fuelText.marginHeight
+      end
+      y = y - self.fuelText.size
     end
   end -- <- end of render fuel
 

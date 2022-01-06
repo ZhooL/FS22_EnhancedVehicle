@@ -36,7 +36,7 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Hydraulik vorne hoch/runter"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Hydraulik vorne an/aus"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Konfigurationsmenü öffnen"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Feststellbremse an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Feststellbremse betätigen/lösen"/>
     <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Funktion Feststellremse aktivieren/deaktivieren"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="keine Fahrspur"/>

@@ -36,8 +36,8 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: front hydraulic up/down"/>
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parking brake on/off"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate availability of parking brake"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Apply/release parking brake"/>
+    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate parking brake function"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="no track"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="no width"/>
