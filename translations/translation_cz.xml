@@ -121,7 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nenalezeno zařízení s pracovní šířkou. Dalším stisknutím vytvoříte výchozí rozvržení řádku."/>
-    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Nejdříve prosím uvolněte parkovací brzdu."/>
 
   </texts>
 </l10n>
