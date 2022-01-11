@@ -37,7 +37,6 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: przedni hydrauliczny wł/wył"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: otwórz menu konfiguracyjne"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Apply/release parking brake"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate parking brake function"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="brak ścieżki"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="brak szerokości"/>
@@ -122,6 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="TAsystent ścieżek nie jest włączony."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nie znalazłem urządzenia o szerokości roboczej."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nie znalazłem urządzenia o szerokości roboczej. Naciśnij ponownie, aby utworzyć domyślny układ ścieżek."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
 
   </texts>
 </l10n>

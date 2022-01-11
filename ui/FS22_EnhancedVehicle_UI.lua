@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 01.01.2022
--- @Version: 1.1.0.0
+-- @Date: 11.01.2022
+-- @Version: 1.1.3.0
 
 local myName = "FS22_EnhancedVehicle_UI"
 
@@ -302,7 +302,7 @@ function FS22_EnhancedVehicle_UI:onClickOk()
     lC:setConfigValue("hud."..v, "enabled", state)
   end
 
-  -- HUD dmg display modEnvironments
+  -- HUD dmg display
   state = self.HUDdmgAmountLeftSetting:getState() == 1
   lC:setConfigValue("hud.dmg", "showAmountLeft", state)
 

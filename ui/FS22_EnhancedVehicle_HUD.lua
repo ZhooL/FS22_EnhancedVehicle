@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 06.01.2022
--- @Version: 1.1.2.0
+-- @Date: 11.01.2022
+-- @Version: 1.1.3.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -119,6 +119,9 @@ function FS22_EnhancedVehicle_HUD:new(speedMeterDisplay, gameInfoDisplay, modDir
   self.default_workwidth_txt = g_i18n:getText("hud_FS22_EnhancedVehicle_nowidth")
   self.default_dmg_txt       = g_i18n:getText("hud_FS22_EnhancedVehicle_header_dmg")
   self.default_fuel_txt      = g_i18n:getText("hud_FS22_EnhancedVehicle_header_fuel")
+
+  FS22_EnhancedVehicle_HUD.COLOR.INACTIVE = { unpack(FS22_EnhancedVehicle.hud.colorInactive) }
+  FS22_EnhancedVehicle_HUD.COLOR.ACTIVE   = { unpack(FS22_EnhancedVehicle.hud.colorActive) }
 
   -- hook into some original HUD functions
 --  SpeedMeterDisplay.storeScaledValues = Utils.appendedFunction(SpeedMeterDisplay.storeScaledValues, FS22_EnhancedVehicle_HUD.speedMeterDisplay_storeScaledValues)
@@ -355,6 +358,11 @@ function FS22_EnhancedVehicle_HUD:createMiscBox(x, y)
   x = x - boxWidth / 2
   y = y - boxHeight
 
+  -- global move
+  local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.misc.offsetX, FS22_EnhancedVehicle.hud.misc.offsetY })
+  x = x + offX
+  y = y + offY
+
   -- add background overlay box
   local boxOverlay = Overlay.new(self.uiFilename, x, y, boxWidth, boxHeight)
   local boxElement = HUDElement.new(boxOverlay)
@@ -417,6 +425,8 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
   -- overwrite from config file
   FS22_EnhancedVehicle_HUD.TEXT_SIZE.DMG  = FS22_EnhancedVehicle.hud.dmg.fontSize
   FS22_EnhancedVehicle_HUD.TEXT_SIZE.FUEL = FS22_EnhancedVehicle.hud.fuel.fontSize
+  FS22_EnhancedVehicle_HUD.COLOR.INACTIVE = { unpack(FS22_EnhancedVehicle.hud.colorInactive) }
+  FS22_EnhancedVehicle_HUD.COLOR.ACTIVE   = { unpack(FS22_EnhancedVehicle.hud.colorActive) }
 
   local baseX = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX
   local baseY = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterY
@@ -531,6 +541,15 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
     local boxWidth, boxHeight = self.miscBox:getWidth(), self.miscBox:getHeight()
     local boxPosX = baseX - boxWidth / 2
     local boxPosY = baseY - height / 2 - boxHeight
+
+    -- global move
+    local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.misc.offsetX, FS22_EnhancedVehicle.hud.misc.offsetY })
+    boxPosX = boxPosX + offX
+    boxPosY = boxPosY + offY
+
+    if _move then
+      self.miscBox:setPosition(boxPosX, boxPosY)
+    end
 
     -- misc text
     local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.MISC)
@@ -787,9 +806,6 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
     else
       color = { unpack(FS22_EnhancedVehicle_HUD.COLOR.ACTIVE) }
     end
-    if not self.vehicle.vData.is[14] then
-      color[4] = 0.2
-    end
     self.icons.park:setColor(unpack(color))
   end
 
@@ -844,6 +860,11 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       -- FS19
       x = self.dmgText.posX
       y = self.dmgText.posY + _h
+
+      -- global move
+      local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.dmg.offsetX, FS22_EnhancedVehicle.hud.dmg.offsetY })
+      x = x + offX
+      y = y + offY
 
       self.dmgBox:setPosition(x - _w - self.dmgText.marginHeight, y - _h + self.dmgText.marginHeight)
       self.dmgBox:setDimension(_w + self.dmgText.marginHeight * 2, _h)
@@ -949,6 +970,11 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       setTextAlignment(RenderText.ALIGN_LEFT)
       x = self.fuelText.posX
       y = self.fuelText.posY + _h
+
+      -- global move
+      local offX, offY = self.speedMeterDisplay:scalePixelToScreenVector({ FS22_EnhancedVehicle.hud.fuel.offsetX, FS22_EnhancedVehicle.hud.fuel.offsetY })
+      x = x + offX
+      y = y + offY
 
       self.fuelBox:setPosition(x - self.fuelText.marginHeight, y - _h + self.fuelText.marginHeight)
       self.fuelBox:setDimension(_w + self.fuelText.marginHeight * 2, _h)

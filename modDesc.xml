@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.1.2.0</version>
+  <version>1.1.3.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -26,7 +26,6 @@
   <actions>
     <action name="FS22_EnhancedVehicle_MENU"            />
     <action name="FS22_EnhancedVehicle_PARK"            />
-    <action name="FS22_EnhancedVehicle_PARK_ONOFF"      />
     <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      />
     <action name="FS22_EnhancedVehicle_SNAP_REVERSE"    />
     <action name="FS22_EnhancedVehicle_SNAP_LINES"      />
@@ -59,9 +58,6 @@
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_PARK">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_KP_enter" axisComponent="+" inputComponent="+" index="1"/>
-    </actionBinding>
-    <actionBinding action="FS22_EnhancedVehicle_PARK_ONOFF">
-      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_enter" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_ONOFF">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_end" axisComponent="+" inputComponent="+" index="1"/>

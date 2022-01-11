@@ -37,7 +37,6 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: front hydraulic on/off"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: open config menu"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Apply/release parking brake"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Activate/Deactivate parking brake function"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="no track"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="no width"/>
@@ -122,6 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Track Assistant is not enabled."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Did not find a device with a working width."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Did not find a device with a working width. Press again to create a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
 
   </texts>
 </l10n>

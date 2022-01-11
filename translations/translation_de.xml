@@ -37,7 +37,6 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Hydraulik vorne an/aus"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Konfigurationsmenü öffnen"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Feststellbremse betätigen/lösen"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Funktion Feststellremse aktivieren/deaktivieren"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="keine Fahrspur"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="keine Breite"/>
@@ -122,6 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Der Fahrspurassistent ist nicht aktiviert."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Kein Gerät mit einer Arbeitsbreite gefunden."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Kein Gerät mit einer Arbeitsbreite gefunden. Drücke erneut 'Fahrspuren neu ausrichten' um Standard-Fahrspuren zu erstellen."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Bitte zunächst die Feststellbremse lösen."/>
 
   </texts>
 </l10n>

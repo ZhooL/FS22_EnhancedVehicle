@@ -37,7 +37,6 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Idraulica anteriore ON/OFF"/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Visualizzazione del menù di configurazione"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Freno di stazionamento ON/OFF"/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Attiva/Disattiva la disponibilità del freno di stazionamento"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="Nessuna corsia"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="Nessuna larghezza"/>
@@ -122,6 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="L'assistente di corsia non è attivato."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nessun dispositivo trovato con una larghezza di lavoro."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nessun dispositivo trovato con una larghezza di lavoro. Premi di nuovo 'Riallinea corsie' per creare corsie standard."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
 
   </texts>
 </l10n>

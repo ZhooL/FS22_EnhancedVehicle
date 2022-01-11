@@ -37,7 +37,6 @@
     <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parkovací brzda Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_PARK_ONOFF"      text="EV: Aktivace/deaktivace dostupnosti parkovací brzdy"/>
 
     <text name="hud_FS22_EnhancedVehicle_notrack"     text="žádná stopa"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="žádná šířka"/>
@@ -122,6 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nenalezeno zařízení s pracovní šířkou. Dalším stisknutím vytvoříte výchozí rozvržení řádku."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
 
   </texts>
 </l10n>
