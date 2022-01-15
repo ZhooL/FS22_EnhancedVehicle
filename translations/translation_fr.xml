@@ -1,127 +1,127 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-  <translationContributors>aurelien2023</translationContributors>
+  <translationContributors>aurelien2023, Noodlz</translationContributors>
 
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Blocage de la direction actuelle"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Retourner la direction (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Lignes d'aides on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: augmenter la direction de 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: diminuer la direction de 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: augmenter la direction de 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: diminuer la direction de 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: augmenter la direction de 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: diminuer la direction de 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Track display on/off"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Re)calculate track display"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Increase amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Decrease amount of turnover tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Move tracks to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Move tracks to the left"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Increase width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Decrease width of tracks"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Move offset line to the right"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Move offset line to the left"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Move vehicle one track to the right (no turn)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Move vehicle one track to the left (no turn)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Change headland mode"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Increase headland distance to end of field"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Decrease headland distance to end of field"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Blocage differentiel avant on/off"/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Blocage differentiel arriere on/off"/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Blocage tous differentiels on/off"/>
-    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Changement mode de conduite 4x4/2x4"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: outil arriere haut/bas"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: outil arriere on/off"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: outil avant haut/bas"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: outil avant on/off"/>
-    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: ouvrir le menu de configuration"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Apply/release parking brake"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Inverser la direction (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Afficher les lignes (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Augmenter la direction de 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Diminuer la direction de 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Augmenter la direction de 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Diminuer la direction de 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Augmenter la direction de 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Diminuer la direction de 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Afficher la grille (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Ré)initialiser la grille"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Incrémenter le saut de ligne"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Décrémenter le saut de ligne"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Déplacer le tracé vers la droite"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Déplacer le tracé vers la gauche"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Augmenter la largeur de travail"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Diminuer la largeur de travail"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Déplacer la ligne de décalage vers la droite"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Déplacer la ligne de décalage vers la gauche"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Déplacer le véhicule d'une ligne vers la droite (pas de virage/demi-tour)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Déplacer le véhicule d'une ligne vers la gauche (pas de virage/demi-tour)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Changer le mode de fourrière"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Augmenter la distance d'écart du bord de champ"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Diminuer la distance d'écart du bord de champ"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Blocage differentiel avant (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Blocage differentiel arrière (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Blocage de tous les differentiels (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Basculer entre les modes 4X4/2WD"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Outil arriere (haut/bas)"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Outil arriere (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Outil avant (haut/bas)"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Outil avant (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Ouvrir le menu de configuration"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: (Des)serrer le frein de parking"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"     text="no track"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="no width"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="no headland"/>
-    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Damage | Painting"/>
-    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Fuel"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="tracé : N/C"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="largeur : N/C"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="fourrière : N/C"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Usure | Peinture"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Carburant"/>
 
     <text name="ui_FS22_EnhancedVehicle_on"  text="On"/>
     <text name="ui_FS22_EnhancedVehicle_off" text="Off"/>
 
     <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Réglages"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="parametre du HUD"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="Paramètres du HUD"/>
     <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Réglages de l'assistant de conduite en ligne"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Headland Settings for"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Réglages des fourrières"/>
 
     <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Réinitialisation de la configuration du Mod"/>
     <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Réinitialisation du fichier de configuration"/>
-    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="ATTENTION: Réinitialisation des valeurs par défaut"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="Rechargement de la configuration du Mod (XML)"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Rechargement du fichier de configuration"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Rechargement du fichier de configuration depuis le disque. Necessaire après changement manuel du fichier XML."/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="ATTENTION : Réinitialisation des valeurs par défaut"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="(Re)chargement de la configuration du Mod (XML)"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="(Re)chargement du fichier de configuration"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="(Re)chargement du fichier de configuration depuis le disque dur. Necessaire après modification manuelle du fichier XML."/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="assistant de conduite en ligne"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Assistant de conduite en ligne on/off"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Assistant de conduite en ligne"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="(Dés)activer l'assistant de conduite en ligne"/>
     <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Blocage de differentiel"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Blocage de  differentiel on/off"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="(Dés)activer le blocage de  differentiel"/>
     <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Controle de relevage amélioré"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Controle de relevage amélioré on/off"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Turn on/off global parking brake functionality"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="(Dés)activer le controle de relevage amélioré"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Frein de parking"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="(Dés)activer la fonction frein de parking"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Blocage de differentiel"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Turn on/off Affichage du Blocage de differentiel sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD: Usure"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Turn on/off Affichage de l'usure sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Gazoil"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Turn on/off Affichage du Gazoil sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD: Assistant de conduite en ligne"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Turn on/off Affichage de l'Assistant de conduite en ligne sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: RPM"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Turn on/off Affichage des RPM sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Temperature moteur"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Turn on/off Affichage de la Temperature moteur sur le HUD"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Valeurs diverses (Masse)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Turn on/off Affichage des Valeurs diverses sur le HUD (ex Masse)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parking brake"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Turn on/off the HUD display for the parking brake"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD : Blocage de differentiel"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Afficher le blocage de differentiel sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD : Usure"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Afficher l'usure de l'équimement sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD : Carburant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Afficher les infos de carburant sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD : Assistant de conduite en ligne"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="Afficher l'assistant de conduite en ligne sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD : RPM"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Afficher les tours par minute (RPM) du moteur sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD : Température moteur"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Afficher la température moteur sur le HUD (on/off)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD : Autres infos"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Afficher les infos diverses sur le HUD (ex : masses)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD : Frein de parking"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Afficher le frein de parking sur le HUD"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Santée"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Affichage de l'état en '% santée' plutot que '% usure'"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% santée"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD : Santé/Usure"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Affichage de l'état en '% santé' plutot que '% usure'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% santé"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% usure"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Position of damage and fuel display"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic above speedmeter; FS22: top-right below gameinfo panel"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD : Position des infos d'usure et carburant"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19 : classique (au dessus du compteur) ; FS22 : en haut à droite sous les infos de jeu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="Classique (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="En haut à droite (FS22)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Blocage Angle"/>
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Pas de réglagle du Blocage de direction (1°-90°)"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Angle de blocage"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Pas de réglagle du blocage de direction (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Number of visible tracks"/>
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="How many tracks are shown in total (left + right of vehicle)"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Nombre de lignes visibles"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Nombre de lignes visibles à gauche et à droite du véhicule"/>
 
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Hide lines automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifies whether to automatically hide auxiliary and track lines"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Time until lines are hidden"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="After how many seconds the auxiliary and track lines will be automatically hidden"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Cacher les lignes automatiquement"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Spécifier de quelle façon cacher les lignes principales et secondaires"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Délai avant le masquage des lignes"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="Après combien de secondes les lignes principales et secondaires seront cachées"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Headland mode"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="What should happen if headland is reached"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nothing"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Turn around automatically"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Disable cruise control"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Mode de fourrière"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Action à effectuer dans les fourrières"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Aucune"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Demi-tour automatique"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Désactiver le réglateur de vitesse"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Headland distance"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Turn around how many meters before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Working width"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="before end of field"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="behind end of field"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Distance de fourrière"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Distance de demi-tour avant la fin du champ"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Largeur de travail"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="Avant le bord du champ"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="Après le bord du champ"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Track Assistant is not enabled."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Did not find a device with a working width."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Did not find a device with a working width. Press again to create a default track layout."/>
-    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="L'assistant de ligne n'est pas activé."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Aucun équipement avec largeur de travail détecté."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Aucun équipement avec largeur de travail détecté. Appuyez à nouveau pour créer un tracé par défaut."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Desserrez d'abord le frein de parking."/>
 
   </texts>
 </l10n>

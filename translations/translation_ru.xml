@@ -121,7 +121,7 @@
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Помощник направления не включен."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Не нашел устройства с шириной захвата."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Не нашел устройства с шириной захвата."/>
-    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Please release parking brake first."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Сначала отпустите ручной тормоз."/>
 
   </texts>
 </l10n>

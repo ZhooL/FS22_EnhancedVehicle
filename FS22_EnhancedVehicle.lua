@@ -3,11 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 11.01.2022
--- @Version: 1.1.3.0
+-- @Date: 15.01.2022
+-- @Version: 1.1.3.1
 
 --[[
 CHANGELOG
+
+2022-01-135- V1.1.3.1
+* translation updates
+* updated differential lock sound
 
 2022-01-11 - V1.1.3.0
 + added warning message if parking brake is applied when trying to move vehicle
@@ -246,7 +250,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
   if g_dedicatedServerInfo == nil then
     local file, id
     FS22_EnhancedVehicle.sounds = {}
-    for _, id in ipairs({"diff_lock", "brake", "brakeOn", "brakeOff", "snap_on", "snap_off"}) do
+    for _, id in ipairs({"diff_lock", "brakeOn", "brakeOff", "snap_on", "snap_off"}) do
       FS22_EnhancedVehicle.sounds[id] = createSample(id)
       file = self.modDirectory.."resources/"..id..".ogg"
       loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
