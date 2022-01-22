@@ -3,7 +3,7 @@
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.1.3.1</version>
+  <version>1.2.0.0</version>
 
   <title>
     <de>EnhancedVehicle</de>
@@ -28,8 +28,8 @@
     <action name="FS22_EnhancedVehicle_PARK"            />
     <action name="FS22_EnhancedVehicle_SNAP_ONOFF"      />
     <action name="FS22_EnhancedVehicle_SNAP_REVERSE"    />
-    <action name="FS22_EnhancedVehicle_SNAP_LINES"      />
-    <action name="FS22_EnhancedVehicle_SNAP_GRID_ONOFF" />
+    <action name="FS22_EnhancedVehicle_SNAP_OPMODE"     />
+    <action name="FS22_EnhancedVehicle_SNAP_CALC_WW"    />
     <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" />
     <action name="FS22_EnhancedVehicle_SNAP_TRACK"      axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_TRACKP"     axisType="FULL"/>
@@ -65,10 +65,10 @@
     <actionBinding action="FS22_EnhancedVehicle_SNAP_REVERSE">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_home" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
-    <actionBinding action="FS22_EnhancedVehicle_SNAP_LINES">
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_OPMODE">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_home" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
-    <actionBinding action="FS22_EnhancedVehicle_SNAP_GRID_ONOFF">
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_CALC_WW">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_1" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_GRID_RESET">

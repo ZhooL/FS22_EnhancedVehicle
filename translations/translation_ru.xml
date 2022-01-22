@@ -5,14 +5,14 @@
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Привязать текущее направление"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Обратное направление привязки (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Вспомогательные линии вкл/выкл"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Увеличить направление привязки на 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Уменьшить направление привязки на 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Увеличить направление привязки на 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Уменьшить направление привязки на 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Увеличить направление привязки на 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Уменьшить направление привязки на 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Вкл/выкл сетку"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Сбросить сетку"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Увеличить количество поворотных полос"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Уменьшить количество поворотных полос"/>
@@ -119,8 +119,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="за краем поля"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Помощник направления не включен."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Не нашел устройства с шириной захвата."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Не нашел устройства с шириной захвата."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Did not find a device with a working width. Using a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Сначала отпустите ручной тормоз."/>
 
   </texts>

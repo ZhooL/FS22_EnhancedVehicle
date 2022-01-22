@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 11.01.2022
--- @Version: 1.1.3.0
+-- @Date: 22.01.2022
+-- @Version: 1.2.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -122,6 +122,7 @@ function FS22_EnhancedVehicle_HUD:new(speedMeterDisplay, gameInfoDisplay, modDir
 
   FS22_EnhancedVehicle_HUD.COLOR.INACTIVE = { unpack(FS22_EnhancedVehicle.hud.colorInactive) }
   FS22_EnhancedVehicle_HUD.COLOR.ACTIVE   = { unpack(FS22_EnhancedVehicle.hud.colorActive) }
+  FS22_EnhancedVehicle_HUD.COLOR.STANDBY  = { unpack(FS22_EnhancedVehicle.hud.colorStandby) }
 
   -- hook into some original HUD functions
 --  SpeedMeterDisplay.storeScaledValues = Utils.appendedFunction(SpeedMeterDisplay.storeScaledValues, FS22_EnhancedVehicle_HUD.speedMeterDisplay_storeScaledValues)
@@ -427,6 +428,7 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
   FS22_EnhancedVehicle_HUD.TEXT_SIZE.FUEL = FS22_EnhancedVehicle.hud.fuel.fontSize
   FS22_EnhancedVehicle_HUD.COLOR.INACTIVE = { unpack(FS22_EnhancedVehicle.hud.colorInactive) }
   FS22_EnhancedVehicle_HUD.COLOR.ACTIVE   = { unpack(FS22_EnhancedVehicle.hud.colorActive) }
+  FS22_EnhancedVehicle_HUD.COLOR.STANDBY  = { unpack(FS22_EnhancedVehicle.hud.colorStandby) }
 
   local baseX = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterX
   local baseY = g_currentMission.inGameMenu.hud.speedMeter.gaugeCenterY
@@ -645,18 +647,22 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
   -- draw our track HUD
   if self.trackBox:getVisible() then
     -- snap icon
-    if self.iconIsActive.snap ~= self.vehicle.vData.is[5] then
-      self.iconIsActive.snap = self.vehicle.vData.is[5]
-      local color = self.iconIsActive.snap and FS22_EnhancedVehicle_HUD.COLOR.ACTIVE or FS22_EnhancedVehicle_HUD.COLOR.INACTIVE
-      self.icons.snap:setColor(unpack(color))
+    local color = FS22_EnhancedVehicle_HUD.COLOR.INACTIVE
+    if self.vehicle.vData.is[5] then
+      color = FS22_EnhancedVehicle_HUD.COLOR.ACTIVE
+    elseif self.vehicle.vData.opMode == 1 then
+      color = FS22_EnhancedVehicle_HUD.COLOR.STANDBY
     end
+    self.icons.snap:setColor(unpack(color))
 
     -- track icon
-    if self.iconIsActive.track ~= self.vehicle.vData.is[6] then
-      self.iconIsActive.track = self.vehicle.vData.is[6]
-      local color = self.iconIsActive.track and FS22_EnhancedVehicle_HUD.COLOR.ACTIVE or FS22_EnhancedVehicle_HUD.COLOR.INACTIVE
-      self.icons.track:setColor(unpack(color))
+    local color = FS22_EnhancedVehicle_HUD.COLOR.INACTIVE
+    if self.vehicle.vData.is[6] then
+      color = FS22_EnhancedVehicle_HUD.COLOR.ACTIVE
+    elseif self.vehicle.vData.opMode == 2 then
+      color = FS22_EnhancedVehicle_HUD.COLOR.STANDBY
     end
+    self.icons.track:setColor(unpack(color))
 
     -- without usable track data -> hide icons
     if not self.vehicle.vData.track.isCalculated then
@@ -739,10 +745,9 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       local _tmp = self.vehicle.vData.track.headlandDistance
       if _tmp == 9999 then _tmp = Round(self.vehicle.vData.track.workWidth, 1) end
       headland_txt = string.format("%.1fm", math.abs(_tmp))
-    elseif self.vehicle.vData.impl ~= nil then
-      if self.vehicle.vData.impl.workWidth > 0 then
-        workwidth_txt = string.format("|← %.1fm →|", Round(self.vehicle.vData.impl.workWidth, 1))
-      end
+    end
+    if self.vehicle.vData.opMode == 1 and self.vehicle.vData.impl.isCalculated and self.vehicle.vData.impl.workWidth > 0 then
+      workwidth_txt = string.format("|← %.1fm →|", Round(self.vehicle.vData.impl.workWidth, 1))
     end
 
     -- render text

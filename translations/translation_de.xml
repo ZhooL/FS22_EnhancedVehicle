@@ -3,16 +3,16 @@
   <translationContributors>Majo76</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: aktuelle Fahrt-/Spurrichtung fixieren"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Fahrt-/Spurrichtung umkehren (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Hilfslinien an/aus"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Fahrt-/Spurrichtung erhöhen um 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Fahrt-/Spurrichtung verringern um 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Fahrt-/Spurrichtung erhöhen um 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Fahrt-/Spurrichtung verringern um 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Fahrt-/Spurrichtung erhöhen um 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Fahrt-/Spurrichtung verringern um 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Fahrspuranzeige an/aus"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Fahrtrichtung/Fahrspur halten"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Fahrtrichtung/Fahrspur umkehren (180° Wende)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Betriebsmodus umschalten (Fahrtrichtung/Fahrspur halten)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Fahrtrichtung/Fahrspur erhöhen um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Fahrtrichtung/Fahrspur verringern um 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Fahrtrichtung/Fahrspur erhöhen um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Fahrtrichtung/Fahrspur verringern um 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Fahrtrichtung/Fahrspur erhöhen um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Fahrtrichtung/Fahrspur verringern um 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: Arbeitsbreite neu berechnen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Fahrspuren (neu) berechnen/ausrichten"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Anzahl Wende-Fahrspuren erhöhen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Anzahl Wende-Fahrspuren verringern"/>
@@ -119,8 +119,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="hinter dem Feldende"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Der Fahrspurassistent ist nicht aktiviert."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Kein Gerät mit einer Arbeitsbreite gefunden."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Kein Gerät mit einer Arbeitsbreite gefunden. Drücke erneut 'Fahrspuren neu ausrichten' um Standard-Fahrspuren zu erstellen."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Kein Gerät mit einer Arbeitsbreite gefunden. Verwende Standard-Fahrspuren."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="Die Arbeitsbreite wurde neu berechnet."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Bitte zunächst die Feststellbremse lösen."/>
 
   </texts>

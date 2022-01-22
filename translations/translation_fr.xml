@@ -5,14 +5,14 @@
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Blocage de la direction actuelle"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Inverser la direction (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Afficher les lignes (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Augmenter la direction de 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Diminuer la direction de 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Augmenter la direction de 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Diminuer la direction de 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Augmenter la direction de 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Diminuer la direction de 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Afficher la grille (on/off)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Ré)initialiser la grille"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Incrémenter le saut de ligne"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Décrémenter le saut de ligne"/>
@@ -119,8 +119,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="Après le bord du champ"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="L'assistant de ligne n'est pas activé."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Aucun équipement avec largeur de travail détecté."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Aucun équipement avec largeur de travail détecté. Appuyez à nouveau pour créer un tracé par défaut."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Aucun équipement avec largeur de travail détecté. Using a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Desserrez d'abord le frein de parking."/>
 
   </texts>

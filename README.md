@@ -19,12 +19,14 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | Key | Action |
 | --  | --     |
 | <kbd>Ctrl</kbd>+<kbd>Num /</kbd> | opens the config dialog to adjust various settings |
+| <kbd>Num Enter</kbd> | apply/release parking brake |
 | <kbd>R Ctrl</kbd>+<kbd>End</kbd> | snap to current driving direction or current track |
-| <kbd>R Ctrl</kbd>+<kbd>Home</kbd> | reverse snap/track direction (180°) (= turnover) |
-| <kbd>R Shift</kbd>+<kbd>Home</kbd> | turn on/off visualization of guide lines and/or (re)calculate working width |
-| <kbd>R Ctrl</kbd>+<kbd>Num 1</kbd> | turn on/off visualization of track layout |
-| <kbd>R Ctrl</kbd>+<kbd>Num 2</kbd> | re-calculate track layout (e.g. direction changed or work width changed) |
+| <kbd>R Ctrl</kbd>+<kbd>Home</kbd> | reverse snap/track direction (180°) (= turn around) |
+| <kbd>R Shift</kbd>+<kbd>Home</kbd> | change operational mode (snap to direction or snap to track) |
+| <kbd>R Ctrl</kbd>+<kbd>Num 1</kbd> | re-calculate working width (e.g. spraying width changed) |
+| <kbd>R Ctrl</kbd>+<kbd>Num 2</kbd> | re-calculate track layout (e.g. direction changed or working width changed) |
 | <kbd>R Ctrl</kbd>+<kbd>Num *</kbd> | cycle through the different headland modes |
+| <kbd>R Shift</kbd>+<kbd>Num /</kbd><kbd>Num *</kbd> | cycle through headland distances |
 | <kbd>R Ctrl</kbd>+<kbd>Num 4</kbd> | decrease the number of turnover tracks |
 | <kbd>R Ctrl</kbd>+<kbd>Num 6</kbd> | increase the number of turnover tracks |
 | <kbd>R Shift</kbd>+<kbd>Num 4</kbd> | move track layout to the left |
@@ -41,7 +43,6 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 90° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageUp</kbd> | increase snap/track direction by 45° |
 | <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>PageDown</kbd> | decrease snap/track direction by 45° |
-| <kbd>Num Enter</kbd> | apply/release parking brake |
 | <kbd>R Ctrl</kbd>+<kbd>Num 7</kbd> | enable/disable front axle differential lock |
 | <kbd>R Ctrl</kbd>+<kbd>Num 8</kbd> | enable/disable back axle differential lock |
 | <kbd>R Ctrl</kbd>+<kbd>Num 9</kbd> | switch wheel drive mode between 4WD (four wheel drive) or 2WD (two wheel drive) |
@@ -53,15 +54,17 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 ## What this mod does
 * When the game starts, it changes all "motorized" and "controllable" vehicles on the map to default settings: wheel drive mode to "all-wheel (4WD)" and deactivation of both differentials.
 * Press <kbd>Ctrl</kbd>+<kbd>Numpad /</kbd> to open the config dialog.
-* Press <kbd>R Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction.
-  * Press <kbd>R Ctrl</kbd>+<kbd>Home</kbd> to reverse snap direction (useful after turn around at end of field)
-* Press <kbd>R Ctrl</kbd>+<kbd>Numpad 2</kbd> to enable the track assistant
-  * If you now enable snap mode the vehicle will drive on the current marked track
-  * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 4/6</kbd> to adjust the turnover track number (from -5 to 5)
-  * Configure headland behavior in configuration menu
+* Press <kbd>R Shift</kbd>+<kbd>Home</kbd> to enable the snap to direction or snap to track assistant.
+* Press <kbd>R Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction or on the current track.
+  * Press <kbd>R Ctrl</kbd>+<kbd>Home</kbd> to reverse snap/track direction (e.g. to turn around at end of field).
+* Press <kbd>R Ctrl</kbd>+<kbd>Numpad 2</kbd> to calculate a track layout based on current vehicle direction and implement working width.
+  * If you now enable snap mode the vehicle will drive on the current marked track.
+  * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 4/6</kbd> to adjust the turnover track number (from -5 to 5).
+  * Configure headland behavior in configuration menu or via keys.
+* Press <kbd>R Ctrl</kbd>+<kbd>Numpad 1</kbd> to (re-)calculate the working width. This will not change the current track layout.
 * Press <kbd>Numpad Enter</kbd> to put your vehicle in parking mode. It won't move an inch in this mode.
 * On HUD it displays:
-  * (When snap/track is enabled) The current snap to angle and current track and turnover number(
+  * (When snap/track is enabled) The current snap to angle and current track and turnover number.
   * Damage values in % for controlled vehicle and all its attachments.
   * Fuel fill level for Diesel/AdBlue/Electric/Methane and the current fuel usage rate<sup>1</sup>.
   * The current status of the differential locks and wheel drive mode.

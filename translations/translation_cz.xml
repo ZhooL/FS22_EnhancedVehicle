@@ -5,14 +5,14 @@
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Řádky Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Přidat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Ubrat 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Přidat 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Ubrat 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Přidat 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Ubrat 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Mřížka Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Zvýšit počet obřádků pro otočku"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Snížit počet obřádků pro otočku"/>
@@ -119,8 +119,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="za koncem pole"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nenalezeno zařízení s pracovní šířkou. Dalším stisknutím vytvoříte výchozí rozvržení řádku."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou. Using a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Nejdříve prosím uvolněte parkovací brzdu."/>
 
   </texts>

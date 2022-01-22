@@ -5,14 +5,14 @@
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Fissa la direzione di marcia/corsia corrente"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Inverti direzione marcia/corsia (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES"      text="EV: Attivazione/disattivazione delle linee di assistenza"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Incrementa la direzione marcia/corsia di 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Decrementa la direzione marcia/corsia di 1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Incrementa la direzione marcia/corsia di 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Decrementa la direzione marcia/corsia di 45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Incrementa la direzione marcia/corsia di 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Decrementa la direzione di marcia/corsia di 90 °"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_ONOFF" text="EV: Traccia inserita/disinserita"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Riallineare le corsie"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Aumenta il numero di corsie di svolta"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Riduci il numero di corsie di svolta"/>
@@ -119,8 +119,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="Dopo la fine del campo"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="L'assistente di corsia non è attivato."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nessun dispositivo trovato con una larghezza di lavoro."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement2" text="Nessun dispositivo trovato con una larghezza di lavoro. Premi di nuovo 'Riallinea corsie' per creare corsie standard."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nessun dispositivo trovato con una larghezza di lavoro. Using a default track layout."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Devi prima rilasciare il freno di stazionamento."/>
 
   </texts>
