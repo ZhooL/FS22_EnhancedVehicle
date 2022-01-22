@@ -10,12 +10,13 @@
 CHANGELOG
 
 2022-01-22 - V1.2.0.0
++ added config XML option to specify sfx volume
 * ATTENTION: Way of "how it works" changed:
     - Press RShift+Home to switch throught operating modes: "snap to direction" or "snap to track"
     - Hold RShift+Home to disable track assistant
     - Press RStrg+Numpad1 to (re)calculate working width
 * Leaving a vehicle will no longer disable snap direction/track
-+ added config XML option to specify sfx volume
+* remapped move offset line from RAlt+Numpad -/+ to RShift+RCtrl+Numpad -/+
 
 2022-01-15 - V1.1.3.1
 * translation updates
@@ -1351,10 +1352,10 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
     -- attach our actions
     for _ ,actionName in pairs(actionList) do
       if actionName == "FS22_EnhancedVehicle_SNAP_TRACKP" or actionName == "FS22_EnhancedVehicle_SNAP_TRACKW" or actionName == "FS22_EnhancedVehicle_SNAP_TRACKO" or actionName == "FS22_EnhancedVehicle_SNAP_OPMODE" then
-        _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, true, true)
-        _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCallUp, true, false, false, true)
+        _, eventName = g_inputBinding:registerActionEvent(actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, true, true)
+        _, eventName = g_inputBinding:registerActionEvent(actionName, self, FS22_EnhancedVehicle.onActionCallUp, true, false, false, true)
       else
-        _, eventName = InputBinding.registerActionEvent(g_inputBinding, actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, false, true)
+        _, eventName = g_inputBinding:registerActionEvent(actionName, self, FS22_EnhancedVehicle.onActionCall, false, true, false, true)
       end
       -- help menu priorization
       if g_inputBinding ~= nil and g_inputBinding.events ~= nil and g_inputBinding.events[eventName] ~= nil then
@@ -1363,10 +1364,12 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
            actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" or
            actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" or
            actionName == "FS22_EnhancedVehicle_SNAP_OPMODE" then
-          g_inputBinding.events[eventName].displayPriority = GS_PRIO_VERY_LOW
+          g_inputBinding:setActionEventTextVisibility(eventName, true)
+          g_inputBinding:setActionEventTextPriority(eventName, GS_PRIO_VERY_LOW)
         else
-          g_inputBinding.events[eventName].displayIsVisible = false
-          g_inputBinding.events[eventName].displayPriority = GS_PRIO_VERY_LOW
+        print(eventName)
+          g_inputBinding:setActionEventTextVisibility(eventName, false)
+          g_inputBinding:setActionEventTextPriority(eventName, GS_PRIO_VERY_LOW)
         end
       end
     end

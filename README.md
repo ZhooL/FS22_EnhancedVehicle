@@ -31,8 +31,8 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Ctrl</kbd>+<kbd>Num 6</kbd> | increase the number of turnover tracks |
 | <kbd>R Shift</kbd>+<kbd>Num 4</kbd> | move track layout to the left |
 | <kbd>R Shift</kbd>+<kbd>Num 6</kbd> | move track layout to the right |
-| <kbd>R Ctrl</kbd>+<kbd>Num -</kbd> | move track offset line to the left |
-| <kbd>R Ctrl</kbd>+<kbd>Num +</kbd> | move track offset line to the right |
+| <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Num -</kbd> | move track offset line to the left |
+| <kbd>R Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Num +</kbd> | move track offset line to the right |
 | <kbd>R Alt</kbd>+<kbd>Num -</kbd> | decrease track width |
 | <kbd>R Alt</kbd>+<kbd>Num +</kbd> | increase track width |
 | <kbd>R Ctrl</kbd>+<kbd>Insert</kbd> | move vehicle one track to the right without turning around |

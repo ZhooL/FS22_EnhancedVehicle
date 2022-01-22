@@ -87,8 +87,8 @@
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_KP_plus"  axisComponent="+"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_TRACKO">
-      <binding device="KB_MOUSE_DEFAULT" input="KEY_ralt KEY_KP_minus" axisComponent="-"/>
-      <binding device="KB_MOUSE_DEFAULT" input="KEY_ralt KEY_KP_plus"  axisComponent="+"/>
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_rctrl KEY_KP_minus" axisComponent="-"/>
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rshift KEY_rctrl KEY_KP_plus"  axisComponent="+"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_TRACKJ">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_delete" axisComponent="-"/>
