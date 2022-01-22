@@ -15,6 +15,7 @@ CHANGELOG
     - Hold RShift+Home to disable track assistant
     - Press RStrg+Numpad1 to (re)calculate working width
 * Leaving a vehicle will no longer disable snap direction/track
++ added config XML option to specify sfx volume
 
 2022-01-15 - V1.1.3.1
 * translation updates
@@ -453,6 +454,11 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.hud.colorActive   = { lC:getConfigValue("hud.colorActive",   "red"), lC:getConfigValue("hud.colorActive",   "green"), lC:getConfigValue("hud.colorActive",   "blue"), 1 }
   FS22_EnhancedVehicle.hud.colorInactive = { lC:getConfigValue("hud.colorInactive", "red"), lC:getConfigValue("hud.colorInactive", "green"), lC:getConfigValue("hud.colorInactive", "blue"), 1 }
   FS22_EnhancedVehicle.hud.colorStandby  = { lC:getConfigValue("hud.colorStandby",  "red"), lC:getConfigValue("hud.colorStandby",  "green"), lC:getConfigValue("hud.colorStandby",  "blue"), 1 }
+
+  FS22_EnhancedVehicle.sfx_volume = {}
+  FS22_EnhancedVehicle.sfx_volume.track = lC:getConfigValue("sfx.track", "volume")
+  FS22_EnhancedVehicle.sfx_volume.brake = lC:getConfigValue("sfx.brake", "volume")
+  FS22_EnhancedVehicle.sfx_volume.diff  = lC:getConfigValue("sfx.diff",  "volume")
 end
 
 -- #############################################################################
@@ -552,6 +558,11 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.colorStandby",  "red",   "float", 255/255)
   lC:addConfigValue("hud.colorStandby",  "green", "float", 174/255)
   lC:addConfigValue("hud.colorStandby",  "blue",  "float",   0/255)
+
+  -- sound volumes
+  lC:addConfigValue("sfx.track", "volume", "float", 0.10)
+  lC:addConfigValue("sfx.brake", "volume", "float", 0.10)
+  lC:addConfigValue("sfx.diff",  "volume", "float", 0.50)
 end
 
 -- #############################################################################
@@ -1393,7 +1404,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   if actionName == "AXIS_MOVE_SIDE_VEHICLE" and math.abs( keyStatus ) > 0.05 then
     if self.vData.is[5] then
       if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+        playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, Between(FS22_EnhancedVehicle.sfx_volume.track, 0, 10), 0, 0, 0)
       end
 
       self.vData.want[5] = false
@@ -1419,7 +1430,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   elseif FS22_EnhancedVehicle.functionDiffIsEnabled and actionName == "FS22_EnhancedVehicle_FD" then
     -- front diff
     if FS22_EnhancedVehicle.sounds["diff_lock"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, 0.5, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, Between(FS22_EnhancedVehicle.sfx_volume.diff, 0, 10), 0, 0, 0)
     end
     self.vData.want[1] = not self.vData.want[1]
     if self.isClient and not self.isServer then
@@ -1429,7 +1440,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   elseif FS22_EnhancedVehicle.functionDiffIsEnabled and actionName == "FS22_EnhancedVehicle_RD" then
     -- back diff
     if FS22_EnhancedVehicle.sounds["diff_lock"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, 0.5, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, Between(FS22_EnhancedVehicle.sfx_volume.diff, 0, 10), 0, 0, 0)
     end
     self.vData.want[2] = not self.vData.want[2]
     if self.isClient and not self.isServer then
@@ -1439,7 +1450,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   elseif FS22_EnhancedVehicle.functionDiffIsEnabled and actionName == "FS22_EnhancedVehicle_BD" then
     -- both diffs
     if FS22_EnhancedVehicle.sounds["diff_lock"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, 0.5, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, Between(FS22_EnhancedVehicle.sfx_volume.diff, 0, 10), 0, 0, 0)
     end
     self.vData.want[1] = not self.vData.want[2]
     self.vData.want[2] = not self.vData.want[2]
@@ -1451,7 +1462,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   elseif FS22_EnhancedVehicle.functionDiffIsEnabled and actionName == "FS22_EnhancedVehicle_DM" then
     -- wheel drive mode
     if FS22_EnhancedVehicle.sounds["diff_lock"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, 0.5, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["diff_lock"], 1, Between(FS22_EnhancedVehicle.sfx_volume.diff, 0, 10), 0, 0, 0)
     end
     self.vData.want[3] = self.vData.want[3] + 1
     if self.vData.want[3] > 1 then
@@ -1582,10 +1593,10 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
   elseif FS22_EnhancedVehicle.functionParkingBrakeIsEnabled and actionName == "FS22_EnhancedVehicle_PARK" then
     -- parking brake on/off
     if self.vData.is[13] and FS22_EnhancedVehicle.sounds["brakeOff"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["brakeOff"], 1, 0.1, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["brakeOff"], 1, Between(FS22_EnhancedVehicle.sfx_volume.brake, 0, 10), 0, 0, 0)
     end
     if not self.vData.is[13] and FS22_EnhancedVehicle.sounds["brakeOn"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-      playSample(FS22_EnhancedVehicle.sounds["brakeOn"], 1, 0.1, 0, 0, 0)
+      playSample(FS22_EnhancedVehicle.sounds["brakeOn"], 1, Between(FS22_EnhancedVehicle.sfx_volume.brake, 0, 10), 0, 0, 0)
     end
     self.vData.want[13] = not self.vData.want[13]
     if self.isClient and not self.isServer then
@@ -1601,7 +1612,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     if actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
       if not self.vData.is[5] then
         if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-          playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+          playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, Between(FS22_EnhancedVehicle.sfx_volume.track, 0, 10), 0, 0, 0)
         end
         self.vData.want[5] = true
 
@@ -1654,7 +1665,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         end
       else
         if FS22_EnhancedVehicle.sounds["snap_off"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, 0.1, 0, 0, 0)
+          playSample(FS22_EnhancedVehicle.sounds["snap_off"], 1, Between(FS22_EnhancedVehicle.sfx_volume.track, 0, 10), 0, 0, 0)
         end
         self.vData.want[5] = false
         self.vData.want[6] = false
@@ -1663,7 +1674,7 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     elseif actionName == "FS22_EnhancedVehicle_SNAP_REVERSE" then
       -- reverse snap
       if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
-        playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, 0.1, 0, 0, 0)
+        playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, Between(FS22_EnhancedVehicle.sfx_volume.track, 0, 10), 0, 0, 0)
       end
 
       -- turn on op mode if required
