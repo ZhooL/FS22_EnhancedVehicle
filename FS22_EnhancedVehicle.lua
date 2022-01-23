@@ -3,13 +3,13 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 22.01.2022
+-- @Date: 23.01.2022
 -- @Version: 1.2.0.0
 
 --[[
 CHANGELOG
 
-2022-01-22 - V1.2.0.0
+2022-01-23 - V1.2.0.0
 + added config XML option to specify sfx volume
 * ATTENTION: Way of "how it works" changed:
     - Press RShift+Home to switch throught operating modes: "snap to direction" or "snap to track"
@@ -1309,6 +1309,7 @@ function FS22_EnhancedVehicle:onPostAttachImplement(implementIndex)
   -- restore old state
   if self.vData.opModeOld ~= nil then --and self.vData.opMode ~= 2track.isVisible then
     self.vData.opMode = self.vData.opModeOld
+    self.vData.opModeOld = nil
   end
 end
 
@@ -1367,7 +1368,6 @@ function FS22_EnhancedVehicle:onRegisterActionEvents(isSelected, isOnActiveVehic
           g_inputBinding:setActionEventTextVisibility(eventName, true)
           g_inputBinding:setActionEventTextPriority(eventName, GS_PRIO_VERY_LOW)
         else
-        print(eventName)
           g_inputBinding:setActionEventTextVisibility(eventName, false)
           g_inputBinding:setActionEventTextPriority(eventName, GS_PRIO_VERY_LOW)
         end
@@ -1386,6 +1386,41 @@ end
 
 function FS22_EnhancedVehicle:onActionCallUp(actionName, keyStatus, arg4, arg5, arg6)
   if debug > 1 then print("-> " .. myName .. ": onActionCallUp " .. actionName .. ", keyStatus: " .. keyStatus .. mySelf(self)) end
+
+  -- switch operational mode (off -> snap direction -> snap track)
+  if actionName == "FS22_EnhancedVehicle_SNAP_OPMODE" then
+    if g_currentMission.time < FS22_EnhancedVehicle.nextActionTime + 1000 then
+
+      if self.vData.opModeOld ~= nil then
+        self.vData.opMode = self.vData.opModeOld
+        self.vData.opModeOld = nil
+      else
+        self.vData.opMode = self.vData.opMode + 1
+      end
+      if self.vData.opMode > 2 then
+        self.vData.opMode = 1
+      end
+
+      if self.vData.opMode == 1 then
+        -- calculate work width
+        if not self.vData.impl.isCalculated then
+          FS22_EnhancedVehicle:enumerateImplements(self)
+        end
+      end
+
+      if self.vData.opMode == 2 then
+        -- recalculate track
+        if not self.vData.track.isCalculated then
+          FS22_EnhancedVehicle:calculateTrack(self)
+        end
+      end
+
+      -- auto-hide lines
+      if FS22_EnhancedVehicle.track.hideLines then
+        FS22_EnhancedVehicle.track.hideLinesAfterValue = g_currentMission.time + 1000 * FS22_EnhancedVehicle.track.hideLinesAfter
+      end
+    end
+  end
 
   -- reset key press delay
   FS22_EnhancedVehicle.nextActionTime  = 0
@@ -1560,39 +1595,6 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         if debug > 1 then print("--> front on/off: "..object.rootNode.."/"..tostring(_onoff)) end
       end
     end
-  elseif actionName == "FS22_EnhancedVehicle_SNAP_OPMODE" then
-    -- switch operational mode (off -> snap direction -> snap track)
-    if FS22_EnhancedVehicle.nextActionTime == 0 then
-      FS22_EnhancedVehicle.nextActionTime = g_currentMission.time
-
-      self.vData.opMode = self.vData.opMode + 1
-      if self.vData.opMode > 2 then
-        self.vData.opMode = 1
-      end
-
-      if self.vData.opMode == 1 then
-        -- calculate work width
-        if not self.vData.impl.isCalculated then
-          FS22_EnhancedVehicle:enumerateImplements(self)
-        end
-      end
-
-      if self.vData.opMode == 2 then
-        -- recalculate track
-        if not self.vData.track.isCalculated then
-          FS22_EnhancedVehicle:calculateTrack(self)
-          _snap = true
-        end
-      end
-
-      -- auto-hide lines
-      if FS22_EnhancedVehicle.track.hideLines then
-        FS22_EnhancedVehicle.track.hideLinesAfterValue = g_currentMission.time + 1000 * FS22_EnhancedVehicle.track.hideLinesAfter
-      end
-    end
-    if g_currentMission.time > FS22_EnhancedVehicle.nextActionTime + 1000 then
-      self.vData.opMode = 0
-    end
   elseif FS22_EnhancedVehicle.functionParkingBrakeIsEnabled and actionName == "FS22_EnhancedVehicle_PARK" then
     -- parking brake on/off
     if self.vData.is[13] and FS22_EnhancedVehicle.sounds["brakeOff"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
@@ -1608,11 +1610,21 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     FS22_EnhancedVehicle_Event.sendEvent(self, unpack(self.vData.want))
   end
 
-  -- snap/track assisstant
+  -- snap direction/track assisstant -->
   if FS22_EnhancedVehicle.functionSnapIsEnabled then
-
-    -- steering angle snap on/off
-    if actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
+    -- switch operational mode (off -> snap direction -> snap track)
+    if actionName == "FS22_EnhancedVehicle_SNAP_OPMODE" then
+      if FS22_EnhancedVehicle.nextActionTime == 0 then
+        FS22_EnhancedVehicle.nextActionTime = g_currentMission.time
+      end
+      if g_currentMission.time > FS22_EnhancedVehicle.nextActionTime + 1000 then
+        if self.vData.opModeOld == nil then
+          self.vData.opModeOld = self.vData.opMode
+        end
+        self.vData.opMode = 0
+      end
+    elseif actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
+      -- steering angle snap on/off
       if not self.vData.is[5] then
         if FS22_EnhancedVehicle.sounds["snap_on"] ~= nil and FS22_EnhancedVehicle.soundIsOn and g_dedicatedServerInfo == nil then
           playSample(FS22_EnhancedVehicle.sounds["snap_on"], 1, Between(FS22_EnhancedVehicle.sfx_volume.track, 0, 10), 0, 0, 0)
