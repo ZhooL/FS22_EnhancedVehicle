@@ -3,13 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 23.01.2022
+-- @Date: 24.01.2022
 -- @Version: 1.2.0.0
 
 --[[
 CHANGELOG
 
-2022-01-23 - V1.2.0.0
+2022-01-24 - V1.2.0.0
++ added a display for the remaining distance to the headland trigger
 + added config XML option to specify sfx volume
 * ATTENTION: Way of "how it works" changed:
     - Press RShift+Home to switch throught operating modes: "snap to direction" or "snap to track"
@@ -607,7 +608,7 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
   self.vData.opMode = 0
   self.vData.triggerCalculate = false
   self.vData.impl  = { isCalculated = false }
-  self.vData.track = { isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0 }
+  self.vData.track = { isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0, eofDistance = 0, eofNext = 0 }
 
   -- (server) set some defaults
   if self.isServer then
@@ -669,10 +670,12 @@ end
 function FS22_EnhancedVehicle:saveToXMLFile(xmlFile, key)
   if debug > 1 then print("-> " .. myName .. ": saveToXMLFile" .. mySelf(self)) end
 
-  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])
-  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])
-  setXMLInt(xmlFile.handle,  key.."#driveMode",        self.vData.is[3])
-  setXMLBool(xmlFile.handle, key.."#parkingBrakeIsOn", self.vData.is[13])
+  if self.vData.is[3] ~= -1 then
+    setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])
+    setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])
+    setXMLInt(xmlFile.handle,  key.."#driveMode",        self.vData.is[3])
+    setXMLBool(xmlFile.handle, key.."#parkingBrakeIsOn", self.vData.is[13])
+  end
 end
 
 -- #############################################################################
@@ -793,6 +796,12 @@ function FS22_EnhancedVehicle:onUpdate(dt)
           end
         end
 
+        -- get distance to end-of-field each second
+        if self.vData.track.eofNext < g_currentMission.time then
+          FS22_EnhancedVehicle:getHeadlandDistance(self)
+          self.vData.track.eofNext = g_currentMission.time + 1000
+        end
+
         -- headland management
         if self.vData.is[5] and self.vData.is[6] then
           local isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self)
@@ -817,10 +826,6 @@ function FS22_EnhancedVehicle:onUpdate(dt)
               if self.spec_drivable ~= nil and self.spec_drivable.cruiseControl ~= nil then
                 if self.spec_drivable.cruiseControl.state ~= Drivable.CRUISECONTROL_STATE_OFF then
                   self:setCruiseControlState(Drivable.CRUISECONTROL_STATE_OFF)
-                  -- update server/clients
---                  if not self.isServer then
---                    g_client:getServerConnection():sendEvent(SetCruiseControlStateEvent.new(self, Drivable.CRUISECONTROL_STATE_OFF))
---                  end
                 end
               end
             end
@@ -1871,6 +1876,42 @@ function FS22_EnhancedVehicle:getHeadlandInfo(self)
 --  self.vData.isOnField = isOnField
 
   return(isOnField)
+end
+
+-- #############################################################################
+
+function FS22_EnhancedVehicle:getHeadlandDistance(self)
+  local distance = self.vData.track.headlandDistance
+  if distance == 9999 and self.vData.track.workWidth ~= nil then
+    distance = self.vData.track.workWidth
+  end
+  local x = self.vData.px + (self.vData.dirX * distance)
+  local z = self.vData.pz + (self.vData.dirZ * distance)
+  local _x = x
+  local _z = z
+
+  local isOnField = true
+  local _dist = 0.0
+  local _delta = 0.5
+
+  while(_dist < 100) do
+    local y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, x, 1, z)
+    local groundTypeMapId, groundTypeFirstChannel, groundTypeNumChannels = g_currentMission.fieldGroundSystem:getDensityMapData(FieldDensityMap.GROUND_TYPE)
+    local _density = getDensityAtWorldPos(groundTypeMapId, x, y, z)
+    local _densityType = bitAND(bitShiftRight(_density, groundTypeFirstChannel), 2^groundTypeNumChannels - 1)
+    isOnField = isOnField and (_densityType ~= g_currentMission.grassValue and _densityType ~= 0)
+
+    if not isOnField then
+      self.vData.track.eofDistance = MathUtil.vector2Length(_x - x, _z - z)
+      _dist = 100
+    end
+
+    x = x + (self.vData.dirX * _delta)
+    z = z + (self.vData.dirZ * _delta)
+    _dist = _dist + _delta
+  end
+
+  if _dist == 100 then self.vData.track.eofDistance = -1 end
 end
 
 -- #############################################################################

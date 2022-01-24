@@ -3,7 +3,7 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 22.01.2022
+-- @Date: 24.01.2022
 -- @Version: 1.2.0.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
@@ -54,10 +54,11 @@ FS22_EnhancedVehicle_HUD.POSITION = {
   TRACK       = {  55, 13 },
   WORKWIDTH   = { 245, 13 },
   HLDISTANCE  = { 245, 40 },
+  HLEOF       = { 287, 39 },
   ICON_SNAP   = {  55-10-18, 29 },
   ICON_TRACK  = {  55+10, 29 },
   ICON_HLMODE = { 245-24-18, 29 },
-  ICON_HLDIR  = { 245+24, 29 },
+  ICON_HLDIR  = { 245+18, 29 },
   ICON_DIFF   = {   0, 0 },
   ICON_PARK   = {   0, 0 },
   DMG         = { -15, 5 },
@@ -77,6 +78,7 @@ FS22_EnhancedVehicle_HUD.TEXT_SIZE = {
   TRACK      = 12,
   WORKWIDTH  = 12,
   HLDISTANCE = 12,
+  HLEOF      = 9,
   DMG        = 12,
   FUEL       = 12,
   MISC       = 13,
@@ -106,6 +108,7 @@ function FS22_EnhancedVehicle_HUD:new(speedMeterDisplay, gameInfoDisplay, modDir
   self.snapText2            = {}
   self.trackText            = {}
   self.headlandText         = {}
+  self.headlandEOFText      = {}
   self.workWidthText        = {}
   self.headlandDistanceText = {}
   self.dmgText              = {}
@@ -480,6 +483,12 @@ function FS22_EnhancedVehicle_HUD:storeScaledValues(_move)
     self.headlandDistanceText.posY = boxPosY + textY
     self.headlandDistanceText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.HLDISTANCE)
 
+    -- headland eof text
+    local textX, textY = self.speedMeterDisplay:scalePixelToScreenVector(FS22_EnhancedVehicle_HUD.POSITION.HLEOF)
+    self.headlandEOFText.posX = boxPosX + textX
+    self.headlandEOFText.posY = boxPosY + textY
+    self.headlandEOFText.size = self.speedMeterDisplay:scalePixelToScreenHeight(FS22_EnhancedVehicle_HUD.TEXT_SIZE.HLEOF)
+
     -- for dmg and fuel display
     local addPosX = boxPosX + boxWidth / 2
     local addPosY = boxPosY
@@ -733,6 +742,7 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
     -- prepare text
     local track_txt     = self.default_track_txt
     local headland_txt  = self.default_headland_txt
+    local headland_txt2 = ""
     local workwidth_txt = self.default_workwidth_txt
 
     if self.vehicle.vData.track.isCalculated then
@@ -745,6 +755,7 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       local _tmp = self.vehicle.vData.track.headlandDistance
       if _tmp == 9999 then _tmp = Round(self.vehicle.vData.track.workWidth, 1) end
       headland_txt = string.format("%.1fm", math.abs(_tmp))
+      headland_txt2 = self.vehicle.vData.track.eofDistance ~= -1 and string.format("%.1f", self.vehicle.vData.track.eofDistance) or "err"
     end
     if self.vehicle.vData.opMode == 1 and self.vehicle.vData.impl.isCalculated and self.vehicle.vData.impl.workWidth > 0 then
       workwidth_txt = string.format("|← %.1fm →|", Round(self.vehicle.vData.impl.workWidth, 1))
@@ -770,6 +781,18 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
 
     -- headland distance
     renderText(self.headlandDistanceText.posX, self.headlandDistanceText.posY, self.headlandDistanceText.size, headland_txt)
+
+    if self.vehicle.vData.track.headlandMode >= 2 then
+      if self.vehicle.vData.track.eofDistance > 30 then
+        color = FS22_EnhancedVehicle_HUD.COLOR.ACTIVE
+      elseif self.vehicle.vData.track.eofDistance > 10 then
+        color = FS22_EnhancedVehicle_HUD.COLOR.STANDBY
+      else
+        color = { 1, 0, 0, 1 }
+      end
+      setTextColor(unpack(color))
+    end
+    renderText(self.headlandEOFText.posX, self.headlandEOFText.posY, self.headlandEOFText.size, headland_txt2)
   end -- <- end of draw track box
 
   -- draw our diff HUD
