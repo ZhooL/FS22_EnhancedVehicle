@@ -1,8 +1,8 @@
 # FS22_EnhancedVehicle
 
-**Direct download: [FS22_EnhancedVehicle.zip](https://github.com/ZhooL/FS22_EnhancedVehicle/raw/main/FS22_EnhancedVehicle.zip)**
+**Direct download: [FS22_EnhancedVehicle.zip](https://github.com/ZhooL/FS22_EnhancedVehicle/releases/latest/download/FS22_EnhancedVehicle.zip)**
 
-This is a modification for Farming Simulator 22. It adds a track assistant ("GPS light") and a "snap driving direction" feature, a parking brake, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
+This is a modification for Farming Simulator 22. It adds a "track assistant" ("GPS") and a "snap to driving direction" feature, a parking brake, differential locks, wheel drive modes and improved hydraulics controls to your vehicle. It also shows more vehicle details on the HUD.
 
 **NOTE: The only source of truth is: https://github.com/ZhooL/FS22_EnhancedVehicle. The second valid download location is: https://www.modhoster.de/mods/enhancedvehicle-9a59d5c5-c65c-49ce-a1a9-5681a023381b. All other download locations are not validated by me - so handle with care.**
 
