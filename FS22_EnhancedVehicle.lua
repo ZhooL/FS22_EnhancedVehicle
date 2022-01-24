@@ -16,7 +16,7 @@ CHANGELOG
     - Press RShift+Home to switch throught operating modes: "snap to direction" or "snap to track"
     - Hold RShift+Home to disable track assistant
     - Press RStrg+Numpad1 to (re)calculate working width
-* Leaving a vehicle will no longer disable snap direction/track
+* leaving a vehicle will no longer disable snap direction/track
 * remapped move offset line from RAlt+Numpad -/+ to RShift+RCtrl+Numpad -/+
 
 2022-01-15 - V1.1.3.1
@@ -608,7 +608,7 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
   self.vData.opMode = 0
   self.vData.triggerCalculate = false
   self.vData.impl  = { isCalculated = false }
-  self.vData.track = { isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0, eofDistance = 0, eofNext = 0 }
+  self.vData.track = { isCalculated = false, deltaTrack = 1, headlandMode = 1, headlandDistance = 9999, isOnField = 0, eofDistance = -1, eofNext = 0 }
 
   -- (server) set some defaults
   if self.isServer then
@@ -831,6 +831,8 @@ function FS22_EnhancedVehicle:onUpdate(dt)
             end
           end
         end -- <- end headland
+      else
+        self.vData.track.eofDistance = -1
       end -- <- end track assistant
     end
   end

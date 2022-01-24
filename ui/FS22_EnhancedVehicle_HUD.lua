@@ -787,8 +787,10 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
         color = FS22_EnhancedVehicle_HUD.COLOR.ACTIVE
       elseif self.vehicle.vData.track.eofDistance > 10 then
         color = FS22_EnhancedVehicle_HUD.COLOR.STANDBY
-      else
+      elseif self.vehicle.vData.track.eofDistance >= 0 then
         color = { 1, 0, 0, 1 }
+      else
+        color = FS22_EnhancedVehicle_HUD.COLOR.INACTIVE
       end
       setTextColor(unpack(color))
     end
