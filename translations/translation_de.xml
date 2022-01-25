@@ -14,6 +14,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Fahrtrichtung/Fahrspur verringern um 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: Arbeitsbreite neu berechnen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Fahrspuren (neu) berechnen/ausrichten"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: Anzeigemodus der Linien wechseln"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Anzahl Wende-Fahrspuren erhöhen"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Anzahl Wende-Fahrspuren verringern"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Fahrspuren nach rechts verschieben"/>
@@ -100,6 +101,13 @@
 
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Anzahl sichtbare Fahrspuren"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Soviele Fahrspuren werden insgesamt (links + rechts vom Fahrzeug) angezeigt"/>
+
+    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="Zeige Linien"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="Legt fest, welche Art von Linien angezeigt werden"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="Alle"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="Keine"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="Nur Fahrspuren"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="Nur Fahrzeug + Arbeitsbreite"/>
 
     <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Linien automatisch ausblenden"/>
     <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Legt fest, ob die Hilfs- und Fahrspurlinien automatisch ausgeblendet werden"/>

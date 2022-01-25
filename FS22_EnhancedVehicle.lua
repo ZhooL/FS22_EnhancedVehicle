@@ -3,14 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 24.01.2022
+-- @Date: 25.01.2022
 -- @Version: 1.2.0.0
 
 --[[
 CHANGELOG
 
-2022-01-24 - V1.2.0.0
+2022-01-25 - V1.2.0.0
 + added a display for the remaining distance to the headland trigger
++ added config option to choose which lines should be displayed (all, none, tracks only, vehicle+working width only)
 + added config XML option to specify sfx volume
 * ATTENTION: Way of "how it works" changed:
     - Press RShift+Home to switch throught operating modes: "snap to direction" or "snap to track"
@@ -208,6 +209,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
                                              'FS22_EnhancedVehicle_SNAP_OPMODE',
                                              'FS22_EnhancedVehicle_SNAP_CALC_WW',
                                              'FS22_EnhancedVehicle_SNAP_GRID_RESET',
+                                             'FS22_EnhancedVehicle_SNAP_LINES_MODE',
                                              'FS22_EnhancedVehicle_SNAP_TRACK',
                                              'FS22_EnhancedVehicle_SNAP_TRACKP',
                                              'FS22_EnhancedVehicle_SNAP_TRACKW',
@@ -438,6 +440,7 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.track = {}
   FS22_EnhancedVehicle.track.distanceAboveGround = lC:getConfigValue("track", "distanceAboveGround")
   FS22_EnhancedVehicle.track.numberOfTracks      = lC:getConfigValue("track", "numberOfTracks")
+  FS22_EnhancedVehicle.track.showLines           = lC:getConfigValue("track", "showLines")
   FS22_EnhancedVehicle.track.hideLines           = lC:getConfigValue("track", "hideLines")
   FS22_EnhancedVehicle.track.hideLinesAfter      = lC:getConfigValue("track", "hideLinesAfter")
   FS22_EnhancedVehicle.track.hideLinesAfterValue = 0
@@ -502,6 +505,7 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   -- track
   lC:addConfigValue("track",       "distanceAboveGround", "float", 0.15)
   lC:addConfigValue("track",       "numberOfTracks",      "int",   5)
+  lC:addConfigValue("track",       "showLines",           "int",   1)
   lC:addConfigValue("track",       "hideLines",           "bool",  false)
   lC:addConfigValue("track",       "hideLinesAfter",      "int",   5)
   lC:addConfigValue("track.color", "red",                 "float", 255/255)
@@ -1030,7 +1034,7 @@ function FS22_EnhancedVehicle:onDraw()
 
       -- draw helper line in front of vehicle
       if self.vData.opMode >= 1 then
-        if _showLines then
+        if _showLines and FS22_EnhancedVehicle.track.showLines ~= 2 then
           local p1 = { x = self.vData.px, y = self.vData.py, z = self.vData.pz }
           p1.y = getTerrainHeightAtWorldPos(g_currentMission.terrainRootNode, p1.x, 0, p1.z) + FS22_EnhancedVehicle.snap.distanceAboveGroundVehicleMiddleLine
           FS22_EnhancedVehicle:drawVisualizationLines(1,
@@ -1047,7 +1051,7 @@ function FS22_EnhancedVehicle:onDraw()
       end
 
       -- snap to direction lines
-      if self.vData.opMode >= 1 and self.vData.impl.isCalculated and self.vData.impl.workWidth > 0 and _showLines then
+      if self.vData.opMode >= 1 and self.vData.impl.isCalculated and self.vData.impl.workWidth > 0 and _showLines and (FS22_EnhancedVehicle.track.showLines == 1 or FS22_EnhancedVehicle.track.showLines == 4) then
 
         -- for debuging headland detection trigger
 --        if self.vData.hlx ~= nil and self.vData.hlz ~= nil then
@@ -1124,7 +1128,7 @@ function FS22_EnhancedVehicle:onDraw()
       end -- <- end of draw snap to direction lines
 
       -- draw our tracks
-      if self.vData.opMode == 2 and self.vData.track.isCalculated and _showLines then
+      if self.vData.opMode == 2 and self.vData.track.isCalculated and _showLines and (FS22_EnhancedVehicle.track.showLines == 1 or FS22_EnhancedVehicle.track.showLines == 3) then
         -- calculate track number in direction left-right and forward-backward
         -- with current track orientation
         local dotLR = dx * -self.vData.track.origin.dZ + dz * self.vData.track.origin.dX
@@ -1630,6 +1634,10 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
         end
         self.vData.opMode = 0
       end
+    elseif actionName == "FS22_EnhancedVehicle_SNAP_LINES_MODE" then
+      FS22_EnhancedVehicle.track.showLines = FS22_EnhancedVehicle.track.showLines + 1
+      if FS22_EnhancedVehicle.track.showLines > 4 then FS22_EnhancedVehicle.track.showLines = 1 end
+      lC:setConfigValue("track", "showLines", FS22_EnhancedVehicle.track.showLines)
     elseif actionName == "FS22_EnhancedVehicle_SNAP_ONOFF" then
       -- steering angle snap on/off
       if not self.vData.is[5] then

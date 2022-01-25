@@ -31,6 +31,7 @@
     <action name="FS22_EnhancedVehicle_SNAP_OPMODE"     />
     <action name="FS22_EnhancedVehicle_SNAP_CALC_WW"    />
     <action name="FS22_EnhancedVehicle_SNAP_GRID_RESET" />
+    <action name="FS22_EnhancedVehicle_SNAP_LINES_MODE" />
     <action name="FS22_EnhancedVehicle_SNAP_TRACK"      axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_TRACKP"     axisType="FULL"/>
     <action name="FS22_EnhancedVehicle_SNAP_TRACKW"     axisType="FULL"/>
@@ -73,6 +74,9 @@
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_GRID_RESET">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_2" axisComponent="+" inputComponent="+" index="1"/>
+    </actionBinding>
+    <actionBinding action="FS22_EnhancedVehicle_SNAP_LINES_MODE">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_3" axisComponent="+" inputComponent="+" index="1"/>
     </actionBinding>
     <actionBinding action="FS22_EnhancedVehicle_SNAP_TRACK">
       <binding device="KB_MOUSE_DEFAULT" input="KEY_rctrl KEY_KP_4" axisComponent="-"/>

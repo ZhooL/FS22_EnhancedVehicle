@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 11.01.2022
--- @Version: 1.1.3.0
+-- @Date: 25.01.2022
+-- @Version: 1.2.0.0
 
 local myName = "FS22_EnhancedVehicle_UI"
 
@@ -39,6 +39,10 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "visibleTracksSetting",
   "visibleTracksTitle",
   "visibleTracksTT",
+
+  "showLinesSetting",
+  "showLinesTitle",
+  "showLinesTT",
 
   "hideLinesSetting",
   "hideLinesTitle",
@@ -154,6 +158,16 @@ function FS22_EnhancedVehicle_UI:onOpen()
   self.visibleTracksTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_visibleTracksTT"))
   self.visibleTracksSetting:setTexts({ "1", "3", "5", "7", "9" })
 
+  -- show lines
+  self.showLinesTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesTitle"))
+  self.showLinesTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesTT"))
+  self.showLinesSetting:setTexts({
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesOption1"),
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesOption2"),
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesOption3"),
+    g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_showLinesOption4")
+  })
+
   -- hide lines
   self.hideLinesTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesTitle"))
   self.hideLinesTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_hideLinesTT"))
@@ -248,6 +262,9 @@ function FS22_EnhancedVehicle_UI:updateValues()
   local _state = (lC:getConfigValue("track", "numberOfTracks") + 1) / 2
   self.visibleTracksSetting:setState(_state)
 
+  -- show lines
+  self.showLinesSetting:setState(lC:getConfigValue("track", "showLines"))
+
   -- hide lines
   self.hideLinesSetting:setState(lC:getConfigValue("track", "hideLines") and 1 or 2)
 
@@ -323,6 +340,10 @@ function FS22_EnhancedVehicle_UI:onClickOk()
   -- visible tracks
   local _state = self.visibleTracksSetting:getState() * 2 - 1
   lC:setConfigValue("track", "numberOfTracks", _state)
+
+  -- show lines
+  state = Between(self.showLinesSetting:getState(), 1, 4)
+  lC:setConfigValue("track", "showLines", state)
 
   -- hide lines
   state = self.hideLinesSetting:getState() == 1

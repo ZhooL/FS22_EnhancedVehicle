@@ -25,6 +25,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>R Shift</kbd>+<kbd>Home</kbd> | change operational mode (snap to direction or snap to track) |
 | <kbd>R Ctrl</kbd>+<kbd>Num 1</kbd> | re-calculate working width (e.g. spraying width changed) |
 | <kbd>R Ctrl</kbd>+<kbd>Num 2</kbd> | re-calculate track layout (e.g. direction changed or working width changed) |
+| <kbd>R Ctrl</kbd>+<kbd>Num 3</kbd> | cycle through the different show lines modes |
 | <kbd>R Ctrl</kbd>+<kbd>Num *</kbd> | cycle through the different headland modes |
 | <kbd>R Shift</kbd>+<kbd>Num /</kbd><kbd>Num *</kbd> | cycle through headland distances |
 | <kbd>R Ctrl</kbd>+<kbd>Num 4</kbd> | decrease the number of turnover tracks |

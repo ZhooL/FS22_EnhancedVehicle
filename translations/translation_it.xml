@@ -14,6 +14,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Decrementa la direzione di marcia/corsia di 90 °"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Riallineare le corsie"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: Change display mode of lines"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Aumenta il numero di corsie di svolta"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Riduci il numero di corsie di svolta"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Sposta corsia a destra"/>
@@ -100,6 +101,13 @@
 
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Numero di corsie visibili"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Questo è il numero di corsie visualizzate in totale (sinistra + destra del veicolo)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="Show lines"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="Specifies which kind of lines are shown"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="All"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="None"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="Tracks only"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="Vehicle+working width only"/>
 
     <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Nascondi automaticamente le linee"/>
     <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Specifica se nascondere automaticamente le linee ausiliarie e guida"/>

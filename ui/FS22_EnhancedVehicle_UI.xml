@@ -46,21 +46,14 @@
       <GuiElement type="text" profile="dialogHeaderText" id="sectionSnapSettings"/>
       <GuiElement type="text" profile="dialogHeaderText"/>
 
-      <!-- angle -->
-      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
-        <GuiElement type="textInput" profile="ingameMenuGameSettingsTextInput" id="snapSettingsAngleValue" imeKeyboardType="normal" maxCharacters="5" onTextChanged="onTextChanged_SnapAngle" />
-        <GuiElement type="text"      profile="multiTextOptionSettingsTitle"    id="snapSettingsAngleTitle"/>
-        <GuiElement type="text"      profile="multiTextOptionSettingsTooltip"  id="snapSettingsAngleTT"/>
-      </GuiElement>
-
-      <!-- number of visible tracks -->
-      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="visibleTracksSetting">
+      <!-- show lines -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="showLinesSetting">
         <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
         <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="visibleTracksTitle"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="showLinesTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
-        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="visibleTracksTT"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="showLinesTT"/>
       </GuiElement>
 
       <!-- auto-hide lines -->
@@ -81,6 +74,23 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="hideLinesAfterTitle"/>
         <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="hideLinesAfterTT"/>
+      </GuiElement>
+
+      <!-- angle -->
+      <GuiElement type="empty" profile="ingameMenuGameSettingsTextInputWrapper">
+        <GuiElement type="textInput" profile="ingameMenuGameSettingsTextInput" id="snapSettingsAngleValue" imeKeyboardType="normal" maxCharacters="5" onTextChanged="onTextChanged_SnapAngle" />
+        <GuiElement type="text"      profile="multiTextOptionSettingsTitle"    id="snapSettingsAngleTitle"/>
+        <GuiElement type="text"      profile="multiTextOptionSettingsTooltip"  id="snapSettingsAngleTT"/>
+      </GuiElement>
+
+      <!-- number of visible tracks -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="visibleTracksSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="visibleTracksTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="visibleTracksTT"/>
       </GuiElement>
 
       <!-- hud -->
