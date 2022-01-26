@@ -3,133 +3,133 @@
   <translationContributors>Kynuska</translationContributors>
 
   <texts>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: Stávající směr"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: Otočit směr (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: Přidat 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: Ubrat 1°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: Přidat 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: Ubrat 45°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Přidat 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Ubrat 90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: Resetovat mřížku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: Change display mode of lines"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Zvýšit počet obřádků pro otočku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Snížit počet obřádků pro otočku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: Přesunout řádek doprava"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="EV: Přesunout řádek doleva"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="EV: Zvětšit šířku řádku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="EV: Zmenšit šířku řádku"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="EV: Posunout ofset doprava"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="EV: Posunout ofset doleva"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="EV: Posunout vozidlo o jednu stopu doprava (bez otočky)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="EV: Posunout vozidlo o jednu stopu doleva (bez otočky)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="EV: Změnit režim souvratí"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="EV: Zvýšit vzdálenost souvratě od hranice pole"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="EV: Snížit vzdálenost souvratě od hranice pole"/>
-    <text name="input_FS22_EnhancedVehicle_FD"              text="EV: Diferenciál přední nápravy Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_RD"              text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_BD"              text="EV: Oba diferenciály Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_DM"              text="EV: Změna režimu pohonu kol"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="EV: Zadní hydraulika Nahoru/Dolu"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="EV: Zadní hydraulika Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="EV: Přední hydraulika Nahoru/Dolu"/>
-    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="EV: Přední hydraulika Zap./Vyp."/>
-    <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: Menu nastavení"/>
-    <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: Parkovací brzda Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      			text="EV: Stávající směr"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    			text="EV: Otočit směr (180°)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     			text="EV: Přepnout provozní režim (směr přichycení/stopa)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   			text="EV: Přidat 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   			text="EV: Ubrat 1°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   			text="EV: Přidat 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   			text="EV: Ubrat 45°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   			text="EV: Přidat 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   			text="EV: Ubrat 90°"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    			text="EV: Pře/vypočítat pracovní šířku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" 			text="EV: Resetovat mřížku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" 			text="EV: Změna režimu zobrazení řádků"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    			text="EV: Zvýšit počet obřádků pro otočku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    			text="EV: Snížit počet obřádků pro otočku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   			text="EV: Přesunout řádek doprava"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   			text="EV: Přesunout řádek doleva"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   			text="EV: Zvětšit šířku řádku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   			text="EV: Zmenšit šířku řádku"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   			text="EV: Posunout ofset doprava"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   			text="EV: Posunout ofset doleva"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   			text="EV: Posunout vozidlo o jednu stopu doprava (bez otočky)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   			text="EV: Posunout vozidlo o jednu stopu doleva (bez otočky)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    			text="EV: Změnit režim souvratí"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  			text="EV: Zvýšit vzdálenost souvratě od hranice pole"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  			text="EV: Snížit vzdálenost souvratě od hranice pole"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              			text="EV: Diferenciál přední nápravy Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_RD"              			text="EV: Diferenciál zadní nápravy Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_BD"              			text="EV: Oba diferenciály Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_DM"              			text="EV: Změna režimu pohonu kol"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  			text="EV: Zadní hydraulika Nahoru/Dolu"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   			text="EV: Zadní hydraulika Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" 			text="EV: Přední hydraulika Nahoru/Dolu"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  			text="EV: Přední hydraulika Zap./Vyp."/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            			text="EV: Menu nastavení"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            			text="EV: Parkovací brzda Zap./Vyp."/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"     text="žádná stopa"/>
-    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="žádná šířka"/>
-    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="žádná souvrať"/>
-    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="Poškození | Barva"/>
-    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="Palivo"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     					text="žádná stopa"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     					text="žádná šířka"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  					text="žádná souvrať"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  					text="Poškození | Barva"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" 					text="Palivo"/>
 
-    <text name="ui_FS22_EnhancedVehicle_on"  text="Zap."/>
-    <text name="ui_FS22_EnhancedVehicle_off" text="Vyp."/>
+    <text name="ui_FS22_EnhancedVehicle_on"  							text="Zap."/>
+    <text name="ui_FS22_EnhancedVehicle_off" 							text="Vyp."/>
 
-    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="Globální nastavení"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="Nastavení okna"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="Nastavení asistenta pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="Nastavení souvrati pro"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  		text="Globální nastavení"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              		text="Nastavení okna"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     		text="Nastavení asistenta pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" 		text="Nastavení souvrati pro"/>
 
-    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="Obnovit konfiguraci Modu"/>
-    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="Obnovit konfigurační soubor"/>
-    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="POZOR: Tím se všechna nastavení tohoto modu vrátí na výchozí hodnoty!"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="Znovu načíst konfiguraci Modu (XML)"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="Znovu načíst konfigurační soubor"/>
-    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="Znovu načtěte konfigurační soubor z disku. Nezbytné po ručních změnách v souboru XML."/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  			text="Obnovit konfiguraci Modu"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   			text="Obnovit konfigurační soubor"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      			text="POZOR: Tím se všechna nastavení tohoto modu vrátí na výchozí hodnoty!"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" 			text="Znovu načíst konfiguraci Modu (XML)"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  			text="Znovu načíst konfigurační soubor"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     			text="Znovu načtěte konfigurační soubor z disku. Nezbytné po ručních změnách v souboru XML."/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="Asistent pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="Zapněte/vypněte funkci asistenta udržování jízdního pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="Zámek diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="Zapnutí/vypnutí funkce uzávěrky diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="Vylepšené hydraulické ovládání"/>
-    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="Zapnutí/vypnutí vylepšené funkce hydraulického ovládání"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="Parkovací brzda"/>
-    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="Zapnutí/vypnutí funkce parkovací brzdy"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         				text="Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            				text="Zapněte/vypněte funkci asistenta udržování jízdního pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"         				text="Zámek diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            				text="Zapnutí/vypnutí funkce uzávěrky diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    				text="Vylepšené hydraulické ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       				text="Zapnutí/vypnutí vylepšené funkce hydraulického ovládání"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" 				text="Parkovací brzda"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    				text="Zapnutí/vypnutí funkce parkovací brzdy"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: Zámek diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="Zap./Vyp. displeje HUD pro uzávěrku diferenciálu"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD: Hodnota poškození"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="Zap./Vyp. displeje HUD pro poškození"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: Hodnota paliva"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="Zap./Vyp. displeje HUD pro množství paliva"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"   text="HUD: Asistent pro jízdu v pruhu"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"      text="Zap./Vyp. displeje HUD pro asistenta"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: Otáčky"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="Zap./Vyp. displeje HUD pro počet otáček"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: Teplota motoru"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="Zap./Vyp. displeje HUD pro teplotu motoru"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: Různé hodnoty (hmotnost)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="Zap./Vyp. displeje HUD pro různé hodnoty (např. hmotnost)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: Parkovací brzda"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="Zap./Vyp. displeje HUD pro parkovací brzdu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   				text="HUD: Zámek diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      				text="Zap./Vyp. displeje HUD pro uzávěrku diferenciálu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    				text="HUD: Hodnota poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       				text="Zap./Vyp. displeje HUD pro poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   				text="HUD: Hodnota paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      				text="Zap./Vyp. displeje HUD pro množství paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"   				text="HUD: Asistent pro jízdu v pruhu"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"      				text="Zap./Vyp. displeje HUD pro asistenta"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    				text="HUD: Otáčky"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       				text="Zap./Vyp. displeje HUD pro počet otáček"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   				text="HUD: Teplota motoru"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      				text="Zap./Vyp. displeje HUD pro teplotu motoru"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   				text="HUD: Různé hodnoty (hmotnost)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      				text="Zap./Vyp. displeje HUD pro různé hodnoty (např. hmotnost)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   				text="HUD: Parkovací brzda"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      				text="Zap./Vyp. displeje HUD pro parkovací brzdu"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="HUD: Režim hodnot poškození"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="Zobrazit hodnoty poškození '% kondice' nebo '% poškození'"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="% kondice"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="% poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" 			text="HUD: Režim hodnot poškození"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    			text="Zobrazit hodnoty poškození '% kondice' nebo '% poškození'"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    			text="% kondice"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    			text="% poškození"/>
 
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="HUD: Umístění poškození a paliva"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: nad tachometrem; FS22: vpravo nahoře pod panelem s informacemi o hře"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="nad tachometrem (FS19)"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="vpravo nahoře (FS22)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   				text="HUD: Umístění poškození a paliva"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      				text="FS19: nad tachometrem; FS22: vpravo nahoře pod panelem s informacemi o hře"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" 				text="Nad tachometrem (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" 				text="Vpravo nahoře (FS22)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="Přichytit k úhlu"/>
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" 		text="Přichytit k úhlu"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    		text="Určuje, v jakých stupních je směr jízdy zařazen (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="Počet viditelných řádků"/>
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="Kolik řádků se celkem zobrazí (vlevo + vpravo od vozidla)"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" 			text="Počet viditelných řádků"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    			text="Kolik řádků se celkem zobrazí (vlevo + vpravo od vozidla)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="Show lines"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="Specifies which kind of lines are shown"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="All"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="None"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="Tracks only"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="Vehicle+working width only"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   				text="Zobrazit řádky"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      				text="Určit, jaký druh čar se zobrazí"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" 				text="Všechny"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" 				text="Žádný"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" 				text="Pouze řádky"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" 				text="Pouze vozidlo + pracovní šířka"/>
 
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="Automaticky skrýt čáry"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="Určuje, zda se mají automaticky skrýt pomocné a vodicí čáry"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="Doba zobrazení čar"/>
-    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="Po kolika sekundách se pomocné a vodicí čáry automaticky skryjí"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      			text="Automaticky skrýt čáry"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         			text="Určuje, zda se mají automaticky skrýt pomocné a vodicí čáry"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" 			text="Doba zobrazení čar"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    			text="Po kolika sekundách se pomocné a vodicí čáry automaticky skryjí"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="Souvraťový režim"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="Co by se mělo stát při dosažení souvrati"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="Nic"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="Automaticky otočit"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="Vypnout tempomat"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   			text="Souvraťový režim"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      			text="Co by se mělo stát při dosažení souvrati"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" 			text="Nic"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" 			text="Automaticky otočit"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" 			text="Vypnout tempomat"/>
 
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="Šířka souvratě"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="Vzdálenost otáčení před koncem pole"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="Pracovní šířka"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="před koncem pole"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="za koncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        	text="Šířka souvratě"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           	text="Vzdálenost otáčení před koncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      	text="Pracovní šířka"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" 	text="Před koncem pole"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  	text="Za koncem pole"/>
 
-    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Asistent pro jízdu v pruhu není povolen."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Nenalezeno zařízení s pracovní šířkou. Using a default track layout."/>
-    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
-    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="Nejdříve prosím uvolněte parkovací brzdu."/>
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   			text="Asistent pro jízdu v pruhu není povolen."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  			text="Nenalezeno zařízení s pracovní šířkou. Použito výchozí rozložení stopy."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" 			text="Pracovní záběr byl přepočítán."/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      			text="Nejdříve prosím uvolněte parkovací brzdu."/>
 
   </texts>
 </l10n>
