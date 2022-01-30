@@ -3,11 +3,14 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 25.01.2022
--- @Version: 1.2.0.0
+-- @Date: 30.01.2022
+-- @Version: 1.2.0.1
 
 --[[
 CHANGELOG
+
+2022-01-30 - V1.2.0.1
+* bugfix for parking brake status not saved to savegame
 
 2022-01-25 - V1.2.0.0
 + added a display for the remaining distance to the headland trigger
@@ -603,8 +606,8 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
 
   -- initialize vehicle data with defaults
   self.vData = {}
-  self.vData.is   = {  true,  true, -1, 1.0,  true,  true, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, true }
-  self.vData.want = { false, false,  1, 0.0, false, false, 0,   0,   0,   0,   0,   0,   false }
+  self.vData.is   = {   nil,   nil, nil, nil,   nil,   nil, nil, nil, nil, nil, nil, nil, nil }
+  self.vData.want = { false, false,   1, 0.0, false, false,   0,   0,   0,   0,   0,   0, false }
   self.vData.torqueRatio   = { 0.5, 0.5, 0.5 }
   self.vData.maxSpeedRatio = { 1.0, 1.0, 1.0 }
   self.vData.rot = 0.0
@@ -648,22 +651,26 @@ function FS22_EnhancedVehicle:onPostLoad(savegame)
       end
       if _v ~= nil then
         if idx == 3 then
-          self.vData.is[idx] = -1
           self.vData.want[idx] = _v
           if debug > 1 then print("--> found ".._data[2].."=".._v.." in savegame" .. mySelf(self)) end
         else
           if _v then
-            self.vData.is[idx] = false
             self.vData.want[idx] = true
             if debug > 1 then print("--> found ".._data[2].."=true in savegame" .. mySelf(self)) end
           else
-            self.vData.is[idx] = true
             self.vData.want[idx] = false
             if debug > 1 then print("--> found ".._data[2].."=false in savegame" .. mySelf(self)) end
           end
         end
       end
     end
+  end
+
+  -- update vehicle parameters
+  if self.isServer then
+    FS22_EnhancedVehicle:updatevData(self)
+  elseif self.isClient then
+    self.vData.is = { unpack(self.vData.want) }
   end
 
   if debug > 0 then print("--> setup of vData done" .. mySelf(self)) end
@@ -674,12 +681,10 @@ end
 function FS22_EnhancedVehicle:saveToXMLFile(xmlFile, key)
   if debug > 1 then print("-> " .. myName .. ": saveToXMLFile" .. mySelf(self)) end
 
-  if self.vData.is[3] ~= -1 then
-    setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])
-    setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])
-    setXMLInt(xmlFile.handle,  key.."#driveMode",        self.vData.is[3])
-    setXMLBool(xmlFile.handle, key.."#parkingBrakeIsOn", self.vData.is[13])
-  end
+  if self.vData.is[1] ~= nil then  setXMLBool(xmlFile.handle, key.."#frontDiffIsOn",    self.vData.is[1])  else print("-> EV: saveToXMLFile warning [1]")  end
+  if self.vData.is[2] ~= nil then  setXMLBool(xmlFile.handle, key.."#backDiffIsOn",     self.vData.is[2])  else print("-> EV: saveToXMLFile warning [2]")  end
+  if self.vData.is[3] ~= nil then  setXMLInt(xmlFile.handle,  key.."#driveMode",        self.vData.is[3])  else print("-> EV: saveToXMLFile warning [3]")  end
+  if self.vData.is[13] ~= nil then setXMLBool(xmlFile.handle, key.."#parkingBrakeIsOn", self.vData.is[13]) else print("-> EV: saveToXMLFile warning [13]") end
 end
 
 -- #############################################################################
@@ -715,36 +720,19 @@ function FS22_EnhancedVehicle:onWriteStream(streamId, connection)
   if debug > 1 then print("-> " .. myName .. ": onWriteStream - " .. streamId .. mySelf(self)) end
 
   -- send initial data to client
-  if g_dedicatedServerInfo ~= nil then
-    -- when dedicated server then send want array to client cause onUpdate never ran and thus vData "is" is "wrong"
-    streamWriteBool(streamId,    self.vData.want[1])
-    streamWriteBool(streamId,    self.vData.want[2])
-    streamWriteInt8(streamId,    self.vData.want[3])
-    streamWriteFloat32(streamId, self.vData.want[4])
-    streamWriteBool(streamId,    self.vData.want[5])
-    streamWriteBool(streamId,    self.vData.want[6])
-    streamWriteFloat32(streamId, self.vData.want[7])
-    streamWriteFloat32(streamId, self.vData.want[8])
-    streamWriteFloat32(streamId, self.vData.want[9])
-    streamWriteFloat32(streamId, self.vData.want[10])
-    streamWriteFloat32(streamId, self.vData.want[11])
-    streamWriteFloat32(streamId, self.vData.want[12])
-    streamWriteBool(streamId,    self.vData.want[13])
-  else
-    streamWriteBool(streamId,    self.vData.is[1])
-    streamWriteBool(streamId,    self.vData.is[2])
-    streamWriteInt8(streamId,    self.vData.is[3])
-    streamWriteFloat32(streamId, self.vData.is[4])
-    streamWriteBool(streamId,    self.vData.is[5])
-    streamWriteBool(streamId,    self.vData.is[6])
-    streamWriteFloat32(streamId, self.vData.is[7])
-    streamWriteFloat32(streamId, self.vData.is[8])
-    streamWriteFloat32(streamId, self.vData.is[9])
-    streamWriteFloat32(streamId, self.vData.is[10])
-    streamWriteFloat32(streamId, self.vData.is[11])
-    streamWriteFloat32(streamId, self.vData.is[12])
-    streamWriteBool(streamId,    self.vData.is[13])
-  end
+  streamWriteBool(streamId,    self.vData.is[1])
+  streamWriteBool(streamId,    self.vData.is[2])
+  streamWriteInt8(streamId,    self.vData.is[3])
+  streamWriteFloat32(streamId, self.vData.is[4])
+  streamWriteBool(streamId,    self.vData.is[5])
+  streamWriteBool(streamId,    self.vData.is[6])
+  streamWriteFloat32(streamId, self.vData.is[7])
+  streamWriteFloat32(streamId, self.vData.is[8])
+  streamWriteFloat32(streamId, self.vData.is[9])
+  streamWriteFloat32(streamId, self.vData.is[10])
+  streamWriteFloat32(streamId, self.vData.is[11])
+  streamWriteFloat32(streamId, self.vData.is[12])
+  streamWriteBool(streamId,    self.vData.is[13])
 end
 
 -- #############################################################################
@@ -843,144 +831,150 @@ function FS22_EnhancedVehicle:onUpdate(dt)
 
   -- (server) process changes between "is" and "want"
   if self.isServer and self.vData ~= nil then
+    FS22_EnhancedVehicle:updatevData(self)
+  end
+end
 
-    -- snap angle change
-    if self.vData.is[4] ~= self.vData.want[4] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed snap angle to: "..self.vData.want[4]) end
-      end
-      self.vData.is[4] = self.vData.want[4]
+-- #############################################################################
+
+function FS22_EnhancedVehicle:updatevData(self)
+  if debug > 2 then print("-> " .. myName .. ": updatevData ".. mySelf(self)) end
+
+  -- snap angle change
+  if self.vData.is[4] ~= self.vData.want[4] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed snap angle to: "..self.vData.want[4]) end
     end
+    self.vData.is[4] = self.vData.want[4]
+  end
 
-    -- snap.enable
-    if self.vData.is[5] ~= self.vData.want[5] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if self.vData.want[5] then
-          if debug > 0 then print("--> ("..self.rootNode..") changed snap enable to: ON") end
-        else
-          if debug > 0 then print("--> ("..self.rootNode..") changed snap enable to: OFF") end
-        end
+  -- snap.enable
+  if self.vData.is[5] ~= self.vData.want[5] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if self.vData.want[5] then
+        if debug > 0 then print("--> ("..self.rootNode..") changed snap enable to: ON") end
+      else
+        if debug > 0 then print("--> ("..self.rootNode..") changed snap enable to: OFF") end
       end
-      self.vData.is[5] = self.vData.want[5]
     end
+    self.vData.is[5] = self.vData.want[5]
+  end
 
-    -- snap on track
-    if self.vData.is[6] ~= self.vData.want[6] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if self.vData.want[6] then
-          if debug > 0 then print("--> ("..self.rootNode..") changed snap on track to: ON") end
-        else
-          if debug > 0 then print("--> ("..self.rootNode..") changed snap on track to: OFF") end
-        end
+  -- snap on track
+  if self.vData.is[6] ~= self.vData.want[6] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if self.vData.want[6] then
+        if debug > 0 then print("--> ("..self.rootNode..") changed snap on track to: ON") end
+      else
+        if debug > 0 then print("--> ("..self.rootNode..") changed snap on track to: OFF") end
       end
-      self.vData.is[6] = self.vData.want[6]
     end
+    self.vData.is[6] = self.vData.want[6]
+  end
 
-    -- snap track x
-    if self.vData.is[7] ~= self.vData.want[7] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track px: "..self.vData.want[7]) end
+  -- snap track x
+  if self.vData.is[7] ~= self.vData.want[7] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track px: "..self.vData.want[7]) end
+    end
+    self.vData.is[7] = self.vData.want[7]
+  end
+
+  -- snap track z
+  if self.vData.is[8] ~= self.vData.want[8] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track pz: "..self.vData.want[8]) end
+    end
+    self.vData.is[8] = self.vData.want[8]
+  end
+
+  -- snap track dX
+  if self.vData.is[9] ~= self.vData.want[9] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track dX: "..self.vData.want[9]) end
+    end
+    self.vData.is[9] = self.vData.want[9]
+  end
+
+  -- snap track dZ
+  if self.vData.is[10] ~= self.vData.want[10] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track dZ: "..self.vData.want[10]) end
+    end
+    self.vData.is[10] = self.vData.want[10]
+  end
+
+  -- snap track mpx
+  if self.vData.is[11] ~= self.vData.want[11] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track snap x: "..self.vData.want[11]) end
+    end
+    self.vData.is[11] = self.vData.want[11]
+  end
+
+  -- snap track mpz
+  if self.vData.is[12] ~= self.vData.want[12] then
+    if FS22_EnhancedVehicle.functionSnapIsEnabled then
+      if debug > 0 then print("--> ("..self.rootNode..") changed track snap z: "..self.vData.want[12]) end
+    end
+    self.vData.is[12] = self.vData.want[12]
+  end
+
+  -- front diff
+  if self.vData.is[1] ~= self.vData.want[1] then
+    if FS22_EnhancedVehicle.functionDiffIsEnabled then
+      if self.vData.want[1] then
+        updateDifferential(self.rootNode, 0, self.vData.torqueRatio[1], 1)
+        if debug > 0 then print("--> ("..self.rootNode..") changed front diff to: ON") end
+      else
+        updateDifferential(self.rootNode, 0, self.vData.torqueRatio[1], self.vData.maxSpeedRatio[1] * 1000)
+        if debug > 0 then print("--> ("..self.rootNode..") changed front diff to: OFF") end
       end
-      self.vData.is[7] = self.vData.want[7]
     end
+    self.vData.is[1] = self.vData.want[1]
+  end
 
-    -- snap track z
-    if self.vData.is[8] ~= self.vData.want[8] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track pz: "..self.vData.want[8]) end
+  -- back diff
+  if self.vData.is[2] ~= self.vData.want[2] then
+    if FS22_EnhancedVehicle.functionDiffIsEnabled then
+      if self.vData.want[2] then
+        updateDifferential(self.rootNode, 1, self.vData.torqueRatio[2], 1)
+        if debug > 0 then print("--> ("..self.rootNode..") changed back diff to: ON") end
+      else
+        updateDifferential(self.rootNode, 1, self.vData.torqueRatio[2], self.vData.maxSpeedRatio[2] * 1000)
+        if debug > 0 then print("--> ("..self.rootNode..") changed back diff to: OFF") end
       end
-      self.vData.is[8] = self.vData.want[8]
     end
+    self.vData.is[2] = self.vData.want[2]
+  end
 
-    -- snap track dX
-    if self.vData.is[9] ~= self.vData.want[9] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track dX: "..self.vData.want[9]) end
+  -- wheel drive mode
+  if self.vData.is[3] ~= self.vData.want[3] then
+    if FS22_EnhancedVehicle.functionDiffIsEnabled then
+      if self.vData.want[3] == 0 then
+        updateDifferential(self.rootNode, 2, -0.00001, 1)
+        if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: 2WD") end
+      elseif self.vData.want[3] == 1 then
+        updateDifferential(self.rootNode, 2, self.vData.torqueRatio[3], 1)
+        if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: 4WD") end
+      elseif self.vData.want[3] == 2 then
+        updateDifferential(self.rootNode, 2, 1, 0)
+        if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: FWD") end
       end
-      self.vData.is[9] = self.vData.want[9]
     end
+    self.vData.is[3] = self.vData.want[3]
+  end
 
-    -- snap track dZ
-    if self.vData.is[10] ~= self.vData.want[10] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track dZ: "..self.vData.want[10]) end
+  -- park brake on
+  if self.vData.is[13] ~= self.vData.want[13] then
+    if FS22_EnhancedVehicle.functionParkingBrakeIsEnabled then
+      if self.vData.want[13] then
+        if debug > 0 then print("--> ("..self.rootNode..") changed park on to: ON") end
+      else
+        if debug > 0 then print("--> ("..self.rootNode..") changed park on to: OFF") end
       end
-      self.vData.is[10] = self.vData.want[10]
     end
-
-    -- snap track mpx
-    if self.vData.is[11] ~= self.vData.want[11] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track snap x: "..self.vData.want[11]) end
-      end
-      self.vData.is[11] = self.vData.want[11]
-    end
-
-    -- snap track mpz
-    if self.vData.is[12] ~= self.vData.want[12] then
-      if FS22_EnhancedVehicle.functionSnapIsEnabled then
-        if debug > 0 then print("--> ("..self.rootNode..") changed track snap z: "..self.vData.want[12]) end
-      end
-      self.vData.is[12] = self.vData.want[12]
-    end
-
-    -- front diff
-    if self.vData.is[1] ~= self.vData.want[1] then
-      if FS22_EnhancedVehicle.functionDiffIsEnabled then
-        if self.vData.want[1] then
-          updateDifferential(self.rootNode, 0, self.vData.torqueRatio[1], 1)
-          if debug > 0 then print("--> ("..self.rootNode..") changed front diff to: ON") end
-        else
-          updateDifferential(self.rootNode, 0, self.vData.torqueRatio[1], self.vData.maxSpeedRatio[1] * 1000)
-          if debug > 0 then print("--> ("..self.rootNode..") changed front diff to: OFF") end
-        end
-      end
-      self.vData.is[1] = self.vData.want[1]
-    end
-
-    -- back diff
-    if self.vData.is[2] ~= self.vData.want[2] then
-      if FS22_EnhancedVehicle.functionDiffIsEnabled then
-        if self.vData.want[2] then
-          updateDifferential(self.rootNode, 1, self.vData.torqueRatio[2], 1)
-          if debug > 0 then print("--> ("..self.rootNode..") changed back diff to: ON") end
-        else
-          updateDifferential(self.rootNode, 1, self.vData.torqueRatio[2], self.vData.maxSpeedRatio[2] * 1000)
-          if debug > 0 then print("--> ("..self.rootNode..") changed back diff to: OFF") end
-        end
-      end
-      self.vData.is[2] = self.vData.want[2]
-    end
-
-    -- wheel drive mode
-    if self.vData.is[3] ~= self.vData.want[3] then
-      if FS22_EnhancedVehicle.functionDiffIsEnabled then
-        if self.vData.want[3] == 0 then
-          updateDifferential(self.rootNode, 2, -0.00001, 1)
-          if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: 2WD") end
-        elseif self.vData.want[3] == 1 then
-          updateDifferential(self.rootNode, 2, self.vData.torqueRatio[3], 1)
-          if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: 4WD") end
-        elseif self.vData.want[3] == 2 then
-          updateDifferential(self.rootNode, 2, 1, 0)
-          if debug > 0 then print("--> ("..self.rootNode..") changed wheel drive mode to: FWD") end
-        end
-      end
-      self.vData.is[3] = self.vData.want[3]
-    end
-
-    -- park brake on
-    if self.vData.is[13] ~= self.vData.want[13] then
-      if FS22_EnhancedVehicle.functionParkingBrakeIsEnabled then
-        if self.vData.want[13] then
-          if debug > 0 then print("--> ("..self.rootNode..") changed park on to: ON") end
-        else
-          if debug > 0 then print("--> ("..self.rootNode..") changed park on to: OFF") end
-        end
-      end
-      self.vData.is[13] = self.vData.want[13]
-    end
-
+    self.vData.is[13] = self.vData.want[13]
   end
 end
 

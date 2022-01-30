@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-  <translationContributors>NotFound丶404一位大帅哥发布于3DM mod站</translationContributors>
+  <translationContributors>NotFound丶404一位大帅哥</translationContributors>
 
   <texts>
     <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="EV: 捕捉当前方向/轨迹"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="EV: 反向捕捉/轨迹方向 (180°)"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: Switch operational mode (snap direction/track)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="EV: 切换操作模式（捕捉方向​​ /正面）"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="EV: 将捕捉/轨迹方向增加1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="EV: 将捕捉/轨迹方向减少1°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="EV: 将捕捉/轨迹方向增加45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="EV: 将捕捉/轨迹方向减少45°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: 将捕捉/轨迹方向增加90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: 将捕捉/轨迹方向减少90°"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)calculate working width"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: （重新）计算工作内容"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: （重新）计算轨迹显示"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: Change display mode of lines"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: 更改行的显示模式"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: 增加周转轨道的数量"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: 减少周转轨道的数量"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="EV: 向右移动轨迹"/>
@@ -39,7 +39,7 @@
     <text name="input_FS22_EnhancedVehicle_MENU"            text="EV: 打开配置菜单"/>
     <text name="input_FS22_EnhancedVehicle_PARK"            text="EV: 接合/释放停车制动器"/>
 
-    <text name="hud_FS22_EnhancedVehicle_notrack"     text="无踪迹"/>
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="无轨道"/>
     <text name="hud_FS22_EnhancedVehicle_nowidth"     text="没有宽度"/>
     <text name="hud_FS22_EnhancedVehicle_noheadland"  text="无岬角"/>
     <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="损坏|油漆"/>
@@ -70,17 +70,17 @@
     <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="打开/关闭全局驻车制动功能"/>
 
     <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="HUD: 差速锁"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="打开/关闭差速锁HUD显示屏"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="打开/关闭差速锁HUD显示"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="HUD:损伤值"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="打开/关闭抬头显示器（HUD）显示损坏值"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="HUD: 燃料值"/>
     <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="打开/关闭HUD显示的燃油值"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="HUD: 轨道助理"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="打开/关闭履带助手的HUD显示屏"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="打开/关闭追踪助手的HUD显示"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="HUD: 转速"/>
     <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="打开/关闭HUD显示RPM编号"/>
     <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="HUD: 发动机温度"/>
-    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="打开/关闭HUD显示发动机温度"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="打开/关闭HUD显示发动机温度的HUD显示"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="HUD: 杂项值（重量）"/>
     <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="打开/关闭HUD显示的杂项值（例如重量）"/>
     <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="HUD: 驻车制动器"/>
@@ -96,18 +96,18 @@
     <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="经典 (FS19)"/>
     <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="右上角 (FS22)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="按角度捕捉"/>
-    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="确定接合行驶方向的步进程度 (1°-90°)"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="对齐角度"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="确定驾驶方向的步长 (1°-90°)"/>
 
-    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="可见轨迹数"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="可见轨道数"/>
     <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="总共显示多少条轨道（车辆左侧+右侧）"/>
 
-    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="Show lines"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="Specifies which kind of lines are shown"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="All"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="None"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="Tracks only"/>
-    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="Vehicle+working width only"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="显示线条"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="指定显示哪种线"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="全部"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="无"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="仅轨道"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="仅车辆+工作宽度"/>
 
     <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="自动隐藏线"/>
     <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="指定是否自动隐藏辅助线和轨迹线"/>
@@ -116,8 +116,8 @@
 
     <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="地头模式"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="如果到达地头，会发生什么情况"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="没有什么"/>
-    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="自动掉头"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="无"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="自动转向"/>
     <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="禁用巡航控制"/>
 
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="地头距离"/>
@@ -127,8 +127,8 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="场地结束后"/>
 
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="未启用轨迹助手."/>
-    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="找不到具有工作宽度的设备. Using a default track layout."/>
-    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="The working width was recalculated."/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="找不到具有工作宽度的设备. 使用默认轨道布局."/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="工作宽度已重新计算."/>
     <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="请先松开驻车制动器."/>
 
   </texts>
