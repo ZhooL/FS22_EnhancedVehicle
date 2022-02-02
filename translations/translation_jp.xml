@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+  <translationContributors>Erix05(JapanModding)</translationContributors>
+
+  <texts>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ONOFF"      text="自動操舵を開始/停止する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_REVERSE"    text="ラインに合わせて180°自動旋回する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_OPMODE"     text="自動走行モードを変更する（車両ライン/走行ライン）"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_1"   text="スナップ角度を1°増加させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE1_2"   text="スナップ角度を1°減少させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_1"   text="スナップ角度を45°増加させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE2_2"   text="スナップ角度を45°減少させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="スナップ角度を90°増加させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="スナップ角度を90°減少させる"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="作業幅を再設定する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="走行ラインを再設定する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="転回する走行レーン数を増やす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="走行ラインの表示方法を変更"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="転回する走行レーン数を減らす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_1"   text="走行ラインを右側にずらす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKP_2"   text="走行ラインを左側にずらす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_1"   text="作業幅を拡大する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKW_2"   text="作業幅を縮小する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_1"   text="オフセットラインを右側にずらす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKO_2"   text="オフセットラインを左側にずらす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_1"   text="右の走行ラインへ移動する（ターン無し）"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_TRACKJ_2"   text="左の走行ラインへ移動する(ターン無し)"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_MODE"    text="まくら地モードを変更する"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_1"  text="まくら地の距離を増やす"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_HL_DIST_2"  text="まくら地の距離を減らす"/>
+    <text name="input_FS22_EnhancedVehicle_FD"              text="前軸デフロック ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_RD"              text="後軸デフロック ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_BD"              text="総輪デフロック ON/OFF"/>
+    <text name="input_FS22_EnhancedVehicle_DM"              text="ドライブモードの変更（2WD/4WD）"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_UPDOWN"  text="リア作業機を上げる/下げる"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_REAR_ONOFF"   text="リア作業機を作動/停止"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_UPDOWN" text="フロント作業機を上げる/下げる"/>
+    <text name="input_FS22_EnhancedVehicle_AJ_FRONT_ONOFF"  text="フロント作業機を作動/停止"/>
+    <text name="input_FS22_EnhancedVehicle_MENU"            text="設定メニューを開く"/>
+    <text name="input_FS22_EnhancedVehicle_PARK"            text="パーキングブレーキをロック/解除する"/>
+
+    <text name="hud_FS22_EnhancedVehicle_notrack"     text="走行ライン未設定"/>
+    <text name="hud_FS22_EnhancedVehicle_nowidth"     text="作業幅未設定"/>
+    <text name="hud_FS22_EnhancedVehicle_noheadland"  text="まくら地設定無し"/>
+    <text name="hud_FS22_EnhancedVehicle_header_dmg"  text="ダメージ状態 | 塗装状態"/>
+    <text name="hud_FS22_EnhancedVehicle_header_fuel" text="燃料計 | 燃費計"/>
+
+    <text name="ui_FS22_EnhancedVehicle_on"  text="ON"/>
+    <text name="ui_FS22_EnhancedVehicle_off" text="OFF"/>
+
+    <text name="ui_FS22_EnhancedVehicle_sectionGlobalFunctions"  text="各種機能設定"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHUD"              text="HUD表示設定"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionSnapSettings"     text="自動操舵システム設定"/>
+    <text name="ui_FS22_EnhancedVehicle_sectionHeadlandSettings" text="まくら地モード設定 for"/>
+
+    <text name="ui_FS22_EnhancedVehicle_resetConfigButton"  text="各種設定を初期化する"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTitle"   text="設定の初期化"/>
+    <text name="ui_FS22_EnhancedVehicle_resetConfigTT"      text="注意:すべての設定が初期化されます"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigButton" text="設定ファイルを再読み込み(XML)"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTitle"  text="設定の再読み込み"/>
+    <text name="ui_FS22_EnhancedVehicle_reloadConfigTT"     text="設定ファイルを再読み込みします（手動でXMLファイルを変更した場合のみ）"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapTitle"         text="自動操舵システム"/>
+    <text name="ui_FS22_EnhancedVehicle_snapTT"            text="直進走行、自動旋回を行う自動操舵システムを有効/無効にします"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTitle"         text="デフロック"/>
+    <text name="ui_FS22_EnhancedVehicle_diffTT"            text="デファレンシャルロックを有効/無効にします"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTitle"    text="油圧コントロール"/>
+    <text name="ui_FS22_EnhancedVehicle_hydraulicTT"       text="改良された油圧コントロールを有効/無効にします"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTitle" text="パーキングブレーキ"/>
+    <text name="ui_FS22_EnhancedVehicle_parkingBrakeTT"    text="パーキングブレーキを有効/無効にします"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTitle"   text="デフロック"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdiffTT"      text="デフロックのHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTitle"    text="ダメージ状態表示"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgTT"       text="ダメージ状態のHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTitle"   text="燃料計/燃費計"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDfuelTT"      text="燃料計/燃費計のHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTitle"  text="自動操舵システム"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtrackTT"     text="自動操舵システムのHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTitle"    text="回転計（RPM）"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDrpmTT"       text="回転計(RPM)のHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTitle"   text="エンジン温度"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDtempTT"      text="エンジン温度のHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTitle"   text="重量計"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDmiscTT"      text="重量計のHUD表示をON/OFFにします"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTitle"   text="パーキングブレーキ"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDparkTT"      text="パーキングブレーキ（P）のHUD表示をON/OFFにします"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTitle" text="ダメージ表示モード"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftTT"    text="ダメージの表示方法を設定します(残量値:残りのダメージ値を表示/現在値:現在のダメージ総量を表示)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO1"    text="残量値"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgAmountLeftO2"    text="現在値"/>
+
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTitle"   text="ダメージ状態・燃料計/燃費計のHUD位置"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelTT"      text="FS19: classic（スピードメーター上部）; FS22: top-right（画面右上）"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption1" text="classic (FS19)"/>
+    <text name="ui_FS22_EnhancedVehicle_HUDdmgfuelOption2" text="top-right (FS22)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTitle" text="スナップする角度"/>
+    <text name="ui_FS22_EnhancedVehicle_snapSettingsAngleTT"    text="走行ラインのスナップする角度（段階値）を設定します(1°-90°)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTitle" text="表示する走行ライン数"/>
+    <text name="ui_FS22_EnhancedVehicle_visibleTracksTT"    text="表示するラインの合計数を設定します(左+右+車両)"/>
+
+    <text name="ui_FS22_EnhancedVehicle_showLinesTitle"   text="走行ラインの表示"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesTT"      text="表示するラインの種類を設定します"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption1" text="すべて表示"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption2" text="非表示"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption3" text="走行ラインのみ表示"/>
+    <text name="ui_FS22_EnhancedVehicle_showLinesOption4" text="車両ガイドラインのみ表示"/>
+
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTitle"      text="走行ラインの自動非表示"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesTT"         text="走行ラインと車両ガイドラインを自動で非表示するよう設定します"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTitle" text="走行ライン非表示までの時間"/>
+    <text name="ui_FS22_EnhancedVehicle_hideLinesAfterTT"    text="自動非表示がONの場合、自動操舵開始後に指定した時間でラインを非表示にします（単位:秒）"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTitle"   text="まくら地モード"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeTT"      text="まくら地での動作を設定します（オートターン:まくら地内外で自動でターンを行います/オートストップ:まくら地内外で自動停止します）"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption1" text="未設定（デフォルト）"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption2" text="オートターン"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandModeOption3" text="オートストップ"/>
+
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTitle"        text="まくら地の距離（長さ）"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceTT"           text="畑（フィールド）端から内側、もしくは外側の距離（まくら地）を設定します"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOption1"      text="作業機幅"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="畑（フィールド）内"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="畑（フィールド）外"/>
+
+    <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="自動操舵が有効になっていません"/>
+    <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="作業機（作業幅）が見つからなかった為、デフォルトの走行ラインを設定しました"/>
+    <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="作業幅を再設定しました"/>
+    <text name="global_FS22_EnhancedVehicle_brakeBlocks"      text="パーキングブレーキを解除してください"/>
+
+  </texts>
+</l10n>
