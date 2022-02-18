@@ -3,11 +3,16 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 30.01.2022
--- @Version: 1.2.0.1
+-- @Date: 18.02.2022
+-- @Version: 1.2.1.0
 
 --[[
 CHANGELOG
+
+2022-02-18 - V1.2.1.0
++ added "tüdelü" sound when approaching headland trigger (thx "andre020478" for the sample)
++ added config menu option to specify the distance to headland for the alarm sound
+* translation updates
 
 2022-01-30 - V1.2.0.1
 * bugfix for parking brake status not saved to savegame
@@ -265,7 +270,7 @@ function FS22_EnhancedVehicle:new(mission, modDirectory, modName, i18n, gui, inp
   if g_dedicatedServerInfo == nil then
     local file, id
     FS22_EnhancedVehicle.sounds = {}
-    for _, id in ipairs({"diff_lock", "brakeOn", "brakeOff", "snap_on", "snap_off"}) do
+    for _, id in ipairs({"diff_lock", "brakeOn", "brakeOff", "snap_on", "snap_off", "hl_approach"}) do
       FS22_EnhancedVehicle.sounds[id] = createSample(id)
       file = self.modDirectory.."resources/"..id..".ogg"
       loadSample(FS22_EnhancedVehicle.sounds[id], file, false)
@@ -448,6 +453,7 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.track.hideLinesAfter      = lC:getConfigValue("track", "hideLinesAfter")
   FS22_EnhancedVehicle.track.hideLinesAfterValue = 0
   FS22_EnhancedVehicle.track.color = { lC:getConfigValue("track.color", "red"), lC:getConfigValue("track.color", "green"), lC:getConfigValue("track.color", "blue") }
+  FS22_EnhancedVehicle.track.headlandSoundTriggerDistance = lC:getConfigValue("track", "headlandSoundTriggerDistance")
 
   -- HUD stuff
   for _, section in pairs(FS22_EnhancedVehicle.sections) do
@@ -464,9 +470,10 @@ function FS22_EnhancedVehicle:activateConfig()
   FS22_EnhancedVehicle.hud.colorStandby  = { lC:getConfigValue("hud.colorStandby",  "red"), lC:getConfigValue("hud.colorStandby",  "green"), lC:getConfigValue("hud.colorStandby",  "blue"), 1 }
 
   FS22_EnhancedVehicle.sfx_volume = {}
-  FS22_EnhancedVehicle.sfx_volume.track = lC:getConfigValue("sfx.track", "volume")
-  FS22_EnhancedVehicle.sfx_volume.brake = lC:getConfigValue("sfx.brake", "volume")
-  FS22_EnhancedVehicle.sfx_volume.diff  = lC:getConfigValue("sfx.diff",  "volume")
+  FS22_EnhancedVehicle.sfx_volume.track       = lC:getConfigValue("sfx.track",       "volume")
+  FS22_EnhancedVehicle.sfx_volume.brake       = lC:getConfigValue("sfx.brake",       "volume")
+  FS22_EnhancedVehicle.sfx_volume.diff        = lC:getConfigValue("sfx.diff",        "volume")
+  FS22_EnhancedVehicle.sfx_volume.hl_approach = lC:getConfigValue("sfx.hl_approach", "volume")
 end
 
 -- #############################################################################
@@ -506,14 +513,15 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("snap.colorAttachmentSideLine", "blue",  "float", 0/255)
 
   -- track
-  lC:addConfigValue("track",       "distanceAboveGround", "float", 0.15)
-  lC:addConfigValue("track",       "numberOfTracks",      "int",   5)
-  lC:addConfigValue("track",       "showLines",           "int",   1)
-  lC:addConfigValue("track",       "hideLines",           "bool",  false)
-  lC:addConfigValue("track",       "hideLinesAfter",      "int",   5)
-  lC:addConfigValue("track.color", "red",                 "float", 255/255)
-  lC:addConfigValue("track.color", "green",               "float", 150/255)
-  lC:addConfigValue("track.color", "blue",                "float", 0/255)
+  lC:addConfigValue("track",       "distanceAboveGround",          "float", 0.15)
+  lC:addConfigValue("track",       "numberOfTracks",               "int",   5)
+  lC:addConfigValue("track",       "showLines",                    "int",   1)
+  lC:addConfigValue("track",       "hideLines",                    "bool",  false)
+  lC:addConfigValue("track",       "hideLinesAfter",               "int",   5)
+  lC:addConfigValue("track.color", "red",                          "float", 255/255)
+  lC:addConfigValue("track.color", "green",                        "float", 150/255)
+  lC:addConfigValue("track.color", "blue",                         "float", 0/255)
+  lC:addConfigValue("track",       "headlandSoundTriggerDistance", "int",   10)
 
   -- fuel
   lC:addConfigValue("hud.fuel", "enabled",  "bool", true)
@@ -569,9 +577,10 @@ function FS22_EnhancedVehicle:resetConfig(disable)
   lC:addConfigValue("hud.colorStandby",  "blue",  "float",   0/255)
 
   -- sound volumes
-  lC:addConfigValue("sfx.track", "volume", "float", 0.10)
-  lC:addConfigValue("sfx.brake", "volume", "float", 0.10)
-  lC:addConfigValue("sfx.diff",  "volume", "float", 0.50)
+  lC:addConfigValue("sfx.track",       "volume", "float", 0.10)
+  lC:addConfigValue("sfx.brake",       "volume", "float", 0.10)
+  lC:addConfigValue("sfx.diff",        "volume", "float", 0.50)
+  lC:addConfigValue("sfx.hl_approach", "volume", "float", 0.10)
 end
 
 -- #############################################################################
@@ -791,7 +800,21 @@ function FS22_EnhancedVehicle:onUpdate(dt)
         -- get distance to end-of-field each second
         if self.vData.track.eofNext < g_currentMission.time then
           FS22_EnhancedVehicle:getHeadlandDistance(self)
-          self.vData.track.eofNext = g_currentMission.time + 1000
+          self.vData.track.eofNext = g_currentMission.time + 500
+
+          -- play sound
+          if self.vData.is[5] and self.vData.is[6] then
+            if self.vData.track.headlandMode >= 1 and self.vData.track.isOnField > 5 and self.vData.track.eofDistance > 0 then
+              if self.vData.track.eofDistance < FS22_EnhancedVehicle.track.headlandSoundTriggerDistance then
+                if self.vData.track.hl_samplePlayed == nil then
+                  playSample(FS22_EnhancedVehicle.sounds["hl_approach"], 1, Between(FS22_EnhancedVehicle.sfx_volume.hl_approach, 0, 10), 0, 0, 0)
+                  self.vData.track.hl_samplePlayed = true
+                end
+              else
+                self.vData.track.hl_samplePlayed = nil
+              end
+            end
+          end
         end
 
         -- headland management

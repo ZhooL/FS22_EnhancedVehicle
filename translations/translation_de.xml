@@ -126,6 +126,9 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="vor dem Feldende"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="hinter dem Feldende"/>
 
+    <text name="ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTitle" text="Alarmsound Abstand"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTT"    text="Legt fest, wieviel Meter vor dem Vorgewende ein Alarmsound gespielt wird"/>
+
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="Der Fahrspurassistent ist nicht aktiviert."/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="Kein Gerät mit einer Arbeitsbreite gefunden. Verwende Standard-Fahrspuren."/>
     <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="Die Arbeitsbreite wurde neu berechnet."/>

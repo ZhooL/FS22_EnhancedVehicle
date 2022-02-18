@@ -41,6 +41,16 @@
         <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="headlandDistanceTT"/>
       </GuiElement>
 
+      <!-- headland sound trigger distance -->
+      <GuiElement type="multiTextOption" profile="multiTextOptionSettings" id="headlandSoundTriggerDistanceSetting">
+        <GuiElement type="button" profile="multiTextOptionSettingsLeft"/>
+        <GuiElement type="button" profile="multiTextOptionSettingsRight"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsText"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTitle" id="headlandSoundTriggerDistanceTitle"/>
+        <GuiElement type="bitmap" profile="multiTextOptionSettingsBg"/>
+        <GuiElement type="text"   profile="multiTextOptionSettingsTooltip" id="headlandSoundTriggerDistanceTT"/>
+      </GuiElement>
+
       <!-- snap settings -->
       <GuiElement type="text" profile="dialogHeaderText"/>
       <GuiElement type="text" profile="dialogHeaderText" id="sectionSnapSettings"/>

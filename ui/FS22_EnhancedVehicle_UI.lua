@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 25.01.2022
--- @Version: 1.2.0.0
+-- @Date: 18.02.2022
+-- @Version: 1.2.1.0
 
 local myName = "FS22_EnhancedVehicle_UI"
 
@@ -66,6 +66,9 @@ FS22_EnhancedVehicle_UI.CONTROLS = {
   "headlandDistanceSetting",
   "headlandDistanceTitle",
   "headlandDistanceTT",
+  "headlandSoundTriggerDistanceSetting",
+  "headlandSoundTriggerDistanceTitle",
+  "headlandSoundTriggerDistanceTT",
 }
 
 local EV_elements_global = { 'snap', 'diff', 'hydraulic', 'parkingBrake' }
@@ -208,6 +211,11 @@ function FS22_EnhancedVehicle_UI:onOpen()
   end
   self.headlandDistanceSetting:setTexts(_dists)
 
+  -- headland sound trigger distance
+  self.headlandSoundTriggerDistanceTitle:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTitle"))
+  self.headlandSoundTriggerDistanceTT:setText(g_i18n.modEnvironments[modName]:getText("ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTT"))
+  self.headlandSoundTriggerDistanceSetting:setTexts({ "5", "10", "15", "20" })
+
   -- HUD elements
   for _, v in pairs(EV_elements_HUD) do
     v1 = "HUD"..v.."Title"
@@ -291,6 +299,9 @@ function FS22_EnhancedVehicle_UI:updateValues()
   end
   self.headlandDistanceSetting:setState(_state)
 
+  -- headland sound trigger distance
+  self.headlandSoundTriggerDistanceSetting:setState(Between(Round(lC:getConfigValue("track", "headlandSoundTriggerDistance") / 5, 0), 1, 4))
+
   -- HUD dmg display mode
   self.HUDdmgAmountLeftSetting:setState(lC:getConfigValue("hud.dmg", "showAmountLeft") and 1 or 2)
 end
@@ -369,6 +380,10 @@ function FS22_EnhancedVehicle_UI:onClickOk()
     end
     _i = _i + 1
   end
+
+  -- headland sound trigger distance
+  state = self.headlandSoundTriggerDistanceSetting:getState()
+  lC:setConfigValue("track", "headlandSoundTriggerDistance", state * 5)
 
   -- write and update our config
   lC:writeConfig()

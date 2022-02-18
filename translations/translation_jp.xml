@@ -126,6 +126,9 @@
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionBefore" text="畑（フィールド）内"/>
     <text name="ui_FS22_EnhancedVehicle_headlandDistanceOptionAfter"  text="畑（フィールド）外"/>
 
+    <text name="ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTitle" text="Alarm sound distance"/>
+    <text name="ui_FS22_EnhancedVehicle_headlandSoundTriggerDistanceTT"    text="Specifies how many meters before headland is reached an alarm sound is played"/>
+
     <text name="global_FS22_EnhancedVehicle_snapNotEnabled"   text="自動操舵が有効になっていません"/>
     <text name="global_FS22_EnhancedVehicle_snapNoImplement"  text="作業機（作業幅）が見つからなかった為、デフォルトの走行ラインを設定しました"/>
     <text name="global_FS22_EnhancedVehicle_workWidthUpdated" text="作業幅を再設定しました"/>
