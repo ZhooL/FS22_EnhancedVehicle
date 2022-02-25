@@ -22,7 +22,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 | <kbd>Num Enter</kbd> | apply/release parking brake |
 | <kbd>R Ctrl</kbd>+<kbd>End</kbd> | snap to current driving direction or current track |
 | <kbd>R Ctrl</kbd>+<kbd>Home</kbd> | reverse snap/track direction (180°) (= turn around) |
-| <kbd>R Shift</kbd>+<kbd>Home</kbd> | change operational mode (snap to direction or snap to track) |
+| <kbd>R Shift</kbd>+<kbd>Home</kbd> | change operational mode (snap to direction or snap to track)<br/>press & hold for one second to disable snap assistant |
 | <kbd>R Ctrl</kbd>+<kbd>Num 1</kbd> | re-calculate working width (e.g. spraying width changed) |
 | <kbd>R Ctrl</kbd>+<kbd>Num 2</kbd> | re-calculate track layout (e.g. direction changed or working width changed) |
 | <kbd>R Ctrl</kbd>+<kbd>Num 3</kbd> | cycle through the different show lines modes |
@@ -56,6 +56,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 * When the game starts, it changes all "motorized" and "controllable" vehicles on the map to default settings: wheel drive mode to "all-wheel (4WD)" and deactivation of both differentials.
 * Press <kbd>Ctrl</kbd>+<kbd>Numpad /</kbd> to open the config dialog.
 * Press <kbd>R Shift</kbd>+<kbd>Home</kbd> to enable the snap to direction or snap to track assistant.
+  * Press & hold <kbd>R Shift</kbd>+<kbd>Home</kbd> one second or longer to disable the snap & track assistant completely.
 * Press <kbd>R Ctrl</kbd>+<kbd>End</kbd> to keep your vehicle driving in the current direction or on the current track.
   * Press <kbd>R Ctrl</kbd>+<kbd>Home</kbd> to reverse snap/track direction (e.g. to turn around at end of field).
 * Press <kbd>R Ctrl</kbd>+<kbd>Numpad 2</kbd> to calculate a track layout based on current vehicle direction and implement working width.
