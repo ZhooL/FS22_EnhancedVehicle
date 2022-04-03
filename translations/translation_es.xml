@@ -13,7 +13,7 @@
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_1"   text="EV: Aumentar Ángulo Pista en 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_ANGLE3_2"   text="EV: Disminuir Ángulo Pista en 90°"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_CALC_WW"    text="EV: (Re)Calcular Ancho Trabajo"/>
-    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Re)Calcular Diseño Pista"/>
+    <text name="input_FS22_EnhancedVehicle_SNAP_GRID_RESET" text="EV: (Re)Posiconar Cuadricula de Pistas"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_1"    text="EV: Aumentar cantidad de giros de pistas"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_LINES_MODE" text="EV: Cambiar modo visualización de líneas"/>
     <text name="input_FS22_EnhancedVehicle_SNAP_TRACK_2"    text="EV: Disminuir cantidad de giros de pistas"/>
