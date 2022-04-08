@@ -3,8 +3,8 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 24.01.2022
--- @Version: 1.2.0.0
+-- @Date: 08.04.2022
+-- @Version: 1.2.2.0
 
 -- Thanks to Wopster for the inspiration to implement a HUD in this way
 -- but unfortunately I can't use it that exact way (for now)
@@ -714,8 +714,12 @@ function FS22_EnhancedVehicle_HUD:drawHUD()
       -- prepare text
       snap_txt2 = ''
       if self.vehicle.vData.is[5] then
-        snap_txt = string.format("%.1f°", self.vehicle.vData.is[4])
-        if (Round(self.vehicle.vData.rot, 0) ~= Round(self.vehicle.vData.is[4], 0)) then
+        local degree = self.vehicle.vData.is[4]
+        if (degree ~= degree) then
+          degree = 0
+        end
+        snap_txt = string.format("%.1f°", degree)
+        if (Round(self.vehicle.vData.rot, 0) ~= Round(degree, 0)) then
           snap_txt2 = string.format("%.1f°", self.vehicle.vData.rot)
         end
       else

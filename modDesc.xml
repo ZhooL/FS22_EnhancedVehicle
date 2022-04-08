@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="63">
+<modDesc descVersion="64">
   <author>Majo76</author>
   <contributors>dziuch</contributors>
 
-  <version>1.2.1.0</version>
+  <version>1.2.2.0</version>
 
   <title>
     <de>EnhancedVehicle</de>

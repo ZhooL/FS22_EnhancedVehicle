@@ -3,11 +3,15 @@
 --
 -- Author: Majo76
 -- email: ls22@dark-world.de
--- @Date: 18.02.2022
--- @Version: 1.2.1.0
+-- @Date: 08.04.2022
+-- @Version: 1.2.2.0
 
 --[[
 CHANGELOG
+
+2022-04-08 - V1.2.2.0
+* fix for rare "nan°" angle display
+* translation updates
 
 2022-02-18 - V1.2.1.0
 + added "tüdelü" sound when approaching headland trigger (thx "andre020478" for the sample)
@@ -1677,6 +1681,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           snapToAngle = self.vData.rot
         end
         self.vData.want[4] = Round(closestAngle(self.vData.rot, snapToAngle), 0)
+        if (self.vData.want[4] ~= self.vData.want[4]) then
+          self.vData.want[4] = 0
+        end
         if self.vData.want[4] == 360 then self.vData.want[4] = 0 end
 
         -- if track is enabled -> set angle to track angle
@@ -1706,6 +1713,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
           end
           FS22_EnhancedVehicle:updateTrack(self, true, rot2, false, 0, true, 0, 0)
           self.vData.want[4] = rot2
+          if (self.vData.want[4] ~= self.vData.want[4]) then
+            self.vData.want[4] = 0
+          end
 
           -- update headland
           self.vData.track.isOnField = FS22_EnhancedVehicle:getHeadlandInfo(self) and 10 or 0
@@ -1730,6 +1740,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       -- turn snap on
       self.vData.want[5] = true
       self.vData.want[4] = Round(self.vData.is[4] + 180, 0)
+      if (self.vData.want[4] ~= self.vData.want[4]) then
+        self.vData.want[4] = 0
+      end
       if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
       -- if track is enabled -> also rotate track
       if self.vData.opMode == 2 and self.vData.track.isCalculated then
@@ -1746,6 +1759,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       -- 1°
       if self.vData.is[5] then
         self.vData.want[4] = Round(self.vData.is[4] + 1 * (keyStatus >= 0 and 1 or -1), 0)
+        if (self.vData.want[4] ~= self.vData.want[4]) then
+          self.vData.want[4] = 0
+        end
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         -- if track is enabled -> also rotate track
@@ -1763,6 +1779,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
     -- 45°
       if self.vData.is[5] then
         self.vData.want[4] = Round(self.vData.is[4] + 45 * (keyStatus >= 0 and 1 or -1), 0)
+        if (self.vData.want[4] ~= self.vData.want[4]) then
+          self.vData.want[4] = 0
+        end
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         _snap = true
@@ -1776,6 +1795,9 @@ function FS22_EnhancedVehicle:onActionCall(actionName, keyStatus, arg4, arg5, ar
       -- 90°
       if self.vData.is[5] then
         self.vData.want[4] = Round(self.vData.is[4] + 90 * (keyStatus >= 0 and 1 or -1), 0)
+        if (self.vData.want[4] ~= self.vData.want[4]) then
+          self.vData.want[4] = 0
+        end
         if self.vData.want[4] >= 360 then self.vData.want[4] = self.vData.want[4] - 360 end
         if self.vData.want[4] < 0 then self.vData.want[4] = self.vData.want[4] + 360 end
         _snap = true
