@@ -81,7 +81,7 @@ License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 # The rest
 **Make Strohablage great again!**  
-* Twitch: https://www.twitch.tv/Majo76__
+* Twitch: https://www.twitch.tv/Majo76_
 * Discord: https://d.majo76.de
 * Instagram: https://www.instagram.com/Majo76__/
 * Twitter: https://www.twitter.com/Majo76_
